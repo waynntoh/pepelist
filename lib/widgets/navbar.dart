@@ -25,13 +25,15 @@ class NavBar extends StatelessWidget {
         children: <Widget>[
           Row(
             children: <Widget>[
-             
               SizedBox(
                 width: 20,
               ),
               Text(
                 "PEPELIST",
-                style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold,color: Colors.white),
+                style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               )
             ],
           ),
@@ -74,23 +76,10 @@ class NavBar extends StatelessWidget {
                     highlightColor: Colors.transparent,
                     child: Text(
                       "ABOUT",
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold,color: Colors.white),
-                    ),
-                    onPressed: () {},
-                  ),
-                  FlatButton(
-                    height: 60,
-                    minWidth: 100,
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    focusColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    child: Text(
-                      "HELP",
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold,color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                     onPressed: () {},
                   ),
@@ -104,8 +93,10 @@ class NavBar extends StatelessWidget {
                     highlightColor: Colors.transparent,
                     child: Text(
                       "REGISTER",
-                      style:
-                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold,color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                     onPressed: () {
                       Navigator.push(

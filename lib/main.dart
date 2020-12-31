@@ -13,7 +13,7 @@ void main() => runApp(MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: Dashboard(),
     ));
 
 class HomePage extends StatefulWidget {
@@ -128,7 +128,10 @@ class LargeChild extends StatelessWidget {
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 12.0, top: 20),
-                              child: Text("LET’S EXPLORE THIS SITE",style: TextStyle(color: Colors.white),),
+                              child: Text(
+                                "LET’S EXPLORE THIS SITE",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                             SizedBox(
                               height: 40,
