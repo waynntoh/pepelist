@@ -10,19 +10,12 @@ class Performance extends StatefulWidget {
 class _PerformanceState extends State<Performance> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-       child:Container(
-         color: Colors.blue,
-         child: Row(children: [
-           Container(
-             child: Column(
-               children: [
-                 
-               ],
-             ),
-           ),
-         ],),
-       ),
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      color: Colors.blue,
+      height: size.height,
+      width: size.width - size.width / 5,
     );
   }
 }
