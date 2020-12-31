@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pepelist/performance.dart';
 import 'package:pepelist/taskmanager.dart';
 
 class Dashboard extends StatefulWidget {
@@ -7,6 +8,8 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  bool atManager = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -37,7 +40,9 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     FlatButton(
                       onPressed: () {
-                        print('Dashboard');
+                        setState(() {
+                          atManager = true;
+                        });
                       },
                       child: Column(
                         children: [
@@ -54,7 +59,9 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     FlatButton(
                       onPressed: () {
-                        print('Performance');
+                        setState(() {
+                          atManager = false;
+                        });
                       },
                       child: Column(
                         children: [
@@ -87,7 +94,7 @@ class _DashboardState extends State<Dashboard> {
             ),
             SizedBox(
               height: size.height,
-              child: TaskManager(),
+              child: atManager ? TaskManager() : Performance(),
             ),
           ],
         ),
