@@ -68,8 +68,8 @@ class Largelogin extends StatelessWidget {
                 children: [
                   Container(
                     child: ClipRRect(
-                      child: Image.network(
-                        'assets/images/loginpic.jpg',
+                      child: Image.asset(
+                        'loginpic.jpg',
                         fit: BoxFit.fill,
                       ),
                     ),
