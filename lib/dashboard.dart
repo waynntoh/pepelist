@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pepelist/utils/responsiveLayout.dart';
-import 'package:pepelist/widgets/navbar.dart';
 
 class DashBoard extends StatefulWidget {
   DashBoard({Key key}) : super(key: key);
@@ -73,7 +72,9 @@ class _LargeDashState extends State<LargeDash> {
               scale: 3,
             ),
           ),
-          SizedBox(height: 50,),
+          SizedBox(
+            height: 50,
+          ),
           NavBars(),
         ],
       ),
@@ -182,8 +183,9 @@ class _NavbBarItemState extends State<NavbBarItem> {
                       height: 35,
                       width: 5,
                       decoration: BoxDecoration(
-                          color:
-                              widget.active ? Colors.black54 : Colors.transparent,
+                          color: widget.active
+                              ? Colors.black54
+                              : Colors.transparent,
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(10),
                               bottomRight: Radius.circular(10))),
@@ -192,7 +194,7 @@ class _NavbBarItemState extends State<NavbBarItem> {
                       padding: EdgeInsets.only(left: 30),
                       child: Icon(
                         widget.icon,
-                        color: widget.active ? Colors.black : Colors.black54 ,
+                        color: widget.active ? Colors.black : Colors.black54,
                         size: 24,
                       ),
                     )

@@ -118,45 +118,6 @@ class RegisterPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                //telephone text field
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                                  height: 80,
-                                  width: 600,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      labelText: "Phone Number",
-                                      hintText: 'Phone Number',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      suffixIcon: Icon(
-                                        Icons.phone,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-
-                                //school textfield
-                                Container(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                                  height: 80,
-                                  width: 600,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      labelText: "Education ID",
-                                      hintText: 'Education ID eg:261482',
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      suffixIcon: Icon(
-                                        Icons.account_box,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 //button to choose student or lecturer
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -226,26 +187,27 @@ class RegisterPage extends StatelessWidget {
                                       width: 430,
                                     ),
                                     Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                ),
-                                height: 40,
-                                width: 150,
-                                child: FlatButton(
-                                  shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: Colors.blue,
-                                          width: 1,
-                                          style: BorderStyle.solid),
-                                      borderRadius: BorderRadius.circular(50)),
-                                  color: Colors.blue,
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Sign Up",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                      height: 40,
+                                      width: 150,
+                                      child: FlatButton(
+                                        shape: RoundedRectangleBorder(
+                                            side: BorderSide(
+                                                color: Colors.blue,
+                                                width: 1,
+                                                style: BorderStyle.solid),
+                                            borderRadius:
+                                                BorderRadius.circular(50)),
+                                        color: Colors.blue,
+                                        onPressed: () {},
+                                        child: Text(
+                                          "Sign Up",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
                                   ],
                                 )
                               ],
