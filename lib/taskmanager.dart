@@ -14,6 +14,9 @@ class _TaskManagerState extends State<TaskManager> {
       color: Colors.blue,
       height: size.height,
       width: size.width - size.width / 5,
+      child: Center(
+        child: Text('Task Manager'),
+      ),
     );
   }
 }
