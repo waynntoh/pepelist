@@ -128,26 +128,6 @@ class Largelogin extends StatelessWidget {
                               ),
                             ),
                           ),
-                          //confirm password text field
-                          Container(
-                            padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                            height: 80,
-                            width: 600,
-                            child: TextField(
-                              obscureText: true,
-                              decoration: InputDecoration(
-                                labelText: 'Confirm Password',
-                                hintText: 'Confirm Password',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                suffixIcon: Icon(
-                                  Icons.lock,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
 
                           //button to choose student or lecturer
                           Row(
@@ -253,11 +233,10 @@ class Largelogin extends StatelessWidget {
   }
 }
 
-class SmallLogin extends StatelessWidget{
+class SmallLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     throw UnimplementedError();
   }
-
 }
