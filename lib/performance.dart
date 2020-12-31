@@ -16,6 +16,12 @@ class _PerformanceState extends State<Performance> {
       color: Colors.blue,
       height: size.height,
       width: size.width - size.width / 5,
+<<<<<<< HEAD
+=======
+      child: Center(
+        child: Text('Performance'),
+      ),
+>>>>>>> 6699519b68857476075088795e8fc24d716d3c72
     );
   }
 }

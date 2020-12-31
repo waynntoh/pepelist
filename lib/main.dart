@@ -14,7 +14,7 @@ void main() => runApp(MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Performance(),
+      home: Dashboard(),
     ));
 
 class HomePage extends StatefulWidget {
