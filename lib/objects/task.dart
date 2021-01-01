@@ -5,16 +5,13 @@ class Task {
   DateTime dateCreated;
   DateTime dueDate;
   DateTime dateCompleted;
-  bool completed;
+  bool completed = false;
 
-  Task(String oe, String t, String c, DateTime dcre, DateTime dd,
-      DateTime dcom) {
+  Task(String oe, String t, String c, DateTime dcre, DateTime dd) {
     this.ownerEmail = oe;
     this.title = t;
     this.category = c;
     this.dateCreated = dcre;
-    this.dateCompleted = dcom;
-    this.completed = false;
   }
 
   void toggleTaskCompletion(bool b) {
@@ -27,17 +24,23 @@ class Tasks {
   List<Task> tasks = [];
 
   Tasks() {
-    for (int i = 0; i < 5; i++) {
-      Task newTask = Task(
-        'hidethepainharold@gmail.com',
-        'Buy Eggs',
-        'Groceries',
-        DateTime.now(),
-        DateTime.now(),
-        DateTime.now(),
-      );
+    Task t1 = Task(
+      'hidethepainharold@gmail.com',
+      'Buy Eggs',
+      'Groceries',
+      DateTime.now(),
+      DateTime.now(),
+    );
 
-      tasks.add(newTask);
-    }
+    Task t2 = Task(
+      'hidethepainharold@gmail.com',
+      'Web Assignment',
+      'Work',
+      DateTime.now(),
+      DateTime.now(),
+    );
+
+    tasks.add(t1);
+    tasks.add(t2);
   }
 }

@@ -60,6 +60,7 @@ class _DashboardState extends State<Dashboard> {
                       height: 50,
                     ),
                     FlatButton(
+                      padding: EdgeInsets.all(16),
                       color: Colors.blue[200],
                       onPressed: () {
                         setState(() {
@@ -71,7 +72,8 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           Icon(
                             Icons.dashboard,
-                            size: 50,
+                            size: 40,
+                            color: Colors.lightBlue[900],
                           ),
                           SizedBox(width: 16),
                           Text('Dashboard'),
@@ -80,6 +82,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     SizedBox(height: 24),
                     FlatButton(
+                      padding: EdgeInsets.all(16),
                       color: Colors.blue[200],
                       onPressed: () {
                         setState(() {
@@ -91,7 +94,8 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           Icon(
                             Icons.add_chart,
-                            size: 50,
+                            size: 40,
+                            color: Colors.lightBlue[900],
                           ),
                           SizedBox(width: 16),
                           Text('Performance'),
@@ -100,6 +104,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     SizedBox(height: 24),
                     FlatButton(
+                      padding: EdgeInsets.all(16),
                       color: Colors.blue[200],
                       onPressed: () {
                         print('Sign out');
@@ -109,7 +114,8 @@ class _DashboardState extends State<Dashboard> {
                         children: [
                           Icon(
                             Icons.exit_to_app,
-                            size: 50,
+                            size: 40,
+                            color: Colors.lightBlue[900],
                           ),
                           SizedBox(width: 16),
                           Text('Sign out'),
