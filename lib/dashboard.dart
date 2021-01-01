@@ -20,70 +20,98 @@ class _DashboardState extends State<Dashboard> {
           children: [
             SizedBox(
               height: size.height,
-              width: size.width / 5,
+              width: size.width / 6,
               child: Container(
-                padding: EdgeInsets.all(32),
+                padding: EdgeInsets.all(16),
                 color: Colors.blue[100],
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'PEPELIST',
+                          style: TextStyle(fontSize: 28),
+                        ),
+                        SizedBox(width: 18),
+                        Image.asset(
+                          'logo.png',
+                          scale: 3,
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 50),
                     CircleAvatar(
-                      backgroundImage: AssetImage('logo.png'),
+                      backgroundImage: AssetImage('harold.jpg'),
                       radius: 60,
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'GUEST USER',
+                      'HAROLD PAIN',
+                      textAlign: TextAlign.center,
+                    ),
+                    Text(
+                      'hidethepainharold@gmail.com',
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(
-                      height: 80,
+                      height: 50,
                     ),
                     FlatButton(
+                      color: Colors.blue[200],
                       onPressed: () {
                         setState(() {
                           atManager = true;
                         });
                       },
-                      child: Column(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.dashboard,
-                            size: 100,
+                            size: 50,
                           ),
+                          SizedBox(width: 16),
                           Text('Dashboard'),
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 80,
-                    ),
+                    SizedBox(height: 24),
                     FlatButton(
+                      color: Colors.blue[200],
                       onPressed: () {
                         setState(() {
                           atManager = false;
                         });
                       },
-                      child: Column(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.add_chart,
-                            size: 100,
+                            size: 50,
                           ),
+                          SizedBox(width: 16),
                           Text('Performance'),
                         ],
                       ),
                     ),
-                    Spacer(),
+                    SizedBox(height: 24),
                     FlatButton(
+                      color: Colors.blue[200],
                       onPressed: () {
                         print('Sign out');
                       },
-                      child: Column(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.exit_to_app,
-                            size: 100,
+                            size: 50,
                           ),
+                          SizedBox(width: 16),
                           Text('Sign out'),
                         ],
                       ),
