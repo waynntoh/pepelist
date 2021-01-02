@@ -180,7 +180,7 @@ class SmallChild extends StatelessWidget {
                 style: TextStyle(fontSize: 40, color: Color(0xFF8591B0)),
                 children: <TextSpan>[
                   TextSpan(
-                      text: 'PEER UUM',
+                      text: 'PEPeLIST',
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 40,
