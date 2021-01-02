@@ -44,7 +44,7 @@ class _TaskManagerState extends State<TaskManager> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            flex: 2,
+            flex: 10,
             child: Container(
               width: 50,
               height: size.height,
@@ -100,7 +100,7 @@ class _TaskManagerState extends State<TaskManager> {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 4,
             child: Container(
               height: size.height,
               width: 50,
