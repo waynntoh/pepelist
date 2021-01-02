@@ -22,7 +22,7 @@ class _PerformanceState extends State<Performance> {
         color: Colors.grey[200]
       ),
       height: size.height,
-      width: size.width - size.width / 5,
+      width: size.width - size.width / 6,
       child: Row(
         children: [
           SizedBox(
