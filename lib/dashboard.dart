@@ -59,6 +59,7 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       height: 50,
                     ),
+                    //Dashboard
                     FlatButton(
                       padding: EdgeInsets.all(16),
                       color: Colors.blue[200],
@@ -80,7 +81,9 @@ class _DashboardState extends State<Dashboard> {
                         ],
                       ),
                     ),
+
                     SizedBox(height: 24),
+
                     FlatButton(
                       padding: EdgeInsets.all(16),
                       color: Colors.blue[200],
