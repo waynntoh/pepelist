@@ -38,6 +38,7 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(
                       height: 80,
                     ),
+                    //Dashboard
                     FlatButton(
                       onPressed: () {
                         setState(() {
@@ -56,6 +57,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     SizedBox(
                       height: 80,
+                      //Performance
                     ),
                     FlatButton(
                       onPressed: () {
