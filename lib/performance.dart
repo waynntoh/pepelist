@@ -18,21 +18,14 @@ class _PerformanceState extends State<Performance> {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[200]
-      ),
+      decoration: BoxDecoration(color: Colors.grey[200]),
+      padding: EdgeInsets.all(32),
       height: size.height,
       width: size.width - size.width / 6,
       child: Row(
         children: [
-          SizedBox(
-            width: 100,
-          ),
           Column(
             children: [
-              SizedBox(
-                height: 30,
-              ),
               Row(
                 children: [
                   Padding(
@@ -45,8 +38,8 @@ class _PerformanceState extends State<Performance> {
                             end: Alignment.centerRight,
                             colors: [Colors.indigo[100], Colors.cyan[600]]),
                       ),
-                      height: 250,
-                      width: 350,
+                      height: size.height / 4.2,
+                      width: size.width / 5,
                       child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -76,8 +69,8 @@ class _PerformanceState extends State<Performance> {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
-                      height: 250,
-                      width: 350,
+                      height: size.height / 4.2,
+                      width: size.width / 5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                         gradient: LinearGradient(
@@ -85,25 +78,27 @@ class _PerformanceState extends State<Performance> {
                             end: Alignment.centerRight,
                             colors: [Colors.purple[100], Colors.purple[600]]),
                       ),
-                       child: Center(
+                      child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Text("32",style: TextStyle(
-                                color: Colors.purple[800],
-                                fontSize: 50,
-                                fontWeight: FontWeight.bold
-                              ),),
+                              child: Text(
+                                "32",
+                                style: TextStyle(
+                                    color: Colors.purple[800],
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-
-                            Text("Upcoming Task",style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                            ),)
-                            
+                            Text(
+                              "Upcoming Task",
+                              style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            )
                           ],
                         ),
                       ),
@@ -111,16 +106,13 @@ class _PerformanceState extends State<Performance> {
                   ),
                 ],
               ),
-              SizedBox(
-                height: 30,
-              ),
               Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
-                      height: 250,
-                      width: 350,
+                      height: size.height / 4.2,
+                      width: size.width / 5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                         gradient: LinearGradient(
@@ -128,36 +120,37 @@ class _PerformanceState extends State<Performance> {
                             end: Alignment.centerRight,
                             colors: [Colors.blue[100], Colors.blue[400]]),
                       ),
-                       child: Center(
+                      child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Text("56",style: TextStyle(
-                                color: Colors.blue[900],
-                                fontSize: 50,
-                                fontWeight: FontWeight.bold
-                              ),),
+                              child: Text(
+                                "56",
+                                style: TextStyle(
+                                    color: Colors.blue[900],
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-
-                            Text("Completed Task",style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                            ),)
-                            
+                            Text(
+                              "Completed Task",
+                              style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            )
                           ],
                         ),
                       ),
                     ),
-                    
                   ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
-                      height: 250,
-                      width: 350,
+                      height: size.height / 4.2,
+                      width: size.width / 5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                         gradient: LinearGradient(
@@ -165,43 +158,44 @@ class _PerformanceState extends State<Performance> {
                             end: Alignment.centerRight,
                             colors: [Colors.red[100], Colors.red[400]]),
                       ),
-                       child: Center(
+                      child: Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Text("16",style: TextStyle(
-                                color: Colors.red[800],
-                                fontSize: 50,
-                                fontWeight: FontWeight.bold
-                              ),),
+                              child: Text(
+                                "16",
+                                style: TextStyle(
+                                    color: Colors.red[800],
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-
-                            Text("Overdue Task",style: TextStyle(
-                              color: Colors.white70,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold
-                            ),)
-                            
+                            Text(
+                              "Overdue Task",
+                              style: TextStyle(
+                                  color: Colors.white70,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            )
                           ],
                         ),
                       ),
                     ),
-                    
                   ),
                 ],
               ),
               SizedBox(
-                height: 30,
+                height: 36,
               ),
               Row(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
-                      height: 260,
-                      width: 360,
+                      height: size.height / 3.4,
+                      width: size.width / 5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
@@ -211,8 +205,8 @@ class _PerformanceState extends State<Performance> {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
-                      height: 260,
-                      width: 360,
+                      height: size.height / 3.4,
+                      width: size.width / 5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
@@ -226,25 +220,25 @@ class _PerformanceState extends State<Performance> {
           SizedBox(
             width: 30,
           ),
-          Column(
-            children: [
-              SizedBox(
-                height: 70,
-              ),
-              Container(
-                height: 400,
-                width: 600,
-                child: ProgressLineChart(),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                child: TotalTaskLineChart(),
-                height: 400,
-                width: 600,
-              ),
-            ],
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Container(
+                  height: size.height / 2.4,
+                  width: size.width / 3.2,
+                  child: ProgressLineChart(),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  child: TotalTaskLineChart(),
+                  height: size.height / 2.4,
+                  width: size.width / 3.2,
+                ),
+              ],
+            ),
           ),
         ],
       ),

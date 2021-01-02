@@ -24,23 +24,9 @@ class Tasks {
   List<Task> tasks = [];
 
   Tasks() {
-    Task t1 = Task(
-      'hidethepainharold@gmail.com',
-      'Buy Eggs',
-      'Groceries',
-      DateTime.now(),
-      DateTime.now(),
-    );
-
-    Task t2 = Task(
-      'hidethepainharold@gmail.com',
-      'Web Assignment',
-      'Work',
-      DateTime.now(),
-      DateTime.now(),
-    );
-
-    tasks.add(t1);
-    tasks.add(t2);
+    tasks.add(Task('hidethepainharold@gmail.com', 'Buy Eggs', 'Groceries',
+        DateTime.now(), DateTime.now()));
+    tasks.add(Task('hidethepainharold@gmail.com', 'Web Assignment', 'Work',
+        DateTime.now(), DateTime.now()));
   }
 }
