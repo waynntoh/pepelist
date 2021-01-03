@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pepelist/crudbar.dart';
+import 'package:pepelist/objects/meeting_data_source.dart';
 import 'package:pepelist/objects/task.dart';
 import 'package:pepelist/widgets/taskTile.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+
+import 'objects/meeting.dart';
 
 class TaskManager extends StatefulWidget {
   final Tasks tasks;
@@ -28,7 +31,8 @@ class TaskManager extends StatefulWidget {
 }
 
 class _TaskManagerState extends State<TaskManager> {
-  bool isCalendar = false;
+  bool isCalendar = true;
+  List<Meeting> meetings;
 
   @override
   Widget build(BuildContext context) {
@@ -94,6 +98,13 @@ class _TaskManagerState extends State<TaskManager> {
                             allowViewNavigation: false,
                             headerHeight: 50,
                             showNavigationArrow: true,
+                            dataSource: MeetingDataSource(_getDataSource()),
+                            // by default the month appointment display mode set as Indicator, we can
+                            // change the display mode as appointment using the appointment display
+                            // mode property
+                            monthViewSettings: MonthViewSettings(
+                                appointmentDisplayMode:
+                                    MonthAppointmentDisplayMode.appointment),
                           ),
                   ),
                 ],
@@ -122,5 +133,21 @@ class _TaskManagerState extends State<TaskManager> {
     }
 
     return tiles;
+  }
+
+  List<Meeting> _getDataSource() {
+    meetings = <Meeting>[];
+
+    for (Task t in widget.tasks.tasks) {
+      meetings.add(
+        Meeting(
+          title: t.title,
+          category: t.category,
+          dueDate: t.dueDate,
+        ),
+      );
+    }
+
+    return meetings;
   }
 }
