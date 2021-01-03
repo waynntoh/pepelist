@@ -83,9 +83,9 @@ class _TaskManagerState extends State<TaskManager> {
                   ),
                   Container(
                     padding:
-                        isCalendar ? EdgeInsets.all(64) : EdgeInsets.all(16),
+                        isCalendar ? EdgeInsets.all(64) : EdgeInsets.all(32),
                     height: size.height - 150,
-                    color: Colors.lightBlue[50],
+                    color: isCalendar ? Colors.grey[200] : Colors.grey[50],
                     child: !isCalendar
                         ? Column(
                             children: _buildTaskTiles(),
@@ -102,6 +102,12 @@ class _TaskManagerState extends State<TaskManager> {
           Expanded(
             flex: 4,
             child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: .1,
+                  color: Colors.black,
+                ),
+              ),
               height: size.height,
               width: 50,
               padding: EdgeInsets.symmetric(vertical: 32, horizontal: 64),
@@ -183,6 +189,7 @@ class _TaskManagerState extends State<TaskManager> {
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           setState(() {
+                            // Local
                             Task newTask = Task(
                               'hidethepainharold@gmail.com',
                               titleController.text,
@@ -190,8 +197,10 @@ class _TaskManagerState extends State<TaskManager> {
                               DateTime.now(),
                               selectedDate,
                             );
-
                             tasks.tasks.add(newTask);
+
+                            // Reset
+                            titleController.text = '';
                           });
                         }
                       },

@@ -12,6 +12,7 @@ class Task {
     this.title = t;
     this.category = c;
     this.dateCreated = dcre;
+    this.dueDate = dd;
   }
 
   void toggleTaskCompletion(bool b) {
@@ -24,9 +25,32 @@ class Tasks {
   List<Task> tasks = [];
 
   Tasks() {
-    tasks.add(Task('hidethepainharold@gmail.com', 'Buy Eggs', 'Groceries',
-        DateTime.now(), DateTime.now()));
-    tasks.add(Task('hidethepainharold@gmail.com', 'Web Assignment', 'Work',
-        DateTime.now(), DateTime.now()));
+    tasks.add(
+      Task(
+        'hidethepainharold@gmail.com',
+        'Buy Eggs',
+        'Groceries',
+        DateTime.now(),
+        DateTime.now(),
+      ),
+    );
+    tasks.add(
+      Task(
+        'hidethepainharold@gmail.com',
+        'Web Assignment',
+        'Work',
+        DateTime.now(),
+        DateTime.now(),
+      ),
+    );
+    tasks.add(
+      Task(
+        'hidethepainharold@gmail.com',
+        'Cut Vegetals',
+        'Personal',
+        DateTime.now(),
+        DateTime.now(),
+      ),
+    );
   }
 }
