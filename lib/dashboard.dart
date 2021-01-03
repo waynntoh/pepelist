@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pepelist/objects/task.dart';
 import 'package:pepelist/performance.dart';
 import 'package:pepelist/taskmanager.dart';
 
@@ -9,6 +10,19 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   bool atManager = true;
+  Task selectedTask;
+
+  // TODO: Delete
+  Tasks tasks = new Tasks();
+
+  @override
+  void initState() {
+    // TODO: get data from database
+    if (tasks.tasks[0] != null) {
+      selectedTask = tasks.tasks[0];
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +37,12 @@ class _DashboardState extends State<Dashboard> {
               width: size.width / 6,
               child: Container(
                 padding: EdgeInsets.all(16),
-                color: Colors.blue[100],
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: .1,
+                    color: Colors.black,
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -62,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
                     //Dashboard
                     FlatButton(
                       padding: EdgeInsets.all(16),
-                      color: Colors.blue[200],
+                      color: Colors.blue[100],
                       onPressed: () {
                         setState(() {
                           atManager = true;
@@ -81,12 +100,10 @@ class _DashboardState extends State<Dashboard> {
                         ],
                       ),
                     ),
-
                     SizedBox(height: 24),
-
                     FlatButton(
                       padding: EdgeInsets.all(16),
-                      color: Colors.blue[200],
+                      color: Colors.blue[100],
                       onPressed: () {
                         setState(() {
                           atManager = false;
@@ -108,7 +125,7 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(height: 24),
                     FlatButton(
                       padding: EdgeInsets.all(16),
-                      color: Colors.blue[200],
+                      color: Colors.blue[100],
                       onPressed: () {
                         print('Sign out');
                       },
@@ -131,11 +148,49 @@ class _DashboardState extends State<Dashboard> {
             ),
             SizedBox(
               height: size.height,
-              child: atManager ? TaskManager() : Performance(),
+              child: atManager
+                  ? TaskManager(
+                      tasks: tasks,
+                      addTask: add,
+                      editTask: edit,
+                      deleteTask: delete,
+                      select: selectTask,
+                      selectedTask: selectedTask,
+                    )
+                  : Performance(),
             ),
           ],
         ),
       ),
     );
+  }
+
+  void add(Task t) {
+    setState(() {
+      tasks.tasks.add(t);
+    });
+  }
+
+  void edit(Task t, String title, String category, DateTime dd) {
+    setState(() {
+      for (Task task in tasks.tasks) {
+        if (task.title == t.title) {
+          task.editTask(title, category, dd);
+        }
+      }
+    });
+  }
+
+  void delete(Task t) {
+    setState(() {
+      tasks.tasks.remove(t);
+      print('removed');
+    });
+  }
+
+  void selectTask(Task t) {
+    setState(() {
+      selectedTask = t;
+    });
   }
 }
