@@ -18,6 +18,12 @@ class Task {
   void toggleTaskCompletion(bool b) {
     this.completed = b;
   }
+
+  void editTask(String title, String category, DateTime dd) {
+    this.title = title;
+    this.category = category;
+    this.dueDate = dd;
+  }
 }
 
 // TODO: Delete (For testing only)
@@ -46,7 +52,7 @@ class Tasks {
     tasks.add(
       Task(
         'hidethepainharold@gmail.com',
-        'Cut Vegetals',
+        'Watch memes',
         'Personal',
         DateTime.now(),
         DateTime.now(),

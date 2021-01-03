@@ -1,37 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pepelist/crudbar.dart';
 import 'package:pepelist/objects/task.dart';
 import 'package:pepelist/widgets/taskTile.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class TaskManager extends StatefulWidget {
+  final Tasks tasks;
+  final Function addTask;
+  final Function editTask;
+  final Function deleteTask;
+  final Function select;
+  final Task selectedTask;
+
+  TaskManager({
+    @required this.tasks,
+    @required this.addTask,
+    @required this.editTask,
+    @required this.deleteTask,
+    @required this.select,
+    @required this.selectedTask,
+  });
+
   @override
   _TaskManagerState createState() => _TaskManagerState();
 }
 
 class _TaskManagerState extends State<TaskManager> {
-  Tasks tasks = new Tasks();
   bool isCalendar = false;
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController titleController = TextEditingController();
-  TextEditingController categoryController = TextEditingController();
-  DateTime selectedDate = DateTime.now();
-  String dateString = DateFormat('dd/MM/yyyy').format(DateTime.now());
-
-  @override
-  void initState() {
-    categoryController.text = 'Personal';
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    titleController.dispose();
-    categoryController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,128 +84,27 @@ class _TaskManagerState extends State<TaskManager> {
                     height: size.height - 150,
                     color: isCalendar ? Colors.grey[200] : Colors.grey[50],
                     child: !isCalendar
-                        ? Column(
-                            children: _buildTaskTiles(),
+                        ? SingleChildScrollView(
+                            child: Column(
+                              children: _buildTaskTiles(),
+                            ),
                           )
                         : SfCalendar(
                             view: CalendarView.month,
                             allowViewNavigation: false,
+                            headerHeight: 50,
+                            showNavigationArrow: true,
                           ),
                   ),
                 ],
               ),
             ),
           ),
-          Expanded(
-            flex: 4,
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: .1,
-                  color: Colors.black,
-                ),
-              ),
-              height: size.height,
-              width: 50,
-              padding: EdgeInsets.symmetric(vertical: 32, horizontal: 64),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.add_alert,
-                      color: Colors.blueAccent,
-                      size: 70,
-                    ),
-                    SizedBox(height: 16),
-                    Text('ADD NEW TASK'),
-                    SizedBox(height: 64),
-                    TextFormField(
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        hintText: 'Title',
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Invalid Title';
-                        }
-                        return null;
-                      },
-                    ),
-                    SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Category'),
-                        DropdownButton(
-                          hint: Text(categoryController.text),
-                          icon: Icon(Icons.arrow_drop_down),
-                          items: [
-                            DropdownMenuItem(
-                              child: Text('Groceries'),
-                              value: 'Groceries',
-                            ),
-                            DropdownMenuItem(
-                              child: Text('Work'),
-                              value: 'Work',
-                            ),
-                            DropdownMenuItem(
-                              child: Text('Personal'),
-                              value: 'Personal',
-                            ),
-                            DropdownMenuItem(
-                              child: Text('Home'),
-                              value: 'Home',
-                            ),
-                          ],
-                          onChanged: (value) {
-                            setState(() {
-                              categoryController.text = value;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 18),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Date Due'),
-                        FlatButton(
-                          color: Colors.lightBlueAccent[100],
-                          onPressed: () => _selectDate(context),
-                          child: Text(dateString),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 48),
-                    RaisedButton(
-                      color: Colors.blueAccent[100],
-                      child: Text('ADD'),
-                      onPressed: () {
-                        if (_formKey.currentState.validate()) {
-                          setState(() {
-                            // Local
-                            Task newTask = Task(
-                              'hidethepainharold@gmail.com',
-                              titleController.text,
-                              categoryController.text,
-                              DateTime.now(),
-                              selectedDate,
-                            );
-                            tasks.tasks.add(newTask);
-
-                            // Reset
-                            titleController.text = '';
-                          });
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          CRUDBar(
+            addTask: widget.addTask,
+            editTask: widget.editTask,
+            deleteTask: widget.deleteTask,
+            selectedTask: widget.selectedTask,
           ),
         ],
       ),
@@ -218,24 +114,13 @@ class _TaskManagerState extends State<TaskManager> {
   List<Widget> _buildTaskTiles() {
     List<Widget> tiles = [];
 
-    for (Task t in tasks.tasks) {
-      tiles.add(TaskTile(t));
+    for (Task t in widget.tasks.tasks) {
+      tiles.add(TaskTile(
+        task: t,
+        select: widget.select,
+      ));
     }
 
     return tiles;
-  }
-
-  _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2050),
-    );
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-        dateString = DateFormat('dd/MM/yyyy').format(selectedDate);
-      });
   }
 }
