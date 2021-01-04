@@ -18,7 +18,7 @@ class _TaskTileState extends State<TaskTile> {
 
   @override
   void initState() {
-    if (DateTime.now().isAfter(widget.task.dueDate)) {
+    if (DateTime.now().isAfter(widget.task.dueDate) && !widget.task.completed) {
       setState(() {
         overdue = true;
         days = DateTime.now().difference(widget.task.dueDate).inDays;
