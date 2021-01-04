@@ -13,6 +13,20 @@ class TaskTile extends StatefulWidget {
 }
 
 class _TaskTileState extends State<TaskTile> {
+  bool overdue = false;
+  int days;
+
+  @override
+  void initState() {
+    if (DateTime.now().isAfter(widget.task.dueDate)) {
+      setState(() {
+        overdue = true;
+        days = DateTime.now().difference(widget.task.dueDate).inDays;
+      });
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return OutlineButton(
@@ -48,19 +62,26 @@ class _TaskTileState extends State<TaskTile> {
               decoration: BoxDecoration(
                 color: widget.task.completed
                     ? Colors.greenAccent[100]
-                    : Colors.amberAccent[100],
+                    : overdue
+                        ? Colors.redAccent[100]
+                        : Colors.amberAccent[100],
                 border: Border.all(
                   width: .5,
                   color: widget.task.completed
                       ? Colors.greenAccent[700]
-                      : Colors.amberAccent[700],
+                      : overdue
+                          ? Colors.redAccent[700]
+                          : Colors.amberAccent[700],
                 ),
               ),
               child: Center(
                 child: Text(
                   widget.task.completed
                       ? 'Completed'
-                      : DateFormat('dd/MM/yyyy').format(widget.task.dueDate),
+                      : overdue
+                          ? 'Overdue [' + days.toString() + ' day/s]'
+                          : DateFormat('dd/MM/yyyy')
+                              .format(widget.task.dueDate),
                 ),
               ),
             ),
