@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:pepelist/login.dart';
 import 'package:pepelist/utils/constants.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -15,7 +16,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   double width;
   double height;
-  bool submitting = true;
+  bool submitting = false;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -58,8 +59,8 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             child: Center(
               child: Container(
-                width: width - 140,
-                height: height - 140,
+                width: width - 500,
+                height: height - 160,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [kItemCardShadow],
@@ -78,7 +79,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 bottomLeft: Radius.circular(24),
                               ),
                               image: DecorationImage(
-                                  image: AssetImage("harold.jpg"),
+                                  image: AssetImage("registerpic.jpg"),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -98,32 +99,34 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Pepelist Registration',
+                              'Registration',
                               style: kHeaderTextStyle.copyWith(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w900,
                               ),
+                              textAlign: TextAlign.center,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                SizedBox(height: 32),
                                 InkWell(
                                   child: CircleAvatar(
                                     backgroundColor: kGrey1,
                                     backgroundImage: _image != null
                                         ? NetworkImage(_image.path)
                                         : AssetImage('dummy_image.png'),
-                                    radius: 120,
+                                    radius: 80,
                                   ),
                                   onTap: () {
                                     getImage();
                                   },
                                 ),
-                                SizedBox(height: 64),
+                                SizedBox(height: 32),
                                 Form(
                                   key: _formKey,
                                   child: Column(
@@ -153,7 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ),
                                         validator: (value) {
                                           if (value.isEmpty) {
-                                            return 'Invalid Name';
+                                            return 'Invalid Email';
                                           } else {
                                             return null;
                                           }
@@ -170,7 +173,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         obscureText: true,
                                         validator: (value) {
                                           if (value.isEmpty) {
-                                            return 'Invalid Name';
+                                            return 'Invalid Password';
                                           } else {
                                             return null;
                                           }
@@ -186,7 +189,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ),
                                         validator: (value) {
                                           if (value !=
-                                              passwordController.text) {
+                                                  passwordController.text ||
+                                              value.isEmpty) {
                                             return 'Incorrect Password';
                                           } else {
                                             return null;
@@ -216,23 +220,28 @@ class _RegisterPageState extends State<RegisterPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'Register',
+                                          submitting
+                                              ? 'Submitting'
+                                              : 'Register',
                                           style: kHeaderTextStyle.copyWith(
                                             fontSize: 17,
                                             color: Colors.white,
                                           ),
                                         ),
                                         SizedBox(width: 24),
-                                        FaIcon(
-                                          FontAwesomeIcons
-                                              .solidArrowAltCircleRight,
-                                          color: Colors.white,
-                                          size: 24,
-                                        ),
+                                        submitting
+                                            ? kSpinKitLoader
+                                            : FaIcon(
+                                                FontAwesomeIcons
+                                                    .solidArrowAltCircleRight,
+                                                color: Colors.white,
+                                                size: 24,
+                                              ),
                                       ],
                                     ),
                                     onTap: () {
-                                      if (_formKey.currentState.validate()) {
+                                      if (_formKey.currentState.validate() &&
+                                          !submitting) {
                                         register(
                                           nameController.text,
                                           emailController.text,
@@ -288,6 +297,9 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void register(String name, String email, String password) {
+    setState(() {
+      submitting = true;
+    });
     // if (imageFile == null) {
     //   imageFile = File('dummy_image.png');
     // }
@@ -301,9 +313,23 @@ class _RegisterPageState extends State<RegisterPage> {
     }).then((res) {
       if (res.body == "success") {
         print('[+] registration successful');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoginPage(
+              email: emailController.text,
+              password: passwordController.text,
+            ),
+          ),
+        );
       } else {
         print('[-] registration failed');
       }
+      setState(
+        () {
+          submitting = false;
+        },
+      );
     }).catchError((err) {
       print(err);
     });

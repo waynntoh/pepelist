@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 // COLORS
 const kBackgroundColor = Color(0xFFF4F3ED);
@@ -76,19 +77,18 @@ const kTextFieldDecoration = InputDecoration(
   prefixStyle: kDefaultTextStyle,
 );
 
-// // SPINKITS
-// Widget kSpinKitLoader = SpinKitWave(
-//   type: SpinKitWaveType.center,
-//   color: kOrange2,
-//   size: 100,
-// );
+// SPINKITS
+Widget kSpinKitLoader = SpinKitHourGlass(
+  color: Colors.white,
+  size: 35,
+);
 
-// Widget kLargeImageLoader = SpinKitSquareCircle(
-//   color: kOrange0,
-//   size: 100,
-// );
+Widget kLargeImageLoader = SpinKitSquareCircle(
+  color: kOrange0,
+  size: 100,
+);
 
-// Widget kSmallImageLoader = SpinKitSquareCircle(
-//   color: kOrange1,
-//   size: 50,
-// );
+Widget kSmallImageLoader = SpinKitSquareCircle(
+  color: kOrange1,
+  size: 50,
+);
