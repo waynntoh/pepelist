@@ -60,7 +60,7 @@ class Tasks {
         'Work',
         DateTime.now(),
         DateTime.now().add(
-          Duration(days: 1),
+          Duration(days: -1),
         ),
       ),
     );

@@ -1,7 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:pepelist/objects/task.dart';
 
 class ProgressLineChart extends StatefulWidget {
+  final Tasks tasks;
+  ProgressLineChart({@required this.tasks});
   @override
   _ProgressLineChartState createState() => _ProgressLineChartState();
   
