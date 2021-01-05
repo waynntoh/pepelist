@@ -257,13 +257,13 @@ class _PerformanceState extends State<Performance> {
                 Container(
                   height: size.height / 2.4,
                   width: size.width / 3.2,
-                  child: ProgressLineChart(),
+                  child: ProgressLineChart(tasks: widget.tasks,),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 Container(
-                  child: TotalTaskLineChart(),
+                  child: TotalTaskLineChart(tasks: widget.tasks,),
                   height: size.height / 2.4,
                   width: size.width / 3.2,
                 ),

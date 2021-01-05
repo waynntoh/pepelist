@@ -15,6 +15,27 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
     const Color(0xff02d39a),
   ];
   bool showAvg = false;
+  double january = 0;
+  double febuary = 0;
+  double march = 0;
+
+  @override
+  void initState() {
+    for (int i = 0; i < widget.tasks.tasks.length; i++) {
+      if (widget.tasks.tasks[i].dateCreated.month == 01) {
+        january = january + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 02) {
+        febuary = febuary + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 02) {
+        march = march + 1;
+      }
+    }
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -94,33 +115,15 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
           getTextStyles: (value) => const TextStyle(
               color: Color(0xff68737d),
               fontWeight: FontWeight.bold,
-              fontSize: 16),
+              fontSize: 12),
           getTitles: (value) {
             switch (value.toInt()) {
               case 0:
-                return 'J';
+                return 'JAN';
               case 1:
-                return 'F';
+                return 'FEB';
               case 2:
-                return 'M';
-              case 3:
-                return 'A';
-              case 4:
-                return 'M';
-              case 5:
-                return 'J';
-              case 6:
-                return 'J';
-              case 7:
-                return 'A';
-              case 8:
-                return 'S';
-              case 9:
-                return 'O';
-              case 10:
-                return 'N';
-              case 11:
-                return 'D';
+                return 'MAR';
             }
             return '';
           },
@@ -135,20 +138,12 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
           ),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 0:
-                return '1';
-              case 1:
-                return '2';
-              case 2:
-                return '3';
-              case 3:
-                return '4';
-              case 4:
-                return '5';
-              case 5:
-                return '6';
-              case 6:
-                return '7';
+              case 10:
+                return '10';
+              case 20:
+                return '20';
+              case 30:
+                return '30';
             }
             return '';
           },
@@ -160,19 +155,15 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
           show: true,
           border: Border.all(color: const Color(0xff37434d), width: 1)),
       minX: 0,
-      maxX: 11,
+      maxX: 2,
       minY: 0,
-      maxY: 6,
+      maxY: 30,
       lineBarsData: [
         LineChartBarData(
           spots: [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
+            FlSpot(0, january),
+            FlSpot(1, 2),
+            FlSpot(2, 5),
           ],
           isCurved: true,
           colors: gradientColors,
@@ -296,4 +287,6 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
       ],
     );
   }
+
+  calculateJan() {}
 }

@@ -285,7 +285,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    var pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
@@ -300,11 +300,7 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() {
       submitting = true;
     });
-    // if (imageFile == null) {
-    //   imageFile = File('dummy_image.png');
-    // }
 
-    // String base64Image = base64Encode(imageFile.readAsBytesSync());
     http.post('https://techvestigate.com/pepelist/php/register.php', body: {
       // "encoded_string": base64Image,
       "name": nameController.text,
@@ -312,7 +308,7 @@ class _RegisterPageState extends State<RegisterPage> {
       "password": confirmPasswordController.text,
     }).then((res) {
       if (res.body == "success") {
-        print('[+] registration successful');
+        print('[+] Registration successful');
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -323,7 +319,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         );
       } else {
-        print('[-] registration failed');
+        print('[-] Registration failed');
       }
       setState(
         () {
@@ -333,5 +329,37 @@ class _RegisterPageState extends State<RegisterPage> {
     }).catchError((err) {
       print(err);
     });
+  }
+
+  void uploadImage(String email, File imageFile) async {
+    if (imageFile == null) {
+      imageFile = File('images/dummy_image.png');
+    }
+
+    //   String base64Image = base64Encode(imageFile.readAsBytesSync());
+    //   http.post('https://techvestigate.com/pepelist/php/upload_profile.php',
+    //       body: {
+    //         "encoded_string": base64Image,
+    //         "email": emailController.text,
+    //       }).then((res) {
+    //     if (res.body == "Upload Successful") {
+    //       Navigator.push(
+    //         context,
+    //         MaterialPageRoute(
+    //           builder: (context) => LoginPage(
+    //             email: emailController.text,
+    //             password: passwordController.text,
+    //           ),
+    //         ),
+    //       );
+    //     } else {
+    //       print('[-] Upload Failed');
+    //     }
+    //     setState(() {
+    //       submitting = false;
+    //     });
+    //   }).catchError((err) {
+    //     print(err);
+    //   });
   }
 }

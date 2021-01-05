@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:pepelist/dashboard.dart';
 import 'package:pepelist/utils/constants.dart';
 
 class LoginPage extends StatefulWidget {
@@ -29,6 +30,11 @@ class _LoginPageState extends State<LoginPage> {
     if (widget.email != null) {
       emailController.text = widget.email;
       passwordController.text = widget.password;
+    }
+    // TODO: Delete
+    else {
+      emailController.text = 'h@gmail.com';
+      passwordController.text = '123456';
     }
     super.initState();
   }
@@ -206,7 +212,9 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                     onTap: () {
                                       if (_formKey.currentState.validate() &&
-                                          !submitting) {}
+                                          !submitting) {
+                                        login();
+                                      }
                                     },
                                   ),
                                 ),
@@ -243,37 +251,37 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login(String email, String password) {
+  void login() {
+    // Login through DB
     setState(() {
       submitting = true;
     });
-    // if (imageFile == null) {
-    //   imageFile = File('dummy_image.png');
-    // }
 
-    // String base64Image = base64Encode(imageFile.readAsBytesSync());
-    http.post('https://techvestigate.com/pepelist/php/register.php', body: {
-      // "encoded_string": base64Image,
-      // "name": nameController.text,
-      // "email": emailController.text,
-      // "password": confirmPasswordController.text,
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    http.post('https://techvestigate.com/pepelist/php/login.php', body: {
+      "email": email,
+      "password": password,
     }).then((res) {
-      if (res.body == "success") {
-        print('[+] registration successful');
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => Login(),
-        //   ),
-        // );
+      List<String> echoes = res.body.split(',');
+      if (echoes[0] == "success") {
+        print('[+] Login Successful');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Dashboard(
+              name: echoes[1],
+              email: echoes[2],
+            ),
+          ),
+        );
       } else {
-        print('[-] registration failed');
+        print('[-] Login Failed');
       }
-      setState(
-        () {
-          submitting = false;
-        },
-      );
+      setState(() {
+        submitting = false;
+      });
     }).catchError((err) {
       print(err);
     });

@@ -4,7 +4,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class WeeklyBarChart extends StatefulWidget {
-final List<Color> availableColors = [
+  final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,
     Colors.lightBlue,
@@ -22,7 +22,7 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
   final Duration animDuration = const Duration(milliseconds: 250);
   int touchedIndex;
   bool isPlaying = false;
-  
+
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
@@ -40,9 +40,11 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    'Weekly Tsk',
+                    'Weekly Task',
                     style: TextStyle(
-                        color: const Color(0xff0f4a3c), fontSize: 24, fontWeight: FontWeight.bold),
+                        color: const Color(0xff0f4a3c),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 4,
@@ -50,7 +52,9 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
                   Text(
                     'Task Done In A Week',
                     style: TextStyle(
-                        color: const Color(0xff379982), fontSize: 14, fontWeight: FontWeight.bold),
+                        color: const Color(0xff379982),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 38,
@@ -70,26 +74,6 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: Icon(
-                    isPlaying ? Icons.pause : Icons.play_arrow,
-                    color: const Color(0xff0f4a3c),
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      isPlaying = !isPlaying;
-                      if (isPlaying) {
-                        refreshState();
-                      }
-                    });
-                  },
-                ),
-              ),
-            )
           ],
         ),
       ),
@@ -173,8 +157,8 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
                   weekDay = 'Sunday';
                   break;
               }
-              return BarTooltipItem(
-                  weekDay + '\n' + (rod.y - 1).toString(), TextStyle(color: Colors.yellow));
+              return BarTooltipItem(weekDay + '\n' + (rod.y - 1).toString(),
+                  TextStyle(color: Colors.yellow));
             }),
         touchCallback: (barTouchResponse) {
           setState(() {
@@ -192,8 +176,8 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) =>
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          getTextStyles: (value) => const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
             switch (value.toInt()) {
@@ -236,8 +220,8 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) =>
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          getTextStyles: (value) => const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
             switch (value.toInt()) {
@@ -271,25 +255,32 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
         switch (i) {
           case 0:
             return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 1:
             return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 2:
             return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 3:
             return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 4:
             return makeGroupData(4, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 5:
             return makeGroupData(5, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 6:
             return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           default:
             return null;
         }
@@ -299,7 +290,8 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
 
   Future<dynamic> refreshState() async {
     setState(() {});
-    await Future<dynamic>.delayed(animDuration + const Duration(milliseconds: 50));
+    await Future<dynamic>.delayed(
+        animDuration + const Duration(milliseconds: 50));
     if (isPlaying) {
       refreshState();
     }
