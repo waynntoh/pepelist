@@ -7,12 +7,14 @@ class CRUDBar extends StatefulWidget {
   final Function editTask;
   final Function deleteTask;
   final Task selectedTask;
+  final Function reset;
 
   CRUDBar({
     @required this.addTask,
     @required this.editTask,
     @required this.deleteTask,
     @required this.selectedTask,
+    @required this.reset,
   });
 
   @override
@@ -45,6 +47,10 @@ class _CRUDBarState extends State<CRUDBar> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    if (state == 'Edit') {
+      titleController.text = widget.selectedTask.title;
+    }
 
     return Expanded(
       flex: 4,
@@ -233,14 +239,16 @@ class _CRUDBarState extends State<CRUDBar> {
                       if (state == 'Edit') {
                         setState(() {
                           widget.editTask(
-                              widget.selectedTask,
-                              titleController.text,
-                              categoryController.text,
-                              selectedDate);
+                            widget.selectedTask,
+                            titleController.text,
+                            categoryController.text,
+                            selectedDate,
+                          );
 
                           // Reset
                           titleController.text = '';
                           categoryController.text = 'Personal';
+                          widget.reset();
                         });
                       }
                     }

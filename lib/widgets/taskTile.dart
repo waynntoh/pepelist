@@ -5,28 +5,16 @@ import 'package:pepelist/objects/task.dart';
 class TaskTile extends StatefulWidget {
   final Task task;
   final Function select;
+  final Function resetParent;
 
-  const TaskTile({@required this.task, @required this.select});
+  const TaskTile(
+      {@required this.task, @required this.select, @required this.resetParent});
 
   @override
   _TaskTileState createState() => _TaskTileState();
 }
 
 class _TaskTileState extends State<TaskTile> {
-  bool overdue = false;
-  int days;
-
-  @override
-  void initState() {
-    if (DateTime.now().isAfter(widget.task.dueDate) && !widget.task.completed) {
-      setState(() {
-        overdue = true;
-        days = DateTime.now().difference(widget.task.dueDate).inDays;
-      });
-    }
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return OutlineButton(
@@ -62,14 +50,14 @@ class _TaskTileState extends State<TaskTile> {
               decoration: BoxDecoration(
                 color: widget.task.completed
                     ? Colors.greenAccent[100]
-                    : overdue
+                    : DateTime.now().isAfter(widget.task.dueDate)
                         ? Colors.redAccent[100]
                         : Colors.amberAccent[100],
                 border: Border.all(
                   width: .5,
                   color: widget.task.completed
                       ? Colors.greenAccent[700]
-                      : overdue
+                      : DateTime.now().isAfter(widget.task.dueDate)
                           ? Colors.redAccent[700]
                           : Colors.amberAccent[700],
                 ),
@@ -78,8 +66,8 @@ class _TaskTileState extends State<TaskTile> {
                 child: Text(
                   widget.task.completed
                       ? 'Completed'
-                      : overdue
-                          ? 'Overdue [' + days.toString() + ' day/s]'
+                      : DateTime.now().isAfter(widget.task.dueDate)
+                          ? 'Overdue'
                           : DateFormat('dd/MM/yyyy')
                               .format(widget.task.dueDate),
                 ),
@@ -91,6 +79,8 @@ class _TaskTileState extends State<TaskTile> {
               onChanged: (value) {
                 setState(() {
                   widget.task.toggleTaskCompletion(value);
+
+                  widget.resetParent();
                 });
               },
             )

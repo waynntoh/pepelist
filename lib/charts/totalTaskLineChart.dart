@@ -164,7 +164,6 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
             FlSpot(0, january),
             FlSpot(1, 2),
             FlSpot(2, 5),
-        
           ],
           isCurved: true,
           colors: gradientColors,

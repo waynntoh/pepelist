@@ -114,7 +114,14 @@ class _TaskManagerState extends State<TaskManager> {
                         ? SingleChildScrollView(
                             child: Column(
                               children: filter
-                                  ? _buildCompletedTaskTiles()
+                                  ? _buildCompletedTaskTiles().length != 0
+                                      ? _buildCompletedTaskTiles()
+                                      : [
+                                          SizedBox(height: size.height / 3),
+                                          Center(
+                                            child: Text('No Upcoming Tasks'),
+                                          ),
+                                        ]
                                   : _buildAllTaskTiles(),
                             ),
                           )
@@ -123,7 +130,11 @@ class _TaskManagerState extends State<TaskManager> {
                             allowViewNavigation: false,
                             headerHeight: 50,
                             showNavigationArrow: true,
-                            dataSource: MeetingDataSource(_getDataSource()),
+                            dataSource: MeetingDataSource(
+                              filter
+                                  ? _getCompletedDataSource()
+                                  : _getAllDataSource(),
+                            ),
                             // by default the month appointment display mode set as Indicator, we can
                             // change the display mode as appointment using the appointment display
                             // mode property
@@ -141,6 +152,7 @@ class _TaskManagerState extends State<TaskManager> {
             editTask: widget.editTask,
             deleteTask: widget.deleteTask,
             selectedTask: widget.selectedTask,
+            reset: reset,
           ),
         ],
       ),
@@ -154,6 +166,7 @@ class _TaskManagerState extends State<TaskManager> {
       tiles.add(TaskTile(
         task: t,
         select: widget.select,
+        resetParent: reset,
       ));
     }
 
@@ -164,10 +177,11 @@ class _TaskManagerState extends State<TaskManager> {
     List<Widget> tiles = [];
 
     for (Task t in widget.tasks.tasks) {
-      if (t.completed) {
+      if (!t.completed) {
         tiles.add(TaskTile(
           task: t,
           select: widget.select,
+          resetParent: reset,
         ));
       }
     }
@@ -175,7 +189,7 @@ class _TaskManagerState extends State<TaskManager> {
     return tiles;
   }
 
-  List<Meeting> _getDataSource() {
+  List<Meeting> _getAllDataSource() {
     meetings = <Meeting>[];
 
     for (Task t in widget.tasks.tasks) {
@@ -189,5 +203,28 @@ class _TaskManagerState extends State<TaskManager> {
     }
 
     return meetings;
+  }
+
+  List<Meeting> _getCompletedDataSource() {
+    meetings = <Meeting>[];
+
+    for (Task t in widget.tasks.tasks) {
+      if (!t.completed) {
+        meetings.add(
+          Meeting(
+            title: t.title,
+            category: t.category,
+            dueDate: t.dueDate,
+          ),
+        );
+      }
+    }
+
+    return meetings;
+  }
+
+  void reset() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    setState(() {});
   }
 }

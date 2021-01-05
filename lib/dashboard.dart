@@ -4,6 +4,11 @@ import 'package:pepelist/performance.dart';
 import 'package:pepelist/taskmanager.dart';
 
 class Dashboard extends StatefulWidget {
+  final String email;
+  final String name;
+
+  Dashboard({@required this.email, @required this.name});
+
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -64,15 +69,15 @@ class _DashboardState extends State<Dashboard> {
                     SizedBox(height: 50),
                     CircleAvatar(
                       backgroundImage: AssetImage('harold.jpg'),
-                      radius: 60,
+                      radius: 75,
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'HAROLD PAIN',
+                      widget.name,
                       textAlign: TextAlign.center,
                     ),
                     Text(
-                      'hidethepainharold@gmail.com',
+                      widget.email,
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(

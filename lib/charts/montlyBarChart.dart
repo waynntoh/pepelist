@@ -41,7 +41,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    'MontlyTask',
+                    'Monthly Task',
                     style: TextStyle(
                         color: const Color(0xff0f4a3c),
                         fontSize: 24,
@@ -64,7 +64,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: BarChart(
-                       mainBarData(),
+                        mainBarData(),
                         swapAnimationDuration: animDuration,
                       ),
                     ),
@@ -75,7 +75,6 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                 ],
               ),
             ),
-            
           ],
         ),
       ),
@@ -251,7 +250,6 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
     );
   }
 
- 
   Future<dynamic> refreshState() async {
     setState(() {});
     await Future<dynamic>.delayed(

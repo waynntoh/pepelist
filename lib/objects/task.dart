@@ -93,7 +93,7 @@ class Tasks {
         'School',
         DateTime.now(),
         DateTime.now().add(
-          Duration(days: 21),
+          Duration(days: -10),
         ),
       ),
     );
