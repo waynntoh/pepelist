@@ -166,7 +166,7 @@ class _TaskManagerState extends State<TaskManager> {
       tiles.add(TaskTile(
         task: t,
         select: widget.select,
-        reset: reset,
+        resetParent: reset,
       ));
     }
 
@@ -181,7 +181,7 @@ class _TaskManagerState extends State<TaskManager> {
         tiles.add(TaskTile(
           task: t,
           select: widget.select,
-          reset: reset,
+          resetParent: reset,
         ));
       }
     }

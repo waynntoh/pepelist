@@ -136,20 +136,19 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 0:
-                return '10';
+                return '1';
               case 1:
-                return '20';
+                return '2';
               case 2:
-                return '30';
+                return '3';
               case 3:
-                return '40';
+                return '4';
               case 4:
-                return '50';
+                return '5';
               case 5:
-                return '60';
+                return '6';
               case 6:
-                return '70';
-         
+                return '7';
             }
             return '';
           },
