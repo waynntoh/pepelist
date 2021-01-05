@@ -5,8 +5,10 @@ import 'package:pepelist/objects/task.dart';
 class TaskTile extends StatefulWidget {
   final Task task;
   final Function select;
+  final Function reset;
 
-  const TaskTile({@required this.task, @required this.select});
+  const TaskTile(
+      {@required this.task, @required this.select, @required this.reset});
 
   @override
   _TaskTileState createState() => _TaskTileState();
@@ -58,7 +60,7 @@ class _TaskTileState extends State<TaskTile> {
             Spacer(),
             Container(
               height: 35,
-              width: 120,
+              width: 140,
               decoration: BoxDecoration(
                 color: widget.task.completed
                     ? Colors.greenAccent[100]
@@ -91,6 +93,17 @@ class _TaskTileState extends State<TaskTile> {
               onChanged: (value) {
                 setState(() {
                   widget.task.toggleTaskCompletion(value);
+
+                  if (DateTime.now().isAfter(widget.task.dueDate) &&
+                      !widget.task.completed) {
+                    setState(() {
+                      overdue = true;
+                      days =
+                          DateTime.now().difference(widget.task.dueDate).inDays;
+                    });
+                  }
+
+                  widget.reset();
                 });
               },
             )
