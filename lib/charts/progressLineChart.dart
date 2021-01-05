@@ -4,21 +4,69 @@ import 'package:pepelist/objects/task.dart';
 
 class ProgressLineChart extends StatefulWidget {
   final Tasks tasks;
+
   ProgressLineChart({@required this.tasks});
   @override
   _ProgressLineChartState createState() => _ProgressLineChartState();
-  
 }
 
 class _ProgressLineChartState extends State<ProgressLineChart> {
-   bool isShowingMainData;
-   @override
+  bool isShowingMainData;
+  double completedTasksDec = 0;
+  double overdueTasksDec = 0;
+  double upcomingTasksDec = 0;
+  double completedTasksJan = 0;
+  double overdueTasksJan = 0;
+  double upcomingTasksJan = 0;
+  double completedTasksFeb = 0;
+  double overdueTasksFeb = 0;
+  double upcomingTasksFeb = 0;
+  @override
   void initState() {
     super.initState();
     isShowingMainData = true;
+
+    for (int i = 0; i < widget.tasks.tasks.length; i++) {
+      //Dec Task
+      if (widget.tasks.tasks[i].dateCreated.month == 12) {
+        if (widget.tasks.tasks[i].completed == true) {
+          completedTasksDec = completedTasksDec + 1;
+        } else if (DateTime.now().isAfter(widget.tasks.tasks[i].dueDate) &&
+            !widget.tasks.tasks[i].completed) {
+          overdueTasksDec = overdueTasksDec + 1;
+        } else if (DateTime.now().isBefore(widget.tasks.tasks[i].dueDate) &&
+            !widget.tasks.tasks[i].completed) {
+          upcomingTasksDec = upcomingTasksDec + 1;
+        }
+      }
+      //Jan
+      if (widget.tasks.tasks[i].dateCreated.month == 01) {
+        if (widget.tasks.tasks[i].completed == true) {
+          completedTasksJan = completedTasksJan + 1;
+        } else if (DateTime.now().isAfter(widget.tasks.tasks[i].dueDate) &&
+            !widget.tasks.tasks[i].completed) {
+          overdueTasksJan = overdueTasksJan + 1;
+        } else if (DateTime.now().isBefore(widget.tasks.tasks[i].dueDate) &&
+            !widget.tasks.tasks[i].completed) {
+          upcomingTasksJan = upcomingTasksJan + 1;
+        }
+      }
+      //Feb
+      if (widget.tasks.tasks[i].dateCreated.month == 02) {
+        if (widget.tasks.tasks[i].completed == true) {
+          completedTasksFeb = completedTasksFeb + 1;
+        } else if (DateTime.now().isAfter(widget.tasks.tasks[i].dueDate) &&
+            !widget.tasks.tasks[i].completed) {
+          overdueTasksFeb = overdueTasksFeb + 1;
+        } else if (DateTime.now().isBefore(widget.tasks.tasks[i].dueDate) &&
+            !widget.tasks.tasks[i].completed) {
+          upcomingTasksFeb = upcomingTasksFeb + 1;
+        }
+      }
+    }
   }
-  
-   @override
+
+  @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1.23,
@@ -42,7 +90,6 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
                 const SizedBox(
                   height: 37,
                 ),
-               
                 const SizedBox(
                   height: 4,
                 ),
@@ -62,7 +109,7 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 16.0, left: 6.0),
                     child: LineChart(
-                      isShowingMainData ? sampleData1() : sampleData2(),
+                      sampleData1(),
                       swapAnimationDuration: const Duration(milliseconds: 250),
                     ),
                   ),
@@ -72,17 +119,6 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
                 ),
               ],
             ),
-            IconButton(
-              icon: Icon(
-                Icons.refresh,
-                color: Colors.white.withOpacity(isShowingMainData ? 1.0 : 0.5),
-              ),
-              onPressed: () {
-                setState(() {
-                  isShowingMainData = !isShowingMainData;
-                });
-              },
-            )
           ],
         ),
       ),
@@ -108,17 +144,17 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
           getTextStyles: (value) => const TextStyle(
             color: Color(0xff72719b),
             fontWeight: FontWeight.bold,
-            fontSize: 16,
+            fontSize: 12,
           ),
           margin: 10,
           getTitles: (value) {
             switch (value.toInt()) {
-              case 2:
-                return 'SEPT';
-              case 7:
-                return 'OCT';
-              case 12:
+              case 0:
                 return 'DEC';
+              case 1:
+                return 'JAN';
+              case 2:
+                return 'FEB';
             }
             return '';
           },
@@ -132,14 +168,14 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
           ),
           getTitles: (value) {
             switch (value.toInt()) {
-              case 1:
-                return '1m';
-              case 2:
-                return '2m';
-              case 3:
-                return '3m';
-              case 4:
-                return '5m';
+              case 0:
+                return '0';
+              case 10:
+                return '10';
+              case 20:
+                return '20';
+              case 30:
+                return '30';
             }
             return '';
           },
@@ -166,8 +202,8 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
         ),
       ),
       minX: 0,
-      maxX: 14,
-      maxY: 4,
+      maxX: 2,
+      maxY: 30,
       minY: 0,
       lineBarsData: linesBarData1(),
     );
@@ -176,17 +212,14 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
   List<LineChartBarData> linesBarData1() {
     final LineChartBarData lineChartBarData1 = LineChartBarData(
       spots: [
-        FlSpot(1, 1),
-        FlSpot(3, 1.5),
-        FlSpot(5, 1.4),
-        FlSpot(7, 3.4),
-        FlSpot(10, 2),
-        FlSpot(12, 2.2),
-        FlSpot(13, 1.8),
+        //OVERDUE
+        FlSpot(0, overdueTasksDec),
+        FlSpot(1, overdueTasksJan),
+        FlSpot(2, overdueTasksFeb),
       ],
       isCurved: true,
       colors: [
-        const Color(0xff4af699),
+        const Color(0xFFE57373),
       ],
       barWidth: 8,
       isStrokeCapRound: true,
@@ -199,12 +232,10 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
     );
     final LineChartBarData lineChartBarData2 = LineChartBarData(
       spots: [
-        FlSpot(1, 1),
-        FlSpot(3, 2.8),
-        FlSpot(7, 1.2),
-        FlSpot(10, 2.8),
-        FlSpot(12, 2.6),
-        FlSpot(13, 3.9),
+        //UPCOMING TASK
+        FlSpot(0, upcomingTasksDec),
+        FlSpot(1, upcomingTasksJan),
+        FlSpot(2, upcomingTasksFeb),
       ],
       isCurved: true,
       colors: [
@@ -221,11 +252,10 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
     );
     final LineChartBarData lineChartBarData3 = LineChartBarData(
       spots: [
-        FlSpot(1, 2.8),
-        FlSpot(3, 1.9),
-        FlSpot(6, 3),
-        FlSpot(10, 1.3),
-        FlSpot(13, 2.5),
+        //COMPLETED TASK
+        FlSpot(0, completedTasksDec),
+        FlSpot(1, completedTasksJan),
+        FlSpot(2, completedTasksFeb),
       ],
       isCurved: true,
       colors: const [
@@ -244,158 +274,6 @@ class _ProgressLineChartState extends State<ProgressLineChart> {
       lineChartBarData1,
       lineChartBarData2,
       lineChartBarData3,
-    ];
-  }
-
-  LineChartData sampleData2() {
-    return LineChartData(
-      lineTouchData: LineTouchData(
-        enabled: false,
-      ),
-      gridData: FlGridData(
-        show: false,
-      ),
-      titlesData: FlTitlesData(
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff72719b),
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-          margin: 10,
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'SEPT';
-              case 7:
-                return 'OCT';
-              case 12:
-                return 'DEC';
-            }
-            return '';
-          },
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff75729e),
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '1m';
-              case 2:
-                return '2m';
-              case 3:
-                return '3m';
-              case 4:
-                return '5m';
-              case 5:
-                return '6m';
-            }
-            return '';
-          },
-          margin: 8,
-          reservedSize: 30,
-        ),
-      ),
-      borderData: FlBorderData(
-          show: true,
-          border: const Border(
-            bottom: BorderSide(
-              color: Color(0xff4e4965),
-              width: 4,
-            ),
-            left: BorderSide(
-              color: Colors.transparent,
-            ),
-            right: BorderSide(
-              color: Colors.transparent,
-            ),
-            top: BorderSide(
-              color: Colors.transparent,
-            ),
-          )),
-      minX: 0,
-      maxX: 14,
-      maxY: 6,
-      minY: 0,
-      lineBarsData: linesBarData2(),
-    );
-  }
-
-  List<LineChartBarData> linesBarData2() {
-    return [
-      LineChartBarData(
-        spots: [
-          FlSpot(1, 1),
-          FlSpot(3, 4),
-          FlSpot(5, 1.8),
-          FlSpot(7, 5),
-          FlSpot(10, 2),
-          FlSpot(12, 2.2),
-          FlSpot(13, 1.8),
-        ],
-        isCurved: true,
-        curveSmoothness: 0,
-        colors: const [
-          Color(0x444af699),
-        ],
-        barWidth: 4,
-        isStrokeCapRound: true,
-        dotData: FlDotData(
-          show: false,
-        ),
-        belowBarData: BarAreaData(
-          show: false,
-        ),
-      ),
-      LineChartBarData(
-        spots: [
-          FlSpot(1, 1),
-          FlSpot(3, 2.8),
-          FlSpot(7, 1.2),
-          FlSpot(10, 2.8),
-          FlSpot(12, 2.6),
-          FlSpot(13, 3.9),
-        ],
-        isCurved: true,
-        colors: const [
-          Color(0x99aa4cfc),
-        ],
-        barWidth: 4,
-        isStrokeCapRound: true,
-        dotData: FlDotData(
-          show: false,
-        ),
-        belowBarData: BarAreaData(show: true, colors: [
-          const Color(0x33aa4cfc),
-        ]),
-      ),
-      LineChartBarData(
-        spots: [
-          FlSpot(1, 3.8),
-          FlSpot(3, 1.9),
-          FlSpot(6, 5),
-          FlSpot(10, 3.3),
-          FlSpot(13, 4.5),
-        ],
-        isCurved: true,
-        curveSmoothness: 0,
-        colors: const [
-          Color(0x4427b6fc),
-        ],
-        barWidth: 2,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: true),
-        belowBarData: BarAreaData(
-          show: false,
-        ),
-      ),
     ];
   }
 }
