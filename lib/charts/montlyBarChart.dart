@@ -2,9 +2,10 @@ import 'dart:math';
 import 'dart:async';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MonthlyBarChart extends StatefulWidget {
-final List<Color> availableColors = [
+  final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,
     Colors.lightBlue,
@@ -12,7 +13,6 @@ final List<Color> availableColors = [
     Colors.pink,
     Colors.redAccent,
   ];
-
 
   @override
   _MonthlyBarChartState createState() => _MonthlyBarChartState();
@@ -29,8 +29,8 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
     return AspectRatio(
       aspectRatio: 1,
       child: Card(
+        color: Colors.lime[200],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        color: Colors.indigoAccent,
         child: Stack(
           children: <Widget>[
             Padding(
@@ -43,7 +43,9 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                   Text(
                     'MontlyTask',
                     style: TextStyle(
-                        color: const Color(0xff0f4a3c), fontSize: 24, fontWeight: FontWeight.bold),
+                        color: const Color(0xff0f4a3c),
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 4,
@@ -51,7 +53,9 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                   Text(
                     'Task Done In A Month',
                     style: TextStyle(
-                        color: const Color(0xff379982), fontSize: 14, fontWeight: FontWeight.bold),
+                        color: const Color(0xff379982),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     height: 38,
@@ -102,7 +106,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
     double y, {
     bool isTouched = false,
     Color barColor = Colors.white,
-    double width = 22,
+    double width = 10,
     List<int> showTooltips = const [],
   }) {
     return BarChartGroupData(
@@ -114,7 +118,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            y: 20,
+            y: 30,
             colors: [barBackgroundColor],
           ),
         ),
@@ -123,10 +127,10 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
+  List<BarChartGroupData> showingGroups() => List.generate(12, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, 5, isTouched: i == touchedIndex);
+            return makeGroupData(0, monthcount(), isTouched: i == touchedIndex);
           case 1:
             return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
           case 2:
@@ -139,6 +143,17 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
             return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
           case 6:
             return makeGroupData(6, 6.5, isTouched: i == touchedIndex);
+          case 7:
+            return makeGroupData(7, 6.5, isTouched: i == touchedIndex);
+          case 8:
+            return makeGroupData(8, 6.5, isTouched: i == touchedIndex);
+          case 9:
+            return makeGroupData(9, 6.5, isTouched: i == touchedIndex);
+          case 10:
+            return makeGroupData(10, 6.5, isTouched: i == touchedIndex);
+          case 11:
+            return makeGroupData(11, 6.5, isTouched: i == touchedIndex);
+
           default:
             return null;
         }
@@ -153,29 +168,46 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
               String weekDay;
               switch (group.x.toInt()) {
                 case 0:
-                  weekDay = 'Monday';
+                  weekDay = 'January';
                   break;
                 case 1:
-                  weekDay = 'Tuesday';
+                  weekDay = 'February';
                   break;
                 case 2:
-                  weekDay = 'Wednesday';
+                  weekDay = 'March';
                   break;
                 case 3:
-                  weekDay = 'Thursday';
+                  weekDay = 'April';
                   break;
                 case 4:
-                  weekDay = 'Friday';
+                  weekDay = 'May';
                   break;
                 case 5:
-                  weekDay = 'Saturday';
+                  weekDay = 'June';
                   break;
                 case 6:
-                  weekDay = 'Sunday';
+                  weekDay = 'July';
+                  break;
+                case 7:
+                  weekDay = 'August';
+                  break;
+                case 8:
+                  weekDay = 'September';
+                  break;
+                case 9:
+                  weekDay = 'Octorber';
+                  break;
+                case 10:
+                  weekDay = 'November';
+                  break;
+                case 11:
+                  weekDay = 'December';
+                  break;
+
                   break;
               }
-              return BarTooltipItem(
-                  weekDay + '\n' + (rod.y - 1).toString(), TextStyle(color: Colors.yellow));
+              return BarTooltipItem(weekDay + '\n' + (rod.y - 1).toString(),
+                  TextStyle(color: Colors.yellow));
             }),
         touchCallback: (barTouchResponse) {
           setState(() {
@@ -193,25 +225,35 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) =>
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          getTextStyles: (value) => const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
             switch (value.toInt()) {
               case 0:
-                return 'M';
+                return 'J';
               case 1:
-                return 'T';
-              case 2:
-                return 'W';
-              case 3:
-                return 'T';
-              case 4:
                 return 'F';
+              case 2:
+                return 'M';
+              case 3:
+                return 'A';
+              case 4:
+                return 'M';
               case 5:
-                return 'S';
+                return 'J';
               case 6:
+                return 'J';
+              case 7:
+                return 'A';
+              case 8:
                 return 'S';
+              case 9:
+                return 'O';
+              case 10:
+                return 'N';
+              case 11:
+                return 'D';
               default:
                 return '';
             }
@@ -237,8 +279,8 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
         show: true,
         bottomTitles: SideTitles(
           showTitles: true,
-          getTextStyles: (value) =>
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+          getTextStyles: (value) => const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
           margin: 16,
           getTitles: (double value) {
             switch (value.toInt()) {
@@ -256,6 +298,18 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                 return 'S';
               case 6:
                 return 'S';
+              case 7:
+                return 'S';
+              case 8:
+                return 'S';
+              case 9:
+                return 'S';
+              case 10:
+                return 'S';
+              case 11:
+                return 'S';
+              case 12:
+                return 'S';
               default:
                 return '';
             }
@@ -268,29 +322,60 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
       borderData: FlBorderData(
         show: false,
       ),
-      barGroups: List.generate(7, (i) {
+      barGroups: List.generate(12, (i) {
         switch (i) {
           case 0:
             return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 1:
             return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 2:
             return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 3:
             return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 4:
             return makeGroupData(4, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 5:
             return makeGroupData(5, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           case 6:
             return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[Random().nextInt(widget.availableColors.length)]);
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
+          case 7:
+            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
+          case 8:
+            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
+          case 9:
+            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
+          case 10:
+            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
+          case 11:
+            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
+          case 12:
+            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
+                barColor: widget.availableColors[
+                    Random().nextInt(widget.availableColors.length)]);
           default:
             return null;
         }
@@ -300,9 +385,21 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
 
   Future<dynamic> refreshState() async {
     setState(() {});
-    await Future<dynamic>.delayed(animDuration + const Duration(milliseconds: 50));
+    await Future<dynamic>.delayed(
+        animDuration + const Duration(milliseconds: 50));
     if (isPlaying) {
       refreshState();
     }
   }
+}
+
+double monthcount() {
+  var dmyString = '23/4/1999';
+  double monthcount = 0.0;
+  DateTime brazilianDate = new DateFormat("dd/MM/yyyy").parse(dmyString);
+  if (brazilianDate.month == 4) {
+    monthcount = monthcount + 1.0;
+  }
+
+  return monthcount;
 }

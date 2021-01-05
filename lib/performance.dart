@@ -4,15 +4,41 @@ import 'package:pepelist/charts/montlyBarChart.dart';
 import 'package:pepelist/charts/progressLineChart.dart';
 import 'package:pepelist/charts/totalTaskLineChart.dart';
 import 'package:pepelist/charts/weeklyBarChart.dart';
+import 'package:pepelist/objects/task.dart';
 
 class Performance extends StatefulWidget {
-  Performance({Key key}) : super(key: key);
+  final Tasks tasks;
+
+  Performance({@required this.tasks});
 
   @override
   _PerformanceState createState() => _PerformanceState();
 }
 
 class _PerformanceState extends State<Performance> {
+  int totalTasks=0;
+  int completedTasks=0;
+  int overdueTasks=0;
+  int upcomingTasks=0;
+
+  @override
+  void initState() {
+    totalTasks = widget.tasks.tasks.length;
+
+  for(int i=0; i<widget.tasks.tasks.length; i++){
+    if(widget.tasks.tasks[i].completed == true){
+      completedTasks=completedTasks+1;
+    }
+    if(DateTime.now().isAfter(widget.tasks.tasks[i].dueDate) && !widget.tasks.tasks[i].completed){
+      overdueTasks=overdueTasks+1;
+    }
+    if(DateTime.now().isBefore(widget.tasks.tasks[i].dueDate) && !widget.tasks.tasks[i].completed){
+     upcomingTasks=upcomingTasks+1;
+    }
+  }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -44,10 +70,11 @@ class _PerformanceState extends State<Performance> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            //totaltask
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                "100",
+                                totaltask(),
                                 style: TextStyle(
                                     color: Colors.grey[800],
                                     fontSize: 50,
@@ -79,13 +106,14 @@ class _PerformanceState extends State<Performance> {
                             colors: [Colors.purple[100], Colors.purple[600]]),
                       ),
                       child: Center(
+                        //Upcomingtask
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                "32",
+                                upcomingtask(),
                                 style: TextStyle(
                                     color: Colors.purple[800],
                                     fontSize: 50,
@@ -121,13 +149,14 @@ class _PerformanceState extends State<Performance> {
                             colors: [Colors.blue[100], Colors.blue[400]]),
                       ),
                       child: Center(
+                        //Completed Task
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                "56",
+                                completedTask(),
                                 style: TextStyle(
                                     color: Colors.blue[900],
                                     fontSize: 50,
@@ -159,13 +188,14 @@ class _PerformanceState extends State<Performance> {
                             colors: [Colors.red[100], Colors.red[400]]),
                       ),
                       child: Center(
+                        //OverdueTask
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
-                                "16",
+                                overdueTask(),
                                 style: TextStyle(
                                     color: Colors.red[800],
                                     fontSize: 50,
@@ -243,5 +273,25 @@ class _PerformanceState extends State<Performance> {
         ],
       ),
     );
+  }
+
+  String totaltask() {
+    String total = "$totalTasks";
+    return total;
+  }
+
+  String upcomingtask() {
+    String total = "$upcomingTasks";
+    return total;
+  }
+
+  String completedTask() {
+    String total = "$completedTasks";
+    return total;
+  }
+
+  String overdueTask() {
+    String total = "$overdueTasks";
+    return total;
   }
 }

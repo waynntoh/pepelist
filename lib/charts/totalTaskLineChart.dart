@@ -1,7 +1,10 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:pepelist/objects/task.dart';
 
 class TotalTaskLineChart extends StatefulWidget {
+  final Tasks tasks;
+  TotalTaskLineChart({@required this.tasks});
   @override
   _TotalTaskLineChartState createState() => _TotalTaskLineChartState();
 }
@@ -16,21 +19,20 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-       Container(
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(18),
-                ),
-                color: Color(0xff232d37)),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                  right: 18.0, left: 12.0, top: 40, bottom: 12),
-              child: LineChart(
-                showAvg ? avgData() : mainData(),
+        Container(
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(18),
               ),
+              color: Color(0xff232d37)),
+          child: Padding(
+            padding: const EdgeInsets.only(
+                right: 18.0, left: 12.0, top: 40, bottom: 12),
+            child: LineChart(
+              showAvg ? avgData() : mainData(),
             ),
           ),
-        
+        ),
         SizedBox(
           width: 60,
           height: 34,
@@ -95,12 +97,30 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
               fontSize: 16),
           getTitles: (value) {
             switch (value.toInt()) {
+              case 0:
+                return 'J';
+              case 1:
+                return 'F';
               case 2:
-                return 'MAR';
+                return 'M';
+              case 3:
+                return 'A';
+              case 4:
+                return 'M';
               case 5:
-                return 'JUN';
+                return 'J';
+              case 6:
+                return 'J';
+              case 7:
+                return 'A';
               case 8:
-                return 'SEP';
+                return 'S';
+              case 9:
+                return 'O';
+              case 10:
+                return 'N';
+              case 11:
+                return 'D';
             }
             return '';
           },
@@ -115,12 +135,21 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
           ),
           getTitles: (value) {
             switch (value.toInt()) {
+              case 0:
+                return '10';
               case 1:
-                return '10k';
+                return '20';
+              case 2:
+                return '30';
               case 3:
-                return '30k';
+                return '40';
+              case 4:
+                return '50';
               case 5:
-                return '50k';
+                return '60';
+              case 6:
+                return '70';
+         
             }
             return '';
           },

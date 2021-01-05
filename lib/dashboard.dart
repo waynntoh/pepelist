@@ -157,7 +157,9 @@ class _DashboardState extends State<Dashboard> {
                       select: selectTask,
                       selectedTask: selectedTask,
                     )
-                  : Performance(),
+                  : Performance(
+                      tasks: tasks,
+                    ),
             ),
           ],
         ),
