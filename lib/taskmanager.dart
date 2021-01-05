@@ -6,7 +6,6 @@ import 'package:pepelist/objects/meeting_data_source.dart';
 import 'package:pepelist/objects/task.dart';
 import 'package:pepelist/widgets/taskTile.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-
 import 'objects/meeting.dart';
 
 class TaskManager extends StatefulWidget {
@@ -31,7 +30,8 @@ class TaskManager extends StatefulWidget {
 }
 
 class _TaskManagerState extends State<TaskManager> {
-  bool isCalendar = true;
+  bool isCalendar = false;
+  bool filter = false;
   List<Meeting> meetings;
 
   @override
@@ -62,7 +62,7 @@ class _TaskManagerState extends State<TaskManager> {
                       ),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
@@ -70,14 +70,37 @@ class _TaskManagerState extends State<TaskManager> {
                               .format(DateTime.now()),
                           style: TextStyle(fontSize: 28),
                         ),
-                        CupertinoSwitch(
-                          activeColor: Colors.blueAccent[100],
-                          value: isCalendar,
-                          onChanged: (value) {
-                            setState(() {
-                              isCalendar = value;
-                            });
-                          },
+                        Spacer(),
+                        Row(
+                          children: [
+                            Text('Filter Completed'),
+                            SizedBox(width: 8),
+                            CupertinoSwitch(
+                              activeColor: Colors.blueAccent[100],
+                              value: filter,
+                              onChanged: (value) {
+                                setState(() {
+                                  filter = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(width: 50),
+                        Row(
+                          children: [
+                            Text('View Mode'),
+                            SizedBox(width: 8),
+                            CupertinoSwitch(
+                              activeColor: Colors.blueAccent[100],
+                              value: isCalendar,
+                              onChanged: (value) {
+                                setState(() {
+                                  isCalendar = value;
+                                });
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -90,7 +113,9 @@ class _TaskManagerState extends State<TaskManager> {
                     child: !isCalendar
                         ? SingleChildScrollView(
                             child: Column(
-                              children: _buildTaskTiles(),
+                              children: filter
+                                  ? _buildCompletedTaskTiles()
+                                  : _buildAllTaskTiles(),
                             ),
                           )
                         : SfCalendar(
@@ -122,7 +147,7 @@ class _TaskManagerState extends State<TaskManager> {
     );
   }
 
-  List<Widget> _buildTaskTiles() {
+  List<Widget> _buildAllTaskTiles() {
     List<Widget> tiles = [];
 
     for (Task t in widget.tasks.tasks) {
@@ -130,6 +155,21 @@ class _TaskManagerState extends State<TaskManager> {
         task: t,
         select: widget.select,
       ));
+    }
+
+    return tiles;
+  }
+
+  List<Widget> _buildCompletedTaskTiles() {
+    List<Widget> tiles = [];
+
+    for (Task t in widget.tasks.tasks) {
+      if (t.completed) {
+        tiles.add(TaskTile(
+          task: t,
+          select: widget.select,
+        ));
+      }
     }
 
     return tiles;
