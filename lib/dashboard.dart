@@ -158,6 +158,7 @@ class _DashboardState extends State<Dashboard> {
                       deleteTask: delete,
                       select: selectTask,
                       selectedTask: selectedTask,
+                      ownerEmail: widget.email,
                     )
                   : Performance(
                       tasks: data,
