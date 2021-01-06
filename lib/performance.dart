@@ -7,7 +7,7 @@ import 'package:pepelist/charts/weeklyBarChart.dart';
 import 'package:pepelist/objects/task.dart';
 
 class Performance extends StatefulWidget {
-  final Tasks tasks;
+  final Data tasks;
 
   Performance({@required this.tasks});
 
@@ -16,26 +16,28 @@ class Performance extends StatefulWidget {
 }
 
 class _PerformanceState extends State<Performance> {
-  int totalTasks=0;
-  int completedTasks=0;
-  int overdueTasks=0;
-  int upcomingTasks=0;
+  int totalTasks = 0;
+  int completedTasks = 0;
+  int overdueTasks = 0;
+  int upcomingTasks = 0;
 
   @override
   void initState() {
     totalTasks = widget.tasks.tasks.length;
 
-  for(int i=0; i<widget.tasks.tasks.length; i++){
-    if(widget.tasks.tasks[i].completed == true){
-      completedTasks=completedTasks+1;
+    for (int i = 0; i < widget.tasks.tasks.length; i++) {
+      if (widget.tasks.tasks[i].completed == true) {
+        completedTasks = completedTasks + 1;
+      }
+      if (DateTime.now().isAfter(widget.tasks.tasks[i].dueDate) &&
+          !widget.tasks.tasks[i].completed) {
+        overdueTasks = overdueTasks + 1;
+      }
+      if (DateTime.now().isBefore(widget.tasks.tasks[i].dueDate) &&
+          !widget.tasks.tasks[i].completed) {
+        upcomingTasks = upcomingTasks + 1;
+      }
     }
-    if(DateTime.now().isAfter(widget.tasks.tasks[i].dueDate) && !widget.tasks.tasks[i].completed){
-      overdueTasks=overdueTasks+1;
-    }
-    if(DateTime.now().isBefore(widget.tasks.tasks[i].dueDate) && !widget.tasks.tasks[i].completed){
-     upcomingTasks=upcomingTasks+1;
-    }
-  }
     super.initState();
   }
 
@@ -257,13 +259,17 @@ class _PerformanceState extends State<Performance> {
                 Container(
                   height: size.height / 2.4,
                   width: size.width / 3.2,
-                  child: ProgressLineChart(tasks: widget.tasks,),
+                  child: ProgressLineChart(
+                    tasks: widget.tasks,
+                  ),
                 ),
                 SizedBox(
                   height: 30,
                 ),
                 Container(
-                  child: TotalTaskLineChart(tasks: widget.tasks,),
+                  child: TotalTaskLineChart(
+                    tasks: widget.tasks,
+                  ),
                   height: size.height / 2.4,
                   width: size.width / 3.2,
                 ),

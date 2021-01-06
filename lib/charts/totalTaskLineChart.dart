@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pepelist/objects/task.dart';
 
 class TotalTaskLineChart extends StatefulWidget {
-  final Tasks tasks;
+  final Data tasks;
   TotalTaskLineChart({@required this.tasks});
   @override
   _TotalTaskLineChartState createState() => _TotalTaskLineChartState();
