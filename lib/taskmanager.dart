@@ -9,7 +9,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'objects/meeting.dart';
 
 class TaskManager extends StatefulWidget {
-  final Tasks tasks;
+  final Data data;
   final Function addTask;
   final Function editTask;
   final Function deleteTask;
@@ -17,7 +17,7 @@ class TaskManager extends StatefulWidget {
   final Task selectedTask;
 
   TaskManager({
-    @required this.tasks,
+    @required this.data,
     @required this.addTask,
     @required this.editTask,
     @required this.deleteTask,
@@ -114,15 +114,20 @@ class _TaskManagerState extends State<TaskManager> {
                         ? SingleChildScrollView(
                             child: Column(
                               children: filter
-                                  ? _buildCompletedTaskTiles().length != 0
-                                      ? _buildCompletedTaskTiles()
-                                      : [
-                                          SizedBox(height: size.height / 3),
-                                          Center(
-                                            child: Text('No Upcoming Tasks'),
-                                          ),
-                                        ]
-                                  : _buildAllTaskTiles(),
+                                  ? _buildFilteredTaskTiles().length != 0
+                                      ? _buildFilteredTaskTiles()
+                                      : _buildAllTaskTiles().length != 0
+                                          ? _buildAllTaskTiles()
+                                          : [
+                                              SizedBox(height: 300),
+                                              Center(
+                                                  child:
+                                                      Text('No Upcoming Tasks'))
+                                            ]
+                                  : [
+                                      SizedBox(height: 300),
+                                      Center(child: Text('No Tasks'))
+                                    ],
                             ),
                           )
                         : SfCalendar(
@@ -132,7 +137,7 @@ class _TaskManagerState extends State<TaskManager> {
                             showNavigationArrow: true,
                             dataSource: MeetingDataSource(
                               filter
-                                  ? _getCompletedDataSource()
+                                  ? _getFilteredDataSource()
                                   : _getAllDataSource(),
                             ),
                             // by default the month appointment display mode set as Indicator, we can
@@ -162,7 +167,7 @@ class _TaskManagerState extends State<TaskManager> {
   List<Widget> _buildAllTaskTiles() {
     List<Widget> tiles = [];
 
-    for (Task t in widget.tasks.tasks) {
+    for (Task t in widget.data.tasks) {
       tiles.add(TaskTile(
         task: t,
         select: widget.select,
@@ -173,10 +178,10 @@ class _TaskManagerState extends State<TaskManager> {
     return tiles;
   }
 
-  List<Widget> _buildCompletedTaskTiles() {
+  List<Widget> _buildFilteredTaskTiles() {
     List<Widget> tiles = [];
 
-    for (Task t in widget.tasks.tasks) {
+    for (Task t in widget.data.tasks) {
       if (!t.completed) {
         tiles.add(TaskTile(
           task: t,
@@ -192,7 +197,7 @@ class _TaskManagerState extends State<TaskManager> {
   List<Meeting> _getAllDataSource() {
     meetings = <Meeting>[];
 
-    for (Task t in widget.tasks.tasks) {
+    for (Task t in widget.data.tasks) {
       meetings.add(
         Meeting(
           title: t.title,
@@ -205,10 +210,10 @@ class _TaskManagerState extends State<TaskManager> {
     return meetings;
   }
 
-  List<Meeting> _getCompletedDataSource() {
+  List<Meeting> _getFilteredDataSource() {
     meetings = <Meeting>[];
 
-    for (Task t in widget.tasks.tasks) {
+    for (Task t in widget.data.tasks) {
       if (!t.completed) {
         meetings.add(
           Meeting(

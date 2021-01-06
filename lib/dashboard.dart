@@ -18,14 +18,11 @@ class _DashboardState extends State<Dashboard> {
   Task selectedTask;
 
   // TODO: Delete
-  Tasks tasks = new Tasks();
+  Data data = new Data();
 
   @override
   void initState() {
     // TODO: get data from database
-    if (tasks.tasks[0] != null) {
-      selectedTask = tasks.tasks[0];
-    }
     super.initState();
   }
 
@@ -155,7 +152,7 @@ class _DashboardState extends State<Dashboard> {
               height: size.height,
               child: atManager
                   ? TaskManager(
-                      tasks: tasks,
+                      data: data,
                       addTask: add,
                       editTask: edit,
                       deleteTask: delete,
@@ -163,7 +160,7 @@ class _DashboardState extends State<Dashboard> {
                       selectedTask: selectedTask,
                     )
                   : Performance(
-                      tasks: tasks,
+                      tasks: data,
                     ),
             ),
           ],
@@ -174,13 +171,13 @@ class _DashboardState extends State<Dashboard> {
 
   void add(Task t) {
     setState(() {
-      tasks.tasks.add(t);
+      data.tasks.add(t);
     });
   }
 
   void edit(Task t, String title, String category, DateTime dd) {
     setState(() {
-      for (Task task in tasks.tasks) {
+      for (Task task in data.tasks) {
         if (task.title == t.title) {
           task.editTask(title, category, dd);
         }
@@ -190,7 +187,7 @@ class _DashboardState extends State<Dashboard> {
 
   void delete(Task t) {
     setState(() {
-      tasks.tasks.remove(t);
+      data.tasks.remove(t);
       print('removed');
     });
   }
