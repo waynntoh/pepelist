@@ -15,6 +15,7 @@ class TaskManager extends StatefulWidget {
   final Function deleteTask;
   final Function select;
   final Task selectedTask;
+  final String ownerEmail;
 
   TaskManager({
     @required this.data,
@@ -23,6 +24,7 @@ class TaskManager extends StatefulWidget {
     @required this.deleteTask,
     @required this.select,
     @required this.selectedTask,
+    @required this.ownerEmail,
   });
 
   @override
@@ -73,7 +75,7 @@ class _TaskManagerState extends State<TaskManager> {
                         Spacer(),
                         Row(
                           children: [
-                            Text('Filter Completed'),
+                            Text('Hide Completed'),
                             SizedBox(width: 8),
                             CupertinoSwitch(
                               activeColor: Colors.blueAccent[100],
@@ -113,22 +115,21 @@ class _TaskManagerState extends State<TaskManager> {
                     child: !isCalendar
                         ? SingleChildScrollView(
                             child: Column(
-                              children: filter
-                                  ? _buildFilteredTaskTiles().length != 0
-                                      ? _buildFilteredTaskTiles()
-                                      : _buildAllTaskTiles().length != 0
-                                          ? _buildAllTaskTiles()
-                                          : [
-                                              SizedBox(height: 300),
-                                              Center(
-                                                  child:
-                                                      Text('No Upcoming Tasks'))
-                                            ]
-                                  : [
-                                      SizedBox(height: 300),
-                                      Center(child: Text('No Tasks'))
-                                    ],
-                            ),
+                                children: filter
+                                    ? _buildFilteredTaskTiles().length == 0
+                                        ? [
+                                            SizedBox(height: 300),
+                                            Center(
+                                                child:
+                                                    Text('No Upcoming Tasks'))
+                                          ]
+                                        : _buildFilteredTaskTiles().length
+                                    : _buildAllTaskTiles().length == 0
+                                        ? [
+                                            SizedBox(height: 300),
+                                            Center(child: Text('No Tasks'))
+                                          ]
+                                        : _buildAllTaskTiles()),
                           )
                         : SfCalendar(
                             view: CalendarView.month,
@@ -158,6 +159,7 @@ class _TaskManagerState extends State<TaskManager> {
             deleteTask: widget.deleteTask,
             selectedTask: widget.selectedTask,
             reset: reset,
+            ownerEmail: widget.ownerEmail,
           ),
         ],
       ),

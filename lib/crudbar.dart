@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pepelist/objects/task.dart';
+import 'package:http/http.dart' as http;
+import 'package:pepelist/utils/constants.dart';
 
 class CRUDBar extends StatefulWidget {
   final Function addTask;
@@ -8,6 +10,7 @@ class CRUDBar extends StatefulWidget {
   final Function deleteTask;
   final Task selectedTask;
   final Function reset;
+  final String ownerEmail;
 
   CRUDBar({
     @required this.addTask,
@@ -15,6 +18,7 @@ class CRUDBar extends StatefulWidget {
     @required this.deleteTask,
     @required this.selectedTask,
     @required this.reset,
+    @required this.ownerEmail,
   });
 
   @override
@@ -30,6 +34,7 @@ class _CRUDBarState extends State<CRUDBar> {
   DateTime selectedDate = DateTime.now();
   String dateString = DateFormat('dd/MM/yyyy').format(DateTime.now());
   bool confirmedDeletion = false;
+  bool submitting = false;
 
   @override
   void initState() {
@@ -185,75 +190,98 @@ class _CRUDBarState extends State<CRUDBar> {
                       ],
                     ),
               SizedBox(height: 48),
-              RaisedButton(
-                color: confirmedDeletion
-                    ? Colors.redAccent[100]
-                    : Colors.blueAccent[100],
-                child: Text(state == 'Add'
-                    ? 'ADD'
-                    : state == 'Edit'
-                        ? 'SAVE CHANGES'
-                        : confirmedDeletion
-                            ? '*CONFIRM DELETION*'
-                            : 'DELETE'),
-                onPressed: () {
-                  if (state == 'Delete') {
-                    // TODO: Delete task from database
-
-                    setState(() {
-                      if (!confirmedDeletion) {
-                        confirmedDeletion = true;
+              Container(
+                height: 48,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.blueAccent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: InkWell(
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  mouseCursor:
+                      submitting ? null : MaterialStateMouseCursor.clickable,
+                  child: submitting
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Loading',
+                              style: kHeaderTextStyle.copyWith(
+                                fontSize: 17,
+                                color: Colors.white,
+                              ),
+                            ),
+                            SizedBox(width: 16),
+                            kSpinKitLoader,
+                          ],
+                        )
+                      : Center(
+                          child: Text(
+                            state == 'Add'
+                                ? 'ADD'
+                                : state == 'Edit'
+                                    ? 'SAVE CHANGES'
+                                    : confirmedDeletion
+                                        ? '*CONFIRM DELETION*'
+                                        : 'DELETE',
+                            style: kHeaderTextStyle.copyWith(
+                              fontSize: 17,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                  onTap: () {
+                    if (_formKey.currentState.validate() && !submitting) {
+                      if (submitting) {
+                        print('submitting, blocking clicks');
                       } else {
-                        widget.deleteTask(widget.selectedTask);
+                        if (state == 'Delete') {
+                          // TODO: Delete task from database
+                          setState(() {
+                            if (!confirmedDeletion) {
+                              confirmedDeletion = true;
+                            } else {
+                              widget.deleteTask(widget.selectedTask);
 
-                        // RESET
-                        confirmedDeletion = false;
-                      }
-                    });
-                  } else {
-                    if (_formKey.currentState.validate()) {
-                      // ADD
-                      if (state == 'Add') {
-                        // TODO: Add task to database
+                              // RESET
+                              confirmedDeletion = false;
+                            }
+                          });
+                        } else {
+                          if (_formKey.currentState.validate()) {
+                            // ADD
+                            if (state == 'Add') {
+                              print('add');
+                              dbAddTask();
+                            }
 
-                        setState(() {
-                          // Local
-                          Task newTask = Task(
-                            'hidethepainharold@gmail.com',
-                            titleController.text,
-                            categoryController.text,
-                            DateTime.now(),
-                            selectedDate,
-                          );
-                          widget.addTask(newTask);
+                            // EDIT
+                            // TODO: Edit task in database
 
-                          // Reset
-                          titleController.text = '';
-                          categoryController.text = 'Personal';
-                        });
-                      }
+                            if (state == 'Edit') {
+                              setState(() {
+                                widget.editTask(
+                                  widget.selectedTask,
+                                  titleController.text,
+                                  categoryController.text,
+                                  selectedDate,
+                                );
 
-                      // EDIT
-                      // TODO: Edit task in database
-
-                      if (state == 'Edit') {
-                        setState(() {
-                          widget.editTask(
-                            widget.selectedTask,
-                            titleController.text,
-                            categoryController.text,
-                            selectedDate,
-                          );
-
-                          // Reset
-                          titleController.text = '';
-                          categoryController.text = 'Personal';
-                          widget.reset();
-                        });
+                                // Reset
+                                titleController.text = '';
+                                categoryController.text = 'Personal';
+                                widget.reset();
+                              });
+                            }
+                          }
+                        }
                       }
                     }
-                  }
-                },
+                  },
+                ),
               ),
             ],
           ),
@@ -274,5 +302,46 @@ class _CRUDBarState extends State<CRUDBar> {
         selectedDate = picked;
         dateString = DateFormat('dd/MM/yyyy').format(selectedDate);
       });
+  }
+
+  void dbAddTask() {
+    setState(() {
+      submitting = true;
+    });
+    http.post('https://techvestigate.com/pepelist/php/addTask.php', body: {
+      "owneremail": widget.ownerEmail,
+      "title": titleController.text,
+      "category": categoryController.text,
+      "duedate": selectedDate.microsecondsSinceEpoch.toString(),
+      "completed": '0',
+    }).then((res) {
+      print(res.body);
+      if (res.body == "success") {
+        print('[+] Add task successful');
+        setState(() {
+          // Local
+          Task newTask = Task(
+            widget.ownerEmail,
+            titleController.text,
+            categoryController.text,
+            DateTime.now(),
+            selectedDate,
+          );
+          widget.addTask(newTask);
+
+          // Reset
+          titleController.text = '';
+          categoryController.text = 'Personal';
+        });
+        widget.reset();
+      } else {
+        print('[-] Add task failed');
+      }
+      setState(() {
+        submitting = false;
+      });
+    }).catchError((err) {
+      print(err);
+    });
   }
 }
