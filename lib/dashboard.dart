@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pepelist/objects/task.dart';
 import 'package:pepelist/performance.dart';
 import 'package:pepelist/taskmanager.dart';
+import 'package:http/http.dart' as http;
 
 class Dashboard extends StatefulWidget {
   final String email;
@@ -16,13 +18,12 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   bool atManager = true;
   Task selectedTask;
-
-  // TODO: Delete
+  List rd = [];
   Data data = new Data();
 
   @override
   void initState() {
-    // TODO: get data from database
+    getData();
     super.initState();
   }
 
@@ -196,6 +197,33 @@ class _DashboardState extends State<Dashboard> {
   void selectTask(Task t) {
     setState(() {
       selectedTask = t;
+    });
+  }
+
+  void getData() {
+    http.post('https://techvestigate.com/pepelist/php/getTask.php', body: {
+      "owneremail": widget.email,
+    }).then((res) {
+      if (res.body != 'failed') {
+        var extractdata = json.decode(res.body);
+        rd = extractdata["tasks"];
+
+        for (int i = 0; i < rd.length; i++) {
+          DateTime dc = DateTime.parse(rd[i]['datecreated']);
+          DateTime dd = DateTime.parse(rd[i]['duedate']);
+          bool completed = rd[i]['completed'] == '0' ? false : true;
+
+          Task newTask = new Task(widget.email, rd[i]['title'],
+              rd[i]['category'], dc, dd, completed);
+
+          data.tasks.add(newTask);
+        }
+        setState(() {});
+      } else {
+        print('[-] Get tasks failed');
+      }
+    }).catchError((err) {
+      print(err);
     });
   }
 }

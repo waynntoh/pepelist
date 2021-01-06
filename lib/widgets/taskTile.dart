@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:intl/intl.dart';
 import 'package:pepelist/objects/task.dart';
+import 'package:http/http.dart' as http;
 
 class TaskTile extends StatefulWidget {
   final Task task;
   final Function select;
   final Function resetParent;
 
-  const TaskTile(
-      {@required this.task, @required this.select, @required this.resetParent});
+  const TaskTile({
+    @required this.task,
+    @required this.select,
+    @required this.resetParent,
+  });
 
   @override
   _TaskTileState createState() => _TaskTileState();
 }
 
 class _TaskTileState extends State<TaskTile> {
+  bool submitting = false;
+
   @override
   Widget build(BuildContext context) {
     return OutlineButton(
@@ -74,16 +81,20 @@ class _TaskTileState extends State<TaskTile> {
               ),
             ),
             SizedBox(width: 360),
-            Checkbox(
-              value: (widget.task.completed),
-              onChanged: (value) {
-                setState(() {
-                  widget.task.toggleTaskCompletion(value);
-
-                  widget.resetParent();
-                });
-              },
-            )
+            SizedBox(
+              width: 50,
+              child: submitting
+                  ? SpinKitHourGlass(
+                      color: Colors.blue,
+                      size: 30,
+                    )
+                  : Checkbox(
+                      value: (widget.task.completed),
+                      onChanged: (value) {
+                        toggleCompleted(value);
+                      },
+                    ),
+            ),
           ],
         ),
       ),
@@ -93,5 +104,28 @@ class _TaskTileState extends State<TaskTile> {
         });
       },
     );
+  }
+
+  void toggleCompleted(bool b) {
+    setState(() {
+      submitting = true;
+    });
+    http.post('https://techvestigate.com/pepelist/php/editTask.php', body: {
+      "dc": widget.task.dateCreated.toString(),
+      "col": 'COMPLETED',
+      "new_data": b ? '1' : '0',
+    }).then((res) {
+      if (res.body == 'success') {
+        widget.task.toggleTaskCompletion(b);
+        widget.resetParent();
+      } else {
+        print('[-] Get tasks failed');
+      }
+      setState(() {
+        submitting = false;
+      });
+    }).catchError((err) {
+      print(err);
+    });
   }
 }
