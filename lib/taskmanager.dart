@@ -123,7 +123,7 @@ class _TaskManagerState extends State<TaskManager> {
                                                 child:
                                                     Text('No Upcoming Tasks'))
                                           ]
-                                        : _buildFilteredTaskTiles().length
+                                        : _buildFilteredTaskTiles()
                                     : _buildAllTaskTiles().length == 0
                                         ? [
                                             SizedBox(height: 300),

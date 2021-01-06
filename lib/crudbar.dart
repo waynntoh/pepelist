@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pepelist/objects/task.dart';
 import 'package:http/http.dart' as http;
-import 'package:pepelist/utils/constants.dart';
+import 'utils/constants.dart';
 
 class CRUDBar extends StatefulWidget {
   final Function addTask;
@@ -52,10 +52,6 @@ class _CRUDBarState extends State<CRUDBar> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    if (state == 'Edit') {
-      titleController.text = widget.selectedTask.title;
-    }
 
     return Expanded(
       flex: 4,
@@ -259,22 +255,20 @@ class _CRUDBarState extends State<CRUDBar> {
                             }
 
                             // EDIT
-                            // TODO: Edit task in database
-
                             if (state == 'Edit') {
-                              setState(() {
-                                widget.editTask(
-                                  widget.selectedTask,
-                                  titleController.text,
-                                  categoryController.text,
-                                  selectedDate,
-                                );
+                              if (titleController.text !=
+                                  widget.selectedTask.title) {
+                                // TODO: update title
+                              }
 
-                                // Reset
-                                titleController.text = '';
-                                categoryController.text = 'Personal';
-                                widget.reset();
-                              });
+                              if (categoryController.text !=
+                                  widget.selectedTask.category) {
+                                // TODO: update category
+                              }
+
+                              if (selectedDate != widget.selectedTask.dueDate) {
+                                // TODO: update due date
+                              }
                             }
                           }
                         }
@@ -312,8 +306,7 @@ class _CRUDBarState extends State<CRUDBar> {
       "owneremail": widget.ownerEmail,
       "title": titleController.text,
       "category": categoryController.text,
-      "duedate": selectedDate.microsecondsSinceEpoch.toString(),
-      "completed": '0',
+      "duedate": selectedDate.toString(),
     }).then((res) {
       print(res.body);
       if (res.body == "success") {
@@ -326,14 +319,16 @@ class _CRUDBarState extends State<CRUDBar> {
             categoryController.text,
             DateTime.now(),
             selectedDate,
+            false,
           );
           widget.addTask(newTask);
 
           // Reset
           titleController.text = '';
           categoryController.text = 'Personal';
+          selectedDate = DateTime.now();
+          widget.reset();
         });
-        widget.reset();
       } else {
         print('[-] Add task failed');
       }
@@ -342,6 +337,50 @@ class _CRUDBarState extends State<CRUDBar> {
       });
     }).catchError((err) {
       print(err);
+    });
+  }
+
+  void editTask(String col, String newData) {
+    setState(() {
+      submitting = true;
+    });
+    http.post('https://techvestigate.com/pepelist/php/editTask.php', body: {
+      "dc": widget.selectedTask.dateCreated.toString(),
+      "col": 'col',
+      "new_data": newData,
+    }).then((res) {
+      if (res.body == 'success') {
+        setState(() {
+          widget.editTask(
+            widget.selectedTask,
+            titleController.text,
+            categoryController.text,
+            selectedDate,
+          );
+
+          // Reset
+          titleController.text = '';
+          categoryController.text = 'Personal';
+          selectedDate = DateTime.now();
+          widget.reset();
+        });
+      } else {
+        print('[-] Get tasks failed');
+      }
+      setState(() {
+        submitting = false;
+      });
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void resetControllers(Task task) {
+    print('reset');
+    setState(() {
+      titleController.text = task.title;
+      categoryController.text = task.category;
+      selectedDate = task.dueDate;
     });
   }
 }
