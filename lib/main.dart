@@ -1,10 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:pepelist/dashboard.dart';
-import 'package:pepelist/login.dart';
-import 'package:pepelist/performance.dart';
-import 'package:pepelist/register.dart';
 import 'widgets/navbar.dart';
 import 'utils/responsiveLayout.dart';
 
@@ -12,6 +8,7 @@ void main() => runApp(MaterialApp(
       title: 'PEPELIST',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+
         primarySwatch: Colors.blue,
       ),
       home: HomePage(),

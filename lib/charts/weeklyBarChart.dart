@@ -2,8 +2,12 @@ import 'dart:math';
 import 'dart:async';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:pepelist/objects/task.dart';
 
 class WeeklyBarChart extends StatefulWidget {
+  final Data tasks;
+  WeeklyBarChart({@required this.tasks});
+
   final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,
@@ -22,6 +26,37 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
   final Duration animDuration = const Duration(milliseconds: 250);
   int touchedIndex;
   bool isPlaying = false;
+  double monday = 0;
+  double tuesday = 0;
+  double wednesday = 0;
+  double thursday = 0;
+  double friday = 0;
+  double saturday = 0;
+  double sunday = 0;
+
+  @override
+  void initState() {
+    String date = DateTime.now().add(Duration(days: 14)).toString();
+
+// This will generate the time and date for first day of month
+    String firstDay = date.substring(0, 7) + '01' + date.substring(10);
+
+// week day for the first day of the month
+    int weekDay = DateTime.parse(firstDay).weekday;
+    int currentWeek;
+
+// If your calender starts from sunday
+    if (weekDay == 7) {
+      // Current week
+      currentWeek = (DateTime.now().day / 7).ceil();
+    } else {
+      // Current week
+      currentWeek = ((DateTime.now().day + weekDay) / 7).ceil();
+    }
+    print(currentWeek);
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +98,7 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: BarChart(
-                        isPlaying ? randomData() : mainBarData(),
+                        mainBarData(),
                         swapAnimationDuration: animDuration,
                       ),
                     ),
@@ -208,83 +243,6 @@ class _WeeklyBarChartState extends State<WeeklyBarChart> {
         show: false,
       ),
       barGroups: showingGroups(),
-    );
-  }
-
-  BarChartData randomData() {
-    return BarChartData(
-      barTouchData: BarTouchData(
-        enabled: false,
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) => const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
-          margin: 16,
-          getTitles: (double value) {
-            switch (value.toInt()) {
-              case 0:
-                return 'M';
-              case 1:
-                return 'T';
-              case 2:
-                return 'W';
-              case 3:
-                return 'T';
-              case 4:
-                return 'F';
-              case 5:
-                return 'S';
-              case 6:
-                return 'S';
-              default:
-                return '';
-            }
-          },
-        ),
-        leftTitles: SideTitles(
-          showTitles: false,
-        ),
-      ),
-      borderData: FlBorderData(
-        show: false,
-      ),
-      barGroups: List.generate(7, (i) {
-        switch (i) {
-          case 0:
-            return makeGroupData(0, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
-          case 1:
-            return makeGroupData(1, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
-          case 2:
-            return makeGroupData(2, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
-          case 3:
-            return makeGroupData(3, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
-          case 4:
-            return makeGroupData(4, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
-          case 5:
-            return makeGroupData(5, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
-          case 6:
-            return makeGroupData(6, Random().nextInt(15).toDouble() + 6,
-                barColor: widget.availableColors[
-                    Random().nextInt(widget.availableColors.length)]);
-          default:
-            return null;
-        }
-      }),
     );
   }
 
