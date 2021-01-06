@@ -3,8 +3,12 @@ import 'dart:async';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pepelist/objects/task.dart';
 
 class MonthlyBarChart extends StatefulWidget {
+  final Tasks tasks;
+
+ MonthlyBarChart({@required this.tasks});
   final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,
@@ -41,7 +45,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Text(
-                    'Monthly Task',
+                    'Montly Task',
                     style: TextStyle(
                         color: const Color(0xff0f4a3c),
                         fontSize: 24,
@@ -110,7 +114,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
   List<BarChartGroupData> showingGroups() => List.generate(12, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, monthcount(), isTouched: i == touchedIndex);
+            return makeGroupData(0, 0, isTouched: i == touchedIndex);
           case 1:
             return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
           case 2:
@@ -260,13 +264,23 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
   }
 }
 
-double monthcount() {
-  var dmyString = '23/4/1999';
-  double monthcount = 0.0;
-  DateTime brazilianDate = new DateFormat("dd/MM/yyyy").parse(dmyString);
-  if (brazilianDate.month == 4) {
-    monthcount = monthcount + 1.0;
-  }
+// double monthcount(List<Task> tasks) {
+//   double totaltaskJan = 0.0;
+//   double totaltaskFeb = 0.0;
+//   double totaltaskMar = 0.0;
+//   double totaltaskApr = 0.0;
+//   double totaltaskMay = 0.0;
+//   double totaltaskJun = 0.0;
+//   double totaltaskJul = 0.0;
+//   double totaltaskOgs = 0.0;
+//   double totaltaskSep = 0.0;
+//   double totaltaskNov = 0.0;
+//   double totaltaskDec = 0.0;
 
-  return monthcount;
-}
+//   for(int i=0; i<tasks.length; i++){
+//    if()
+//   }
+  
+  
+//   return monthcount;
+// }
