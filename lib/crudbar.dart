@@ -212,7 +212,7 @@ class _CRUDBarState extends State<CRUDBar> {
                           children: [
                             Text(
                               'Loading',
-                              style: kHeaderTextStyle.copyWith(
+                              style: TextStyle(
                                 fontSize: 17,
                                 color: Colors.white,
                               ),
@@ -230,7 +230,7 @@ class _CRUDBarState extends State<CRUDBar> {
                                     : confirmedDeletion
                                         ? '*CONFIRM DELETION*'
                                         : 'DELETE',
-                            style: kHeaderTextStyle.copyWith(
+                            style: TextStyle(
                               fontSize: 17,
                               color: Colors.white,
                             ),

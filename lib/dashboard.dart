@@ -61,15 +61,15 @@ class _DashboardState extends State<Dashboard> {
                           style: TextStyle(fontSize: 28),
                         ),
                         SizedBox(width: 18),
-                        Image.asset(
-                          'logo.png',
+                        Image.network(
+                          'assets/images/logo.png',
                           scale: 3,
                         )
                       ],
                     ),
                     SizedBox(height: 50),
                     CircleAvatar(
-                      backgroundImage: AssetImage('harold.jpg'),
+                      backgroundImage: NetworkImage('assets/images/header.jpg'),
                       radius: 75,
                     ),
                     SizedBox(height: 16),
@@ -133,8 +133,8 @@ class _DashboardState extends State<Dashboard> {
                       padding: EdgeInsets.all(16),
                       color: Colors.blue[100],
                       onPressed: () {
-                        print('Sign out');
-                        
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,

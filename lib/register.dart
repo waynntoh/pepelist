@@ -74,7 +74,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("registerpic.jpg"),
+                                  image: NetworkImage(
+                                      "assets/images/registerpic.jpg"),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -95,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           children: [
                             Text(
                               'Sign Up',
-                              style: kHeaderTextStyle.copyWith(
+                              style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w900,
                               ),
@@ -110,7 +111,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     backgroundColor: kGrey1,
                                     backgroundImage: _image != null
                                         ? NetworkImage(_image.path)
-                                        : AssetImage('programmer.png'),
+                                        : NetworkImage(
+                                            'assets/images/programmer.png'),
                                     radius: 80,
                                   ),
                                   onTap: () {
@@ -124,10 +126,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     children: [
                                       TextFormField(
                                         controller: nameController,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Full Name',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         validator: (value) {
                                           if (value.isEmpty) {
@@ -140,10 +140,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                       SizedBox(height: 4),
                                       TextFormField(
                                         controller: emailController,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Email Address',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         validator: (value) {
                                           if (value.isEmpty) {
@@ -156,10 +154,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                       SizedBox(height: 4),
                                       TextFormField(
                                         controller: passwordController,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Password',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         obscureText: true,
                                         validator: (value) {
@@ -173,10 +169,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                       TextFormField(
                                         controller: confirmPasswordController,
                                         obscureText: true,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Confirm Password',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         validator: (value) {
                                           if (value !=
@@ -194,7 +188,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 SizedBox(height: 72),
                                 Container(
                                   height: 48,
-                                  width: width/5,
+                                  width: width / 5,
                                   decoration: BoxDecoration(
                                     color: Colors.grey[600],
                                     borderRadius: BorderRadius.circular(8),
@@ -211,10 +205,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          submitting
-                                              ? 'Submitting'
-                                              : 'Sign Up',
-                                          style: kHeaderTextStyle.copyWith(
+                                          submitting ? 'Submitting' : 'Sign Up',
+                                          style: TextStyle(
                                             fontSize: 17,
                                             color: Colors.white,
                                           ),
@@ -245,38 +237,40 @@ class _RegisterPageState extends State<RegisterPage> {
                               ],
                             ),
                             Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                                  child: Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 30,
-                                          ),
-                                          Text("Already have an account?"),
-                                          Container(
-                                            height: 20,
-                                            width: 70,
-                                            child: FlatButton(
-                                                hoverColor: Colors.transparent,
-                                                onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            LoginPage()),
-                                                  );
-                                                },
-                                                child: Text(
-                                                  "Log In",
-                                                  style: TextStyle(
-                                                      color: Colors.blue),
-                                                )),
-                                          ),
-                                        ],
-                                      )),
-                                ),
+                              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                              child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 30,
+                                      ),
+                                      Text(
+                                        "Already have an account?",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Container(
+                                        height: 20,
+                                        width: 70,
+                                        child: FlatButton(
+                                            hoverColor: Colors.transparent,
+                                            onPressed: () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginPage()),
+                                              );
+                                            },
+                                            child: Text(
+                                              "Log In",
+                                              style:
+                                                  TextStyle(color: Colors.blue),
+                                            )),
+                                      ),
+                                    ],
+                                  )),
+                            ),
                           ],
                         ),
                       ),
@@ -305,10 +299,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     Navigator.pop(context);
                   },
                 ),
-
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Main Page", style: TextStyle(color: Colors.grey[700],fontSize: 20),),
+                  child: Text(
+                    "Main Page",
+                    style: TextStyle(color: Colors.grey[700], fontSize: 20),
+                  ),
                 )
               ],
             ),

@@ -86,7 +86,8 @@ class _LoginPageState extends State<LoginPage> {
                           Container(
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("loginpic.jpg"),
+                                  image: NetworkImage(
+                                      "assets/images/loginpic.jpg"),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -110,22 +111,18 @@ class _LoginPageState extends State<LoginPage> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(30.0),
-                                  child: Image.asset(
-                                    'logo.png',
+                                  child: Image.network(
+                                    'assets/images/logo.png',
                                     scale: 2,
                                   ),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(0, 30, 0, 80),
-                                  child: Text(
-                                    'Login',
-                                    style: kHeaderTextStyle.copyWith(
-                                      fontSize: 42,
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                    textAlign: TextAlign.center,
+                                Text(
+                                  'Login',
+                                  style: TextStyle(
+                                    fontSize: 42,
+                                    fontWeight: FontWeight.w900,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ],
                             ),
@@ -138,10 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                                     children: [
                                       TextFormField(
                                         controller: emailController,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Email Address',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         validator: (value) {
                                           if (value.isEmpty) {
@@ -154,10 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                                       SizedBox(height: 4),
                                       TextFormField(
                                         controller: passwordController,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Password',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         obscureText: true,
                                         validator: (value) {
@@ -171,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 120),
+                                SizedBox(height: height / 5),
                                 Container(
                                   height: 48,
                                   width: width / 5,
@@ -192,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                                       children: [
                                         Text(
                                           submitting ? 'Logging in' : 'Login',
-                                          style: kHeaderTextStyle.copyWith(
+                                          style: TextStyle(
                                             fontSize: 17,
                                             color: Colors.white,
                                           ),
@@ -276,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
                     size: 32,
                   ),
                   onTap: () {
-                     Navigator.push(
+                    Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => HomePage()),
                     );

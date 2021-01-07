@@ -1,6 +1,6 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pepelist/utils/my_flutter_app_icons.dart';
 import 'widgets/navbar.dart';
 import 'utils/responsiveLayout.dart';
@@ -10,6 +10,7 @@ void main() => runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: GoogleFonts.arvoTextTheme(),
       ),
       home: HomePage(),
     ));
@@ -76,7 +77,7 @@ class LargeChild extends StatelessWidget {
           decoration: BoxDecoration(
               image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage("wallpaper1.png"),
+            image: NetworkImage("assets/images/wallpaper1.png"),
           )),
           height: 1000,
           child: Column(
@@ -92,7 +93,7 @@ class LargeChild extends StatelessWidget {
                     FractionallySizedBox(
                       alignment: Alignment.centerRight,
                       widthFactor: 0.5,
-                      child: Image.asset("logo.png", scale: .6),
+                      child: Image.network("assets/images/logo.png", scale: .6),
                     ),
                     FractionallySizedBox(
                       alignment: Alignment.centerLeft,
@@ -191,7 +192,7 @@ class LargeChild extends StatelessWidget {
             children: [
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
                   child: Text(
                     "SERVICES",
                     style: TextStyle(
@@ -206,7 +207,7 @@ class LargeChild extends StatelessWidget {
                 children: [
                   //todo Service
                   Container(
-                    height: size.height / 2,
+                    height: size.height / 1.8,
                     width: size.width / 4,
                     child: Column(
                       children: [
@@ -220,7 +221,7 @@ class LargeChild extends StatelessWidget {
                             height: size.height / 6.5,
                             width: size.width / 6.5,
                             child: Image(
-                              image: AssetImage("todolist.png"),
+                              image: NetworkImage("assets/images/todolist.png"),
                             ),
                           ),
                         ),
@@ -251,7 +252,7 @@ class LargeChild extends StatelessWidget {
                   ),
                   //Calander
                   Container(
-                    height: size.height / 2,
+                    height: size.height / 1.8,
                     width: size.width / 4,
                     child: Column(
                       children: [
@@ -265,7 +266,7 @@ class LargeChild extends StatelessWidget {
                             height: size.height / 6.5,
                             width: size.width / 6.5,
                             child: Image(
-                              image: AssetImage("calendar.png"),
+                              image: NetworkImage("assets/images/calendar.png"),
                             ),
                           ),
                         ),
@@ -296,7 +297,7 @@ class LargeChild extends StatelessWidget {
                   ),
                   //Performace panel
                   Container(
-                    height: size.height / 2,
+                    height: size.height / 1.8,
                     width: size.width / 4,
                     child: Column(
                       children: [
@@ -309,7 +310,9 @@ class LargeChild extends StatelessWidget {
                             ),
                             height: size.height / 6.5,
                             width: size.width / 6.5,
-                            child: Image(image: AssetImage("performance.png")),
+                            child: Image(
+                                image: NetworkImage(
+                                    "assets/images/performance.png")),
                           ),
                         ),
                         Padding(
@@ -343,7 +346,7 @@ class LargeChild extends StatelessWidget {
           ),
         ),
         Container(
-          height: size.height / 1.2,
+          height: size.height / 1.1,
           width: size.width,
           color: Colors.grey[200],
           child: Column(
@@ -352,7 +355,7 @@ class LargeChild extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: Text(
-                    "COMMENT",
+                    "USER FEEDBACK",
                     style: TextStyle(
                       fontSize: 50,
                       color: Colors.grey,
@@ -373,7 +376,7 @@ class LargeChild extends StatelessWidget {
                             height: size.height / 5,
                             width: size.width / 5,
                             child: Image(
-                              image: AssetImage("wesley.png"),
+                              image: NetworkImage("assets/images/wesley.png"),
                             ),
                           ),
                           Padding(
@@ -419,7 +422,7 @@ class LargeChild extends StatelessWidget {
                                 child: Text(
                                   " ' PEPELIST let me to mark off the tasks that I have completed. At the end of the day, when I look at the list, it will give myself a sense of accomplishment and satisfaction. It might also have the effect of waking me up if nothing has been marked completed. Most important PEPELIST is FREE. ' ",
                                   textAlign: TextAlign.justify,
-                                  style: TextStyle(fontSize: 18,height: 1.5),
+                                  style: TextStyle(fontSize: 18, height: 1.5),
                                 )),
                           ),
                         ],
@@ -446,7 +449,7 @@ class LargeChild extends StatelessWidget {
                                 child: Text(
                                   " ' Feeling forgetful? Nobody is capable of remembering everything at all times. PEPELIST are a useful external memory aid that give me the permission to forget my tasks. As long as I can remember to look at my to-do list, I will never lose anything that I have recorded on it. ' ",
                                   textAlign: TextAlign.justify,
-                                  style: TextStyle(fontSize: 18,height: 1.5),
+                                  style: TextStyle(fontSize: 18, height: 1.5),
                                 )),
                           ),
                         ],
@@ -464,7 +467,7 @@ class LargeChild extends StatelessWidget {
                             height: size.height / 5,
                             width: size.width / 5,
                             child: Image(
-                              image: AssetImage("likey.png"),
+                              image: NetworkImage("assets/images/likey.png"),
                             ),
                           ),
                           Padding(
@@ -540,8 +543,8 @@ class LargeChild extends StatelessWidget {
                     child: Container(
                       height: size.height / 13,
                       child: Image(
-                          image: AssetImage(
-                        "logo.png",
+                          image: NetworkImage(
+                        "assets/images/logo.png",
                       )),
                     ),
                   ),
