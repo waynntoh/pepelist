@@ -11,6 +11,11 @@ class CRUDBar extends StatefulWidget {
   final Task selectedTask;
   final Function reset;
   final String ownerEmail;
+  final Function resetSelectedTask;
+
+  final TextEditingController titleC;
+  final TextEditingController categoryC;
+  final TextEditingController sdateC;
 
   CRUDBar({
     @required this.addTask,
@@ -19,6 +24,10 @@ class CRUDBar extends StatefulWidget {
     @required this.selectedTask,
     @required this.reset,
     @required this.ownerEmail,
+    @required this.resetSelectedTask,
+    @required this.titleC,
+    @required this.categoryC,
+    @required this.sdateC,
   });
 
   @override
@@ -28,29 +37,28 @@ class CRUDBar extends StatefulWidget {
 class _CRUDBarState extends State<CRUDBar> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String state = 'Add';
-
-  TextEditingController titleController = TextEditingController();
-  TextEditingController categoryController = TextEditingController();
-  DateTime selectedDate = DateTime.now();
-  String dateString = DateFormat('dd/MM/yyyy').format(DateTime.now());
   bool confirmedDeletion = false;
   bool submitting = false;
 
   @override
   void initState() {
-    categoryController.text = 'Personal';
+    if (widget.categoryC.text == '' || widget.categoryC.text == null) {
+      widget.categoryC.text = 'Personal';
+    }
+    if (widget.sdateC.text == '' || widget.sdateC.text == null) {
+      widget.sdateC.text = DateTime.now().toString();
+    }
     super.initState();
   }
 
   @override
-  void dispose() {
-    titleController.dispose();
-    categoryController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    if (state != 'Edit') {
+      widget.titleC.text = '';
+      widget.categoryC.text = 'Personal';
+      widget.sdateC.text = DateTime.now().toString();
+    }
+
     Size size = MediaQuery.of(context).size;
 
     return Expanded(
@@ -116,7 +124,7 @@ class _CRUDBarState extends State<CRUDBar> {
               state == 'Delete'
                   ? Container()
                   : TextFormField(
-                      controller: titleController,
+                      controller: widget.titleC,
                       decoration: InputDecoration(
                         hintText: 'Title',
                       ),
@@ -135,7 +143,7 @@ class _CRUDBarState extends State<CRUDBar> {
                       children: [
                         Text('Category'),
                         DropdownButton(
-                          hint: Text(categoryController.text),
+                          hint: Text(widget.categoryC.text),
                           icon: Icon(Icons.arrow_drop_down),
                           items: [
                             DropdownMenuItem(
@@ -165,7 +173,7 @@ class _CRUDBarState extends State<CRUDBar> {
                           ],
                           onChanged: (value) {
                             setState(() {
-                              categoryController.text = value;
+                              widget.categoryC.text = value;
                             });
                           },
                         ),
@@ -181,7 +189,11 @@ class _CRUDBarState extends State<CRUDBar> {
                         FlatButton(
                           color: Colors.lightBlueAccent[100],
                           onPressed: () => _selectDate(context),
-                          child: Text(dateString),
+                          child: Text(DateTime.parse(widget.sdateC.text) != null
+                              ? DateFormat('dd/MM/yyyy')
+                                  .format(DateTime.parse(widget.sdateC.text))
+                              : DateFormat('dd/MM/yyyy')
+                                  .format(DateTime.now())),
                         ),
                       ],
                     ),
@@ -190,7 +202,8 @@ class _CRUDBarState extends State<CRUDBar> {
                 height: 48,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.blueAccent,
+                  color:
+                      confirmedDeletion ? Colors.redAccent : Colors.blueAccent,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: InkWell(
@@ -230,48 +243,28 @@ class _CRUDBarState extends State<CRUDBar> {
                           ),
                         ),
                   onTap: () {
-                    if (_formKey.currentState.validate() && !submitting) {
-                      if (submitting) {
-                        print('submitting, blocking clicks');
-                      } else {
-                        if (state == 'Delete') {
-                          // TODO: Delete task from database
-                          setState(() {
-                            if (!confirmedDeletion) {
-                              confirmedDeletion = true;
-                            } else {
-                              widget.deleteTask(widget.selectedTask);
-
-                              // RESET
-                              confirmedDeletion = false;
-                            }
-                          });
-                        } else {
-                          if (_formKey.currentState.validate()) {
-                            // ADD
-                            if (state == 'Add') {
-                              print('add');
-                              dbAddTask();
-                            }
-
-                            // EDIT
-                            if (state == 'Edit') {
-                              if (titleController.text !=
-                                  widget.selectedTask.title) {
-                                // TODO: update title
-                              }
-
-                              if (categoryController.text !=
-                                  widget.selectedTask.category) {
-                                // TODO: update category
-                              }
-
-                              if (selectedDate != widget.selectedTask.dueDate) {
-                                // TODO: update due date
-                              }
-                            }
+                    if (!submitting) {
+                      // DELETE
+                      if (state == 'Delete') {
+                        setState(() {
+                          if (!confirmedDeletion) {
+                            confirmedDeletion = true;
+                          } else {
+                            dbDeleteTask();
                           }
-                        }
+                        });
+                      }
+
+                      // EDIT
+                      if (state == 'Edit' && widget.selectedTask != null) {
+                        dbEditTask();
+                      } else {
+                        print('no selected task');
+                      }
+
+                      // ADD
+                      if (state == 'Add' && _formKey.currentState.validate()) {
+                        dbAddTask();
                       }
                     }
                   },
@@ -287,14 +280,13 @@ class _CRUDBarState extends State<CRUDBar> {
   _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
-      initialDate: selectedDate,
+      initialDate: DateTime.parse(widget.sdateC.text),
       firstDate: DateTime(2000),
       lastDate: DateTime(2050),
     );
-    if (picked != null && picked != selectedDate)
+    if (picked != null && picked != DateTime.parse(widget.sdateC.text))
       setState(() {
-        selectedDate = picked;
-        dateString = DateFormat('dd/MM/yyyy').format(selectedDate);
+        widget.sdateC.text = picked.toString();
       });
   }
 
@@ -304,29 +296,27 @@ class _CRUDBarState extends State<CRUDBar> {
     });
     http.post('https://techvestigate.com/pepelist/php/addTask.php', body: {
       "owneremail": widget.ownerEmail,
-      "title": titleController.text,
-      "category": categoryController.text,
-      "duedate": selectedDate.toString(),
+      "title": widget.titleC.text,
+      "category": widget.categoryC.text,
+      "duedate": widget.sdateC.text,
     }).then((res) {
-      print(res.body);
       if (res.body == "success") {
-        print('[+] Add task successful');
         setState(() {
           // Local
           Task newTask = Task(
             widget.ownerEmail,
-            titleController.text,
-            categoryController.text,
+            widget.titleC.text,
+            widget.categoryC.text,
             DateTime.now(),
-            selectedDate,
+            DateTime.parse(widget.sdateC.text),
             false,
           );
           widget.addTask(newTask);
 
           // Reset
-          titleController.text = '';
-          categoryController.text = 'Personal';
-          selectedDate = DateTime.now();
+          widget.titleC.text = '';
+          widget.categoryC.text = 'Personal';
+          widget.sdateC.text = DateTime.now().toString();
           widget.reset();
         });
       } else {
@@ -340,47 +330,77 @@ class _CRUDBarState extends State<CRUDBar> {
     });
   }
 
-  void editTask(String col, String newData) {
+  void dbEditTask() {
     setState(() {
       submitting = true;
     });
+
+    bool editTitle = widget.selectedTask.title != widget.titleC.text;
+    bool editCategory = widget.selectedTask.category != widget.categoryC.text;
+    bool editDueDate =
+        widget.selectedTask.dueDate != DateTime.parse(widget.sdateC.text);
+
     http.post('https://techvestigate.com/pepelist/php/editTask.php', body: {
       "dc": widget.selectedTask.dateCreated.toString(),
-      "col": 'col',
-      "new_data": newData,
+      "new_title": editTitle ? widget.titleC.text : widget.selectedTask.title,
+      "new_category":
+          editCategory ? widget.categoryC.text : widget.selectedTask.category,
+      "new_duedate": editDueDate
+          ? widget.sdateC.text
+          : widget.selectedTask.dueDate.toString(),
     }).then((res) {
       if (res.body == 'success') {
         setState(() {
           widget.editTask(
             widget.selectedTask,
-            titleController.text,
-            categoryController.text,
-            selectedDate,
+            editTitle ? widget.titleC.text : widget.selectedTask.title,
+            editCategory ? widget.categoryC.text : widget.selectedTask.category,
+            editDueDate
+                ? DateTime.parse(widget.sdateC.text)
+                : widget.selectedTask.dueDate,
           );
-
-          // Reset
-          titleController.text = '';
-          categoryController.text = 'Personal';
-          selectedDate = DateTime.now();
+          // titleController.text = '';
+          // categoryController.text = 'Personal';
+          // selectedDate = DateTime.now();
           widget.reset();
+          widget.resetSelectedTask();
         });
       } else {
-        print('[-] Get tasks failed');
+        print('[-] Edit task failed');
+      }
+      setState(() {
+        submitting = false;
+      });
+      widget.reset();
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void dbDeleteTask() {
+    setState(() {
+      submitting = true;
+    });
+    http.post('https://techvestigate.com/pepelist/php/deleteTask.php', body: {
+      "dc": widget.selectedTask.dateCreated.toString(),
+    }).then((res) {
+      if (res.body == "success") {
+        setState(() {
+          // Local
+          widget.deleteTask(widget.selectedTask);
+          widget.reset();
+          confirmedDeletion = false;
+        });
+        // ignore: unnecessary_statements
+        widget.resetSelectedTask;
+      } else {
+        print('[-] Delete task failed');
       }
       setState(() {
         submitting = false;
       });
     }).catchError((err) {
       print(err);
-    });
-  }
-
-  void resetControllers(Task task) {
-    print('reset');
-    setState(() {
-      titleController.text = task.title;
-      categoryController.text = task.category;
-      selectedDate = task.dueDate;
     });
   }
 }
