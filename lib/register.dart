@@ -50,7 +50,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 colors: [
                   Colors.blueAccent[100],
                   kOrange0,
-                  Colors.cyanAccent[100],
+                  Colors.grey[400],
                 ],
                 begin: Alignment.bottomLeft,
                 end: Alignment.topRight,
@@ -68,15 +68,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 7,
+                      flex: 4,
                       child: Stack(
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                bottomLeft: Radius.circular(24),
-                              ),
                               image: DecorationImage(
                                   image: AssetImage("registerpic.jpg"),
                                   fit: BoxFit.cover),
@@ -86,23 +82,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: 7,
                       child: Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 72, vertical: 56),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(21),
-                            bottomRight: Radius.circular(21),
-                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              'Registration',
+                              'Sign Up',
                               style: kHeaderTextStyle.copyWith(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w900,
@@ -118,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     backgroundColor: kGrey1,
                                     backgroundImage: _image != null
                                         ? NetworkImage(_image.path)
-                                        : AssetImage('dummy_image.png'),
+                                        : AssetImage('programmer.png'),
                                     radius: 80,
                                   ),
                                   onTap: () {
@@ -199,12 +191,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 32),
+                                SizedBox(height: 72),
                                 Container(
                                   height: 48,
-                                  width: double.infinity,
+                                  width: width/5,
                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent,
+                                    color: Colors.grey[600],
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: InkWell(
@@ -221,7 +213,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         Text(
                                           submitting
                                               ? 'Submitting'
-                                              : 'Register',
+                                              : 'Sign Up',
                                           style: kHeaderTextStyle.copyWith(
                                             fontSize: 17,
                                             color: Colors.white,
@@ -252,6 +244,39 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ],
                             ),
+                            Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                                  child: Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Text("Already have an account?"),
+                                          Container(
+                                            height: 20,
+                                            width: 70,
+                                            child: FlatButton(
+                                                hoverColor: Colors.transparent,
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            LoginPage()),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  "Log In",
+                                                  style: TextStyle(
+                                                      color: Colors.blue),
+                                                )),
+                                          ),
+                                        ],
+                                      )),
+                                ),
                           ],
                         ),
                       ),
@@ -264,18 +289,28 @@ class _RegisterPageState extends State<RegisterPage> {
           Positioned(
             left: 26,
             top: 26,
-            child: InkWell(
-              hoverColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              mouseCursor: MaterialStateMouseCursor.clickable,
-              child: FaIcon(
-                FontAwesomeIcons.arrowAltCircleLeft,
-                size: 32,
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+            child: Row(
+              children: [
+                InkWell(
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  mouseCursor: MaterialStateMouseCursor.clickable,
+                  child: FaIcon(
+                    FontAwesomeIcons.arrowAltCircleLeft,
+                    color: kGrey4,
+                    size: 32,
+                  ),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text("Main Page", style: TextStyle(color: Colors.grey[700],fontSize: 20),),
+                )
+              ],
             ),
           ),
         ],

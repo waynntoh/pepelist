@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:pepelist/utils/my_flutter_app_icons.dart';
 import 'widgets/navbar.dart';
 import 'utils/responsiveLayout.dart';
 
@@ -35,7 +36,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey[100],
         body: Stack(
           children: [
             Container(
@@ -91,7 +92,7 @@ class LargeChild extends StatelessWidget {
                     FractionallySizedBox(
                       alignment: Alignment.centerRight,
                       widthFactor: 0.5,
-                      child: Image.asset("logo.png", scale: .85),
+                      child: Image.asset("logo.png", scale: .6),
                     ),
                     FractionallySizedBox(
                       alignment: Alignment.centerLeft,
@@ -149,7 +150,6 @@ class LargeChild extends StatelessWidget {
           padding: const EdgeInsets.all(30),
           child: Center(
             child: Container(
-              color: Colors.red,
               height: size.height / 2.3,
               width: size.width / 1.5,
               alignment: Alignment.topCenter,
@@ -167,16 +167,13 @@ class LargeChild extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Flexible(
-                      child: Container(
-                        color: Colors.green,
-                        child: Text(
-                          "PEPELIST are a series of extremely useful resources to improve your productivity and organise your life. PEPELIST gives you more than just a to-do list,lanner & calendar app for managing and organizing your daily tasks, to-do lists, notes, reminders, checklists, calendar events, grocery lists, a place to write long notes, create organised outlines and track your daily routines. You can organize tasks by time period, including daily, weekly, monthly, long-term activities. This web app displays every activity through the dashboard so that every activity can be viewed and managed easily.",
-                          textAlign: TextAlign.justify,
-                          style: TextStyle(
-                            fontSize: 25,
-                            height: 1.5,
-                          ),
+                    child: Container(
+                      child: Text(
+                        "PEPELIST are a series of extremely useful resources to improve your productivity and organise your life. PEPELIST gives you more than just a to-do list,lanner & calendar app for managing and organizing your daily tasks, reminders, checklists, calendar events, grocery lists, a place to write long notes, create organised outlines and track your daily routines. You can organize tasks by time period, including daily, weekly, monthly, long-term activities. This web app displays every activity through the dashboard so that every activity can be viewed and managed easily.",
+                        textAlign: TextAlign.justify,
+                        style: TextStyle(
+                          fontSize: 20,
+                          height: 1.5,
                         ),
                       ),
                     ),
@@ -186,6 +183,7 @@ class LargeChild extends StatelessWidget {
             ),
           ),
         ),
+        //Services
         Container(
           height: size.height / 1.3,
           width: size.width,
@@ -206,10 +204,10 @@ class LargeChild extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  //todo Service
                   Container(
                     height: size.height / 2,
                     width: size.width / 4,
-                    color: Colors.amberAccent,
                     child: Column(
                       children: [
                         Padding(
@@ -217,17 +215,13 @@ class LargeChild extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             decoration: new BoxDecoration(
-                              color: Colors.red,
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                alignment: Alignment.center,
-                                image: AssetImage(
-                                  "logo.png",
-                                ),
-                              ),
                             ),
                             height: size.height / 6.5,
                             width: size.width / 6.5,
+                            child: Image(
+                              image: AssetImage("todolist.png"),
+                            ),
                           ),
                         ),
                         Padding(
@@ -242,25 +236,23 @@ class LargeChild extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Flexible(
-                            child: Container(
-                              child: Text(
-                                  "PEPELIST allows you to prioritize the tasks that are more important. This means you don’t waste time on tasks that don’t require your immediate attention. Your list will help you stay focused on the tasks that are the most important and provide a planner for managing and organizing your daily tasks such as checklists, grocery lists and more.",
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    height: 1.3,
-                                  )),
-                            ),
+                          child: Container(
+                            child: Text(
+                                "PEPELIST allows you to prioritize the tasks that are more important. This means you don’t waste time on tasks that don’t require your immediate attention. Your list will help you stay focused on the tasks that are the most important and provide a planner for managing and organizing your daily tasks such as checklists, grocery lists and more.",
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  height: 1.3,
+                                )),
                           ),
                         ),
                       ],
                     ),
                   ),
-                   Container(
+                  //Calander
+                  Container(
                     height: size.height / 2,
                     width: size.width / 4,
-                    color: Colors.amberAccent,
                     child: Column(
                       children: [
                         Padding(
@@ -268,22 +260,18 @@ class LargeChild extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             decoration: new BoxDecoration(
-                              color: Colors.red,
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                alignment: Alignment.center,
-                                image: AssetImage(
-                                  "logo.png",
-                                ),
-                              ),
                             ),
                             height: size.height / 6.5,
                             width: size.width / 6.5,
+                            child: Image(
+                              image: AssetImage("calendar.png"),
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(15.0),
-                          child: Text("TODOLIST",
+                          child: Text("CALENDER WIDGET",
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: Colors.grey[800],
@@ -293,25 +281,23 @@ class LargeChild extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Flexible(
-                            child: Container(
-                              child: Text(
-                                  "PEPELIST allows you to prioritize the tasks that are more important. This means you don’t waste time on tasks that don’t require your immediate attention. Your list will help you stay focused on the tasks that are the most important and provide a planner for managing and organizing your daily tasks such as checklists, grocery lists and more.",
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    height: 1.3,
-                                  )),
-                            ),
+                          child: Container(
+                            child: Text(
+                                "Calender widget keep your to-do list always at hand with our calendar widget. PEPELIST provide you a widget that contain to-do list and a planner that support yearly calendar view, agenda view, with built-in reminders. So that you can review and organize your calendar events and to do list side by side.",
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  height: 1.3,
+                                )),
                           ),
                         ),
                       ],
                     ),
                   ),
-                   Container(
+                  //Performace panel
+                  Container(
                     height: size.height / 2,
                     width: size.width / 4,
-                    color: Colors.amberAccent,
                     child: Column(
                       children: [
                         Padding(
@@ -319,22 +305,16 @@ class LargeChild extends StatelessWidget {
                           child: Container(
                             alignment: Alignment.center,
                             decoration: new BoxDecoration(
-                              color: Colors.red,
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                alignment: Alignment.center,
-                                image: AssetImage(
-                                  "logo.png",
-                                ),
-                              ),
                             ),
                             height: size.height / 6.5,
                             width: size.width / 6.5,
+                            child: Image(image: AssetImage("performance.png")),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(15.0),
-                          child: Text("TODOLIST",
+                          child: Text("Performance Panel",
                               textAlign: TextAlign.justify,
                               style: TextStyle(
                                 color: Colors.grey[800],
@@ -344,16 +324,14 @@ class LargeChild extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(20.0),
-                          child: Flexible(
-                            child: Container(
-                              child: Text(
-                                  "PEPELIST allows you to prioritize the tasks that are more important. This means you don’t waste time on tasks that don’t require your immediate attention. Your list will help you stay focused on the tasks that are the most important and provide a planner for managing and organizing your daily tasks such as checklists, grocery lists and more.",
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    height: 1.3,
-                                  )),
-                            ),
+                          child: Container(
+                            child: Text(
+                                "PEPELIST provided performance panel for you to view the total tasks, completed tasks , overdue tasks, and upcoming tasks after you have created your todo list. This give a overall view for you to observe youself all the time in just one panel with all type of graph.",
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  height: 1.3,
+                                )),
                           ),
                         ),
                       ],
@@ -365,12 +343,245 @@ class LargeChild extends StatelessWidget {
           ),
         ),
         Container(
-          height: size.height / 1.3,
+          height: size.height / 1.2,
           width: size.width,
           color: Colors.grey[200],
+          child: Column(
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Text(
+                    "COMMENT",
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Container(
+                      height: size.height / 3.5,
+                      width: size.width / 5,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: size.height / 5,
+                            width: size.width / 5,
+                            child: Image(
+                              image: AssetImage("wesley.png"),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Wesley Ho",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Student of University Utara Malaysia",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Container(
+                      height: size.height / 3.5,
+                      width: size.width / 3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                            child: Container(
+                                alignment: Alignment.topCenter,
+                                child: Text(
+                                  " ' PEPELIST let me to mark off the tasks that I have completed. At the end of the day, when I look at the list, it will give myself a sense of accomplishment and satisfaction. It might also have the effect of waking me up if nothing has been marked completed. Most important PEPELIST is FREE. ' ",
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(fontSize: 18,height: 1.5),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Container(
+                      height: size.height / 3.5,
+                      width: size.width / 3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+                            child: Container(
+                                alignment: Alignment.topCenter,
+                                child: Text(
+                                  " ' Feeling forgetful? Nobody is capable of remembering everything at all times. PEPELIST are a useful external memory aid that give me the permission to forget my tasks. As long as I can remember to look at my to-do list, I will never lose anything that I have recorded on it. ' ",
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(fontSize: 18,height: 1.5),
+                                )),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: Container(
+                      height: size.height / 3.5,
+                      width: size.width / 5,
+                      child: Column(
+                        children: [
+                          Container(
+                            height: size.height / 5,
+                            width: size.width / 5,
+                            child: Image(
+                              image: AssetImage("likey.png"),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Likey Goh",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(0.0),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Dental Technician in KLIDC",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
-        SizedBox(
-          height: 300,
+        Container(
+          height: size.height / 10,
+          width: size.width,
+          color: Colors.grey[800],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Text(
+                      "PEPELIST",
+                      style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(220, 4, 4, 4),
+                    child: Text(
+                      "Copyright © 2021, PEPECHU. All rights reserved.",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.only(right: 100),
+                child: Row(children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 4, 30, 4),
+                    child: Container(
+                      height: size.height / 13,
+                      child: Image(
+                          image: AssetImage(
+                        "logo.png",
+                      )),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: IconButton(
+                      icon: Icon(
+                        MyFlutterApp.github_circled_alt2,
+                        color: Colors.white60,
+                        size: 35,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: IconButton(
+                      icon: Icon(
+                        MyFlutterApp.facebook_circled,
+                        color: Colors.white60,
+                        size: 35,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: IconButton(
+                      icon: Icon(
+                        MyFlutterApp.instagram_circled,
+                        color: Colors.white60,
+                        size: 35,
+                      ),
+                      onPressed: () {},
+                    ),
+                  )
+                ]),
+              ),
+            ],
+          ),
         ),
       ],
     );

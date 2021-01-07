@@ -134,6 +134,7 @@ class _DashboardState extends State<Dashboard> {
                       color: Colors.blue[100],
                       onPressed: () {
                         print('Sign out');
+                        
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
