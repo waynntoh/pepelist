@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pepelist/charts/montlyBarChart.dart';
 import 'package:pepelist/charts/progressLineChart.dart';
 import 'package:pepelist/charts/totalTaskLineChart.dart';
-import 'package:pepelist/charts/weeklyBarChart.dart';
 import 'package:pepelist/objects/task.dart';
 
 class Performance extends StatefulWidget {

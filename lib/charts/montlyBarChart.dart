@@ -87,7 +87,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
     return AspectRatio(
       aspectRatio: 1,
       child: Card(
-        color: Colors.lime[200],
+        color: Colors.blueGrey[300],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -116,7 +116,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                           Text(
                             'Task Done In A Month',
                             style: TextStyle(
-                                color: const Color(0xff379982),
+                                color: Colors.white,
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
                           ),
