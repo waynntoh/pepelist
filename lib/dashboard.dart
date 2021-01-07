@@ -20,6 +20,9 @@ class _DashboardState extends State<Dashboard> {
   Task selectedTask;
   List rd = [];
   Data data = new Data();
+  TextEditingController titleC = new TextEditingController();
+  TextEditingController categoryC = new TextEditingController();
+  TextEditingController sDateC = new TextEditingController();
 
   @override
   void initState() {
@@ -160,6 +163,11 @@ class _DashboardState extends State<Dashboard> {
                       select: selectTask,
                       selectedTask: selectedTask,
                       ownerEmail: widget.email,
+                      resetSelectedTask: resetSelectedTask,
+                      titleC: titleC,
+                      categoryC: categoryC,
+                      sdateC: sDateC,
+                      resetCRUD: setCRUDControllers,
                     )
                   : Performance(
                       tasks: data,
@@ -180,7 +188,7 @@ class _DashboardState extends State<Dashboard> {
   void edit(Task t, String title, String category, DateTime dd) {
     setState(() {
       for (Task task in data.tasks) {
-        if (task.title == t.title) {
+        if (task.dateCreated == t.dateCreated) {
           task.editTask(title, category, dd);
         }
       }
@@ -190,13 +198,18 @@ class _DashboardState extends State<Dashboard> {
   void delete(Task t) {
     setState(() {
       data.tasks.remove(t);
-      print('removed');
     });
   }
 
   void selectTask(Task t) {
     setState(() {
       selectedTask = t;
+    });
+  }
+
+  void resetSelectedTask() {
+    setState(() {
+      selectedTask = null;
     });
   }
 
@@ -224,6 +237,14 @@ class _DashboardState extends State<Dashboard> {
       }
     }).catchError((err) {
       print(err);
+    });
+  }
+
+  void setCRUDControllers() {
+    setState(() {
+      titleC.text = selectedTask.title;
+      categoryC.text = selectedTask.category;
+      sDateC.text = selectedTask.dueDate.toString();
     });
   }
 }

@@ -264,7 +264,6 @@ class _LoginPageState extends State<LoginPage> {
     }).then((res) {
       List<String> echoes = res.body.split(',');
       if (echoes[0] == "success") {
-        print('[+] Login Successful');
         Navigator.push(
           context,
           MaterialPageRoute(

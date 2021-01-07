@@ -8,11 +8,13 @@ class TaskTile extends StatefulWidget {
   final Task task;
   final Function select;
   final Function resetParent;
+  final Function resetCRUD;
 
   const TaskTile({
     @required this.task,
     @required this.select,
     @required this.resetParent,
+    @required this.resetCRUD,
   });
 
   @override
@@ -73,10 +75,7 @@ class _TaskTileState extends State<TaskTile> {
                 child: Text(
                   widget.task.completed
                       ? 'Completed'
-                      : DateTime.now().isAfter(widget.task.dueDate)
-                          ? 'Overdue'
-                          : DateFormat('dd/MM/yyyy')
-                              .format(widget.task.dueDate),
+                      : DateFormat('dd/MM/yyyy').format(widget.task.dueDate),
                 ),
               ),
             ),
@@ -101,6 +100,7 @@ class _TaskTileState extends State<TaskTile> {
       onPressed: () {
         setState(() {
           widget.select(widget.task);
+          widget.resetCRUD();
         });
       },
     );
