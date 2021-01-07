@@ -69,7 +69,7 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     SizedBox(height: 50),
                     CircleAvatar(
-                      backgroundImage: AssetImage('harold.jpg'),
+                      backgroundImage: NetworkImage('assets/images/header.jpg'),
                       radius: 75,
                     ),
                     SizedBox(height: 16),
