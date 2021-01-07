@@ -4,9 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:pepelist/crudbar.dart';
 import 'package:pepelist/objects/meeting_data_source.dart';
 import 'package:pepelist/objects/task.dart';
-import 'package:pepelist/widgets/taskTile.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'objects/meeting.dart';
+import 'widgets/taskTile.dart';
 
 class TaskManager extends StatefulWidget {
   final Data data;
@@ -16,6 +16,11 @@ class TaskManager extends StatefulWidget {
   final Function select;
   final Task selectedTask;
   final String ownerEmail;
+  final Function resetSelectedTask;
+  final TextEditingController titleC;
+  final TextEditingController categoryC;
+  final TextEditingController sdateC;
+  final Function resetCRUD;
 
   TaskManager({
     @required this.data,
@@ -25,6 +30,11 @@ class TaskManager extends StatefulWidget {
     @required this.select,
     @required this.selectedTask,
     @required this.ownerEmail,
+    @required this.resetSelectedTask,
+    @required this.titleC,
+    @required this.categoryC,
+    @required this.sdateC,
+    @required this.resetCRUD,
   });
 
   @override
@@ -123,7 +133,7 @@ class _TaskManagerState extends State<TaskManager> {
                                                 child:
                                                     Text('No Upcoming Tasks'))
                                           ]
-                                        : _buildFilteredTaskTiles().length
+                                        : _buildFilteredTaskTiles()
                                     : _buildAllTaskTiles().length == 0
                                         ? [
                                             SizedBox(height: 300),
@@ -160,6 +170,10 @@ class _TaskManagerState extends State<TaskManager> {
             selectedTask: widget.selectedTask,
             reset: reset,
             ownerEmail: widget.ownerEmail,
+            resetSelectedTask: widget.resetSelectedTask,
+            categoryC: widget.categoryC,
+            sdateC: widget.sdateC,
+            titleC: widget.titleC,
           ),
         ],
       ),
@@ -174,6 +188,7 @@ class _TaskManagerState extends State<TaskManager> {
         task: t,
         select: widget.select,
         resetParent: reset,
+        resetCRUD: widget.resetCRUD,
       ));
     }
 
@@ -189,6 +204,7 @@ class _TaskManagerState extends State<TaskManager> {
           task: t,
           select: widget.select,
           resetParent: reset,
+          resetCRUD: widget.resetCRUD,
         ));
       }
     }

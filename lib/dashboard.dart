@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pepelist/objects/task.dart';
 import 'package:pepelist/performance.dart';
 import 'package:pepelist/taskmanager.dart';
+import 'package:http/http.dart' as http;
 
 class Dashboard extends StatefulWidget {
   final String email;
@@ -16,13 +18,15 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   bool atManager = true;
   Task selectedTask;
-
-  // TODO: Delete
+  List rd = [];
   Data data = new Data();
+  TextEditingController titleC = new TextEditingController();
+  TextEditingController categoryC = new TextEditingController();
+  TextEditingController sDateC = new TextEditingController();
 
   @override
   void initState() {
-    // TODO: get data from database
+    getData();
     super.initState();
   }
 
@@ -159,6 +163,11 @@ class _DashboardState extends State<Dashboard> {
                       select: selectTask,
                       selectedTask: selectedTask,
                       ownerEmail: widget.email,
+                      resetSelectedTask: resetSelectedTask,
+                      titleC: titleC,
+                      categoryC: categoryC,
+                      sdateC: sDateC,
+                      resetCRUD: setCRUDControllers,
                     )
                   : Performance(
                       tasks: data,
@@ -179,7 +188,7 @@ class _DashboardState extends State<Dashboard> {
   void edit(Task t, String title, String category, DateTime dd) {
     setState(() {
       for (Task task in data.tasks) {
-        if (task.title == t.title) {
+        if (task.dateCreated == t.dateCreated) {
           task.editTask(title, category, dd);
         }
       }
@@ -189,13 +198,53 @@ class _DashboardState extends State<Dashboard> {
   void delete(Task t) {
     setState(() {
       data.tasks.remove(t);
-      print('removed');
     });
   }
 
   void selectTask(Task t) {
     setState(() {
       selectedTask = t;
+    });
+  }
+
+  void resetSelectedTask() {
+    setState(() {
+      selectedTask = null;
+    });
+  }
+
+  void getData() {
+    http.post('https://techvestigate.com/pepelist/php/getTask.php', body: {
+      "owneremail": widget.email,
+    }).then((res) {
+      if (res.body != 'failed') {
+        var extractdata = json.decode(res.body);
+        rd = extractdata["tasks"];
+
+        for (int i = 0; i < rd.length; i++) {
+          DateTime dc = DateTime.parse(rd[i]['datecreated']);
+          DateTime dd = DateTime.parse(rd[i]['duedate']);
+          bool completed = rd[i]['completed'] == '0' ? false : true;
+
+          Task newTask = new Task(widget.email, rd[i]['title'],
+              rd[i]['category'], dc, dd, completed);
+
+          data.tasks.add(newTask);
+        }
+        setState(() {});
+      } else {
+        print('[-] Get tasks failed');
+      }
+    }).catchError((err) {
+      print(err);
+    });
+  }
+
+  void setCRUDControllers() {
+    setState(() {
+      titleC.text = selectedTask.title;
+      categoryC.text = selectedTask.category;
+      sDateC.text = selectedTask.dueDate.toString();
     });
   }
 }

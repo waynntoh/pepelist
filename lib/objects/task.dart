@@ -4,15 +4,16 @@ class Task {
   String category;
   DateTime dateCreated;
   DateTime dueDate;
-  DateTime dateCompleted;
   bool completed = false;
 
-  Task(String oe, String t, String c, DateTime dcre, DateTime dd) {
+  Task(String oe, String t, String c, DateTime dcre, DateTime dd,
+      bool completed) {
     this.ownerEmail = oe;
     this.title = t;
     this.category = c;
     this.dateCreated = dcre;
     this.dueDate = dd;
+    this.completed = completed;
   }
 
   void toggleTaskCompletion(bool b) {
@@ -31,13 +32,5 @@ class Data {
 
   Data() {
     tasks = [];
-  }
-
-  bool isEmpty() {
-    if (true) {
-      return true;
-    } else {
-      return false;
-    }
   }
 }

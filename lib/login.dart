@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:pepelist/dashboard.dart';
 import 'package:pepelist/utils/constants.dart';
@@ -266,7 +264,6 @@ class _LoginPageState extends State<LoginPage> {
     }).then((res) {
       List<String> echoes = res.body.split(',');
       if (echoes[0] == "success") {
-        print('[+] Login Successful');
         Navigator.push(
           context,
           MaterialPageRoute(
