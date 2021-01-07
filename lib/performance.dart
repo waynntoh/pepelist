@@ -1,9 +1,7 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:pepelist/charts/montlyBarChart.dart';
 import 'package:pepelist/charts/progressLineChart.dart';
 import 'package:pepelist/charts/totalTaskLineChart.dart';
-import 'package:pepelist/charts/weeklyBarChart.dart';
 import 'package:pepelist/objects/task.dart';
 
 class Performance extends StatefulWidget {
@@ -227,22 +225,13 @@ class _PerformanceState extends State<Performance> {
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
                       height: size.height / 3.4,
-                      width: size.width / 5,
+                      width: size.width / 2.4,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
-                      child: MonthlyBarChart(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      height: size.height / 3.4,
-                      width: size.width / 5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(25)),
+                      child: MonthlyBarChart(
+                        tasks: widget.tasks,
                       ),
-                      child: WeeklyBarChart(),
                     ),
                   ),
                 ],

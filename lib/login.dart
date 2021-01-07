@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:pepelist/dashboard.dart';
+import 'package:pepelist/main.dart';
+import 'package:pepelist/register.dart';
 import 'package:pepelist/utils/constants.dart';
 
 class LoginPage extends StatefulWidget {
@@ -60,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 colors: [
                   Colors.blueAccent[100],
                   kOrange0,
-                  Colors.cyanAccent[100],
+                  Colors.grey[400],
                 ],
                 begin: Alignment.bottomLeft,
                 end: Alignment.topRight,
@@ -69,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Center(
               child: Container(
                 width: width - 500,
-                height: height - 300,
+                height: height - 160,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(24),
                   boxShadow: [kItemCardShadow],
@@ -78,17 +80,14 @@ class _LoginPageState extends State<LoginPage> {
                 child: Row(
                   children: [
                     Expanded(
-                      flex: 7,
+                      flex: 4,
                       child: Stack(
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(24),
-                                bottomLeft: Radius.circular(24),
-                              ),
                               image: DecorationImage(
-                                  image: AssetImage("loginpic.jpg"),
+                                  image: NetworkImage(
+                                      "assets/images/loginpic.jpg"),
                                   fit: BoxFit.cover),
                             ),
                           ),
@@ -96,33 +95,31 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Expanded(
-                      flex: 4,
+                      flex: 7,
                       child: Container(
                         padding:
                             EdgeInsets.symmetric(horizontal: 72, vertical: 56),
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(21),
-                            bottomRight: Radius.circular(21),
-                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Image.asset(
-                                  'logo.png',
-                                  scale: 3,
+                                Padding(
+                                  padding: const EdgeInsets.all(30.0),
+                                  child: Image.network(
+                                    'assets/images/logo.png',
+                                    scale: 2,
+                                  ),
                                 ),
-                                SizedBox(width: 48),
                                 Text(
                                   'Login',
-                                  style: kHeaderTextStyle.copyWith(
-                                    fontSize: 32,
+                                  style: TextStyle(
+                                    fontSize: 42,
                                     fontWeight: FontWeight.w900,
                                   ),
                                   textAlign: TextAlign.center,
@@ -138,10 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                                     children: [
                                       TextFormField(
                                         controller: emailController,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Email Address',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         validator: (value) {
                                           if (value.isEmpty) {
@@ -154,10 +149,8 @@ class _LoginPageState extends State<LoginPage> {
                                       SizedBox(height: 4),
                                       TextFormField(
                                         controller: passwordController,
-                                        decoration:
-                                            kTextFieldDecoration.copyWith(
+                                        decoration: InputDecoration(
                                           hintText: 'Password',
-                                          hintStyle: kDefaultTextStyle,
                                         ),
                                         obscureText: true,
                                         validator: (value) {
@@ -171,12 +164,12 @@ class _LoginPageState extends State<LoginPage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 32),
+                                SizedBox(height: height / 5),
                                 Container(
                                   height: 48,
-                                  width: double.infinity,
+                                  width: width / 5,
                                   decoration: BoxDecoration(
-                                    color: Colors.blueAccent,
+                                    color: Colors.grey[600],
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: InkWell(
@@ -192,7 +185,7 @@ class _LoginPageState extends State<LoginPage> {
                                       children: [
                                         Text(
                                           submitting ? 'Logging in' : 'Login',
-                                          style: kHeaderTextStyle.copyWith(
+                                          style: TextStyle(
                                             fontSize: 17,
                                             color: Colors.white,
                                           ),
@@ -216,6 +209,39 @@ class _LoginPageState extends State<LoginPage> {
                                     },
                                   ),
                                 ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(0, 80, 0, 0),
+                                  child: Align(
+                                      alignment: Alignment.bottomLeft,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 30,
+                                          ),
+                                          Text("Don't have an account?"),
+                                          Container(
+                                            height: 20,
+                                            width: 70,
+                                            child: FlatButton(
+                                                hoverColor: Colors.transparent,
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            RegisterPage()),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  "Sign Up",
+                                                  style: TextStyle(
+                                                      color: Colors.blue),
+                                                )),
+                                          ),
+                                        ],
+                                      )),
+                                ),
                               ],
                             ),
                           ],
@@ -230,18 +256,33 @@ class _LoginPageState extends State<LoginPage> {
           Positioned(
             left: 26,
             top: 26,
-            child: InkWell(
-              hoverColor: Colors.transparent,
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              mouseCursor: MaterialStateMouseCursor.clickable,
-              child: FaIcon(
-                FontAwesomeIcons.arrowAltCircleLeft,
-                size: 32,
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+            child: Row(
+              children: [
+                InkWell(
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  mouseCursor: MaterialStateMouseCursor.clickable,
+                  child: FaIcon(
+                    FontAwesomeIcons.arrowAltCircleLeft,
+                    color: kGrey4,
+                    size: 32,
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePage()),
+                    );
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "Main Page",
+                    style: TextStyle(color: Colors.grey[700], fontSize: 20),
+                  ),
+                )
+              ],
             ),
           ),
         ],

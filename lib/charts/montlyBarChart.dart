@@ -1,10 +1,13 @@
-import 'dart:math';
 import 'dart:async';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import 'package:pepelist/objects/task.dart';
 
 class MonthlyBarChart extends StatefulWidget {
+  final Data tasks;
+
+  MonthlyBarChart({@required this.tasks});
   final List<Color> availableColors = [
     Colors.purpleAccent,
     Colors.yellow,
@@ -23,59 +26,123 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
   final Duration animDuration = const Duration(milliseconds: 250);
   int touchedIndex;
   bool isPlaying = false;
+  double totaltaskJan = 0.0;
+  double totaltaskFeb = 0.0;
+  double totaltaskMar = 0.0;
+  double totaltaskApr = 0.0;
+  double totaltaskMay = 0.0;
+  double totaltaskJun = 0.0;
+  double totaltaskJul = 0.0;
+  double totaltaskAug = 0.0;
+  double totaltaskSep = 0.0;
+  double totaltaskOgs = 0.0;
+  double totaltaskNov = 0.0;
+  double totaltaskDec = 0.0;
+
+  @override
+  void initState() {
+    for (int i = 0; i < widget.tasks.tasks.length; i++) {
+      if (widget.tasks.tasks[i].dateCreated.month == 01) {
+        totaltaskJan = totaltaskJan + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 02) {
+        totaltaskFeb = totaltaskFeb + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 03) {
+        totaltaskMar = totaltaskMar + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 04) {
+        totaltaskApr = totaltaskApr + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 05) {
+        totaltaskMay = totaltaskMay + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 06) {
+        totaltaskJun = totaltaskJun + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 07) {
+        totaltaskJul = totaltaskJul + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 08) {
+        totaltaskAug = totaltaskAug + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 09) {
+        totaltaskSep = totaltaskSep + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 10) {
+        totaltaskOgs = totaltaskOgs + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 11) {
+        totaltaskNov = totaltaskNov + 1;
+      }
+      if (widget.tasks.tasks[i].dateCreated.month == 12) {
+        totaltaskDec = totaltaskDec + 1;
+      }
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
       aspectRatio: 1,
       child: Card(
-        color: Colors.lime[200],
+        color: Colors.blueGrey[300],
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-        child: Stack(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Text(
-                    'Monthly Task',
-                    style: TextStyle(
-                        color: const Color(0xff0f4a3c),
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  Text(
-                    'Task Done In A Month',
-                    style: TextStyle(
-                        color: const Color(0xff379982),
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 38,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: BarChart(
-                        mainBarData(),
-                        swapAnimationDuration: animDuration,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Stack(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Center(
+                      child: Column(
+                        children: [
+                          Text(
+                            'Montly Task',
+                            style: TextStyle(
+                                color: const Color(0xff0f4a3c),
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Task Done In A Month',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 38,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: BarChart(
+                          mainBarData(),
+                          swapAnimationDuration: animDuration,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -86,7 +153,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
     double y, {
     bool isTouched = false,
     Color barColor = Colors.white,
-    double width = 10,
+    double width = 22,
     List<int> showTooltips = const [],
   }) {
     return BarChartGroupData(
@@ -98,7 +165,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            y: 30,
+            y: 20,
             colors: [barBackgroundColor],
           ),
         ),
@@ -110,29 +177,31 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
   List<BarChartGroupData> showingGroups() => List.generate(12, (i) {
         switch (i) {
           case 0:
-            return makeGroupData(0, monthcount(), isTouched: i == touchedIndex);
+            return makeGroupData(0, totaltaskJan, isTouched: i == touchedIndex);
           case 1:
-            return makeGroupData(1, 6.5, isTouched: i == touchedIndex);
+            return makeGroupData(1, totaltaskFeb, isTouched: i == touchedIndex);
           case 2:
-            return makeGroupData(2, 5, isTouched: i == touchedIndex);
+            return makeGroupData(2, totaltaskMar, isTouched: i == touchedIndex);
           case 3:
-            return makeGroupData(3, 7.5, isTouched: i == touchedIndex);
+            return makeGroupData(3, totaltaskApr, isTouched: i == touchedIndex);
           case 4:
-            return makeGroupData(4, 9, isTouched: i == touchedIndex);
+            return makeGroupData(4, totaltaskMay, isTouched: i == touchedIndex);
           case 5:
-            return makeGroupData(5, 11.5, isTouched: i == touchedIndex);
+            return makeGroupData(5, totaltaskJun, isTouched: i == touchedIndex);
           case 6:
-            return makeGroupData(6, 6.5, isTouched: i == touchedIndex);
+            return makeGroupData(6, totaltaskJul, isTouched: i == touchedIndex);
           case 7:
-            return makeGroupData(7, 6.5, isTouched: i == touchedIndex);
+            return makeGroupData(7, totaltaskAug, isTouched: i == touchedIndex);
           case 8:
-            return makeGroupData(8, 6.5, isTouched: i == touchedIndex);
+            return makeGroupData(8, totaltaskSep, isTouched: i == touchedIndex);
           case 9:
-            return makeGroupData(9, 6.5, isTouched: i == touchedIndex);
+            return makeGroupData(9, totaltaskOgs, isTouched: i == touchedIndex);
           case 10:
-            return makeGroupData(10, 6.5, isTouched: i == touchedIndex);
+            return makeGroupData(10, totaltaskNov,
+                isTouched: i == touchedIndex);
           case 11:
-            return makeGroupData(11, 6.5, isTouched: i == touchedIndex);
+            return makeGroupData(11, totaltaskDec,
+                isTouched: i == touchedIndex);
 
           default:
             return null;
@@ -258,15 +327,4 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
       refreshState();
     }
   }
-}
-
-double monthcount() {
-  var dmyString = '23/4/1999';
-  double monthcount = 0.0;
-  DateTime brazilianDate = new DateFormat("dd/MM/yyyy").parse(dmyString);
-  if (brazilianDate.month == 4) {
-    monthcount = monthcount + 1.0;
-  }
-
-  return monthcount;
 }

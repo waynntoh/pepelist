@@ -17,7 +17,7 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
   bool showAvg = false;
   double january = 0;
   double febuary = 0;
-  double march = 0;
+  double december = 0;
 
   @override
   void initState() {
@@ -28,8 +28,8 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
       if (widget.tasks.tasks[i].dateCreated.month == 02) {
         febuary = febuary + 1;
       }
-      if (widget.tasks.tasks[i].dateCreated.month == 02) {
-        march = march + 1;
+      if (widget.tasks.tasks[i].dateCreated.month == 12) {
+        december =december + 1;
       }
     }
 
@@ -50,28 +50,11 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
             padding: const EdgeInsets.only(
                 right: 18.0, left: 12.0, top: 40, bottom: 12),
             child: LineChart(
-              showAvg ? avgData() : mainData(),
+            mainData(),
             ),
           ),
         ),
-        SizedBox(
-          width: 60,
-          height: 34,
-          child: FlatButton(
-            onPressed: () {
-              setState(() {
-                showAvg = !showAvg;
-              });
-            },
-            child: Text(
-              'AVG',
-              style: TextStyle(
-                  fontSize: 17,
-                  color:
-                      showAvg ? Colors.white.withOpacity(0.5) : Colors.white),
-            ),
-          ),
-        ),
+      
         Align(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -119,11 +102,11 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
           getTitles: (value) {
             switch (value.toInt()) {
               case 0:
-                return 'JAN';
+                return 'DEC';
               case 1:
-                return 'FEB';
+                return 'JAN';
               case 2:
-                return 'MAR';
+                return 'FEB';
             }
             return '';
           },
@@ -161,9 +144,9 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
       lineBarsData: [
         LineChartBarData(
           spots: [
-            FlSpot(0, january),
-            FlSpot(1, 2),
-            FlSpot(2, 5),
+            FlSpot(0, december),
+            FlSpot(1, january),
+            FlSpot(2, febuary),
           ],
           isCurved: true,
           colors: gradientColors,
@@ -182,111 +165,7 @@ class _TotalTaskLineChartState extends State<TotalTaskLineChart> {
     );
   }
 
-  LineChartData avgData() {
-    return LineChartData(
-      lineTouchData: LineTouchData(enabled: false),
-      gridData: FlGridData(
-        show: true,
-        drawHorizontalLine: true,
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: const Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: const Color(0xff37434d),
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        bottomTitles: SideTitles(
-          showTitles: true,
-          reservedSize: 22,
-          getTextStyles: (value) => const TextStyle(
-              color: Color(0xff68737d),
-              fontWeight: FontWeight.bold,
-              fontSize: 16),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'MAR';
-              case 5:
-                return 'JUN';
-              case 8:
-                return 'SEP';
-            }
-            return '';
-          },
-          margin: 8,
-        ),
-        leftTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) => const TextStyle(
-            color: Color(0xff67727d),
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-          ),
-          getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '10k';
-              case 3:
-                return '30k';
-              case 5:
-                return '50k';
-            }
-            return '';
-          },
-          reservedSize: 28,
-          margin: 12,
-        ),
-      ),
-      borderData: FlBorderData(
-          show: true,
-          border: Border.all(color: const Color(0xff37434d), width: 1)),
-      minX: 0,
-      maxX: 11,
-      minY: 0,
-      maxY: 6,
-      lineBarsData: [
-        LineChartBarData(
-          spots: [
-            FlSpot(0, 3.44),
-            FlSpot(2.6, 3.44),
-            FlSpot(4.9, 3.44),
-            FlSpot(6.8, 3.44),
-            FlSpot(8, 3.44),
-            FlSpot(9.5, 3.44),
-            FlSpot(11, 3.44),
-          ],
-          isCurved: true,
-          colors: [
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2),
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2),
-          ],
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(show: true, colors: [
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)
-                .withOpacity(0.1),
-            ColorTween(begin: gradientColors[0], end: gradientColors[1])
-                .lerp(0.2)
-                .withOpacity(0.1),
-          ]),
-        ),
-      ],
-    );
-  }
+  
 
-  calculateJan() {}
+
 }

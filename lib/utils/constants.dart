@@ -51,32 +51,6 @@ const kItemCardTitleShadow = BoxShadow(
   offset: Offset(0, 1),
 );
 
-// TEXTSTYLES
-const kHeaderTextStyle = TextStyle(
-  fontFamily: 'FredokaOne',
-  fontSize: 28,
-);
-
-const kDefaultTextStyle = TextStyle(
-  fontFamily: 'Judson',
-  fontSize: 16,
-);
-
-// TEXTFIELD DECORATIONS
-const kTextFieldDecoration = InputDecoration(
-  hintText: '',
-  contentPadding: EdgeInsets.symmetric(vertical: 4),
-  fillColor: kOrange3,
-  focusColor: kOrange3,
-  hoverColor: kOrange3,
-  hintStyle: kDefaultTextStyle,
-  counterStyle: kDefaultTextStyle,
-  suffixStyle: kDefaultTextStyle,
-  helperStyle: kDefaultTextStyle,
-  labelStyle: kDefaultTextStyle,
-  prefixStyle: kDefaultTextStyle,
-);
-
 // SPINKITS
 Widget kSpinKitLoader = SpinKitHourGlass(
   color: Colors.white,
