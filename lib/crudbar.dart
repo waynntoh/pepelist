@@ -53,12 +53,6 @@ class _CRUDBarState extends State<CRUDBar> {
 
   @override
   Widget build(BuildContext context) {
-    if (state != 'Edit') {
-      widget.titleC.text = '';
-      widget.categoryC.text = 'Personal';
-      widget.sdateC.text = DateTime.now().toString();
-    }
-
     Size size = MediaQuery.of(context).size;
 
     return Expanded(
@@ -359,9 +353,11 @@ class _CRUDBarState extends State<CRUDBar> {
                 ? DateTime.parse(widget.sdateC.text)
                 : widget.selectedTask.dueDate,
           );
-          // titleController.text = '';
-          // categoryController.text = 'Personal';
-          // selectedDate = DateTime.now();
+
+          // Reset
+          widget.titleC.text = '';
+          widget.categoryC.text = 'Personal';
+          widget.sdateC.text = DateTime.now().toString();
           widget.reset();
           widget.resetSelectedTask();
         });
