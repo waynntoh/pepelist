@@ -85,7 +85,7 @@ class _DashboardState extends State<Dashboard> {
                       radius: 72,
                       child: CircleAvatar(
                         backgroundImage:
-                            NetworkImage('assets/images/header.jpg'),
+                            NetworkImage('assets/images/weijing.png'),
                         radius: 70,
                       ),
                     ),

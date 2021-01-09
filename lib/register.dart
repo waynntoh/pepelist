@@ -339,7 +339,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }).then((res) {
       if (res.body == "success") {
         print('[+] Registration successful');
-        uploadImage(email, _image);
+        // uploadImage(email, _image);
         Navigator.push(
           context,
           MaterialPageRoute(
