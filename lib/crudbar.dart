@@ -78,7 +78,7 @@ class _CRUDBarState extends State<CRUDBar> {
                     : state == 'Edit'
                         ? Icons.edit
                         : Icons.delete,
-                color: Colors.blueAccent,
+                color: Colors.grey,
                 size: 70,
               ),
               SizedBox(height: 16),
@@ -181,7 +181,7 @@ class _CRUDBarState extends State<CRUDBar> {
                       children: [
                         Text('Date Due'),
                         FlatButton(
-                          color: Colors.lightBlueAccent[100],
+                          color: Colors.grey[300],
                           onPressed: () => _selectDate(context),
                           child: Text(DateTime.parse(widget.sdateC.text) != null
                               ? DateFormat('dd/MM/yyyy')
@@ -197,7 +197,7 @@ class _CRUDBarState extends State<CRUDBar> {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color:
-                      confirmedDeletion ? Colors.redAccent : Colors.blueAccent,
+                      confirmedDeletion ? Colors.redAccent : Colors.grey,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: InkWell(
