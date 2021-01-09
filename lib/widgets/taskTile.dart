@@ -110,11 +110,11 @@ class _TaskTileState extends State<TaskTile> {
     setState(() {
       submitting = true;
     });
-    http.post('https://techvestigate.com/pepelist/php/editTask.php', body: {
-      "dc": widget.task.dateCreated.toString(),
-      "col": 'COMPLETED',
-      "new_data": b ? '1' : '0',
-    }).then((res) {
+    http.post('https://techvestigate.com/pepelist/php/toggleCompletion.php',
+        body: {
+          "dc": widget.task.dateCreated.toString(),
+          "new_data": b ? '1' : '0',
+        }).then((res) {
       if (res.body == 'success') {
         widget.task.toggleTaskCompletion(b);
         widget.resetParent();

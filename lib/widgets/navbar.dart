@@ -64,10 +64,10 @@ class NavBar extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => HomePage()),
+                      // );
                     },
                   ),
                   FlatButton(
@@ -86,7 +86,9 @@ class NavBar extends StatelessWidget {
                           color: Colors.white),
                     ),
                     onPressed: () {
-                      controller.animateTo(3600, duration: Duration(milliseconds: 2000), curve: Curves.fastLinearToSlowEaseIn);
+                      controller.animateTo(3600,
+                          duration: Duration(milliseconds: 2000),
+                          curve: Curves.fastLinearToSlowEaseIn);
                     },
                   ),
                   FlatButton(
@@ -114,7 +116,7 @@ class NavBar extends StatelessWidget {
                   FlatButton(
                     height: 50,
                     minWidth: 130,
-                    color: Colors.grey,
+                    color: Colors.white38,
                     shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)),
                     hoverColor: Colors.transparent,

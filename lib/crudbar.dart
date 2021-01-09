@@ -78,7 +78,7 @@ class _CRUDBarState extends State<CRUDBar> {
                     : state == 'Edit'
                         ? Icons.edit
                         : Icons.delete,
-                color: Colors.grey,
+                color: Colors.blue,
                 size: 70,
               ),
               SizedBox(height: 16),
@@ -196,8 +196,7 @@ class _CRUDBarState extends State<CRUDBar> {
                 height: 48,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color:
-                      confirmedDeletion ? Colors.redAccent : Colors.grey,
+                  color: confirmedDeletion ? Colors.redAccent : Colors.blue,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: InkWell(

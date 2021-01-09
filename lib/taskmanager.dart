@@ -70,7 +70,7 @@ class _TaskManagerState extends State<TaskManager> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
-                        image: NetworkImage('images/banners1.png'),
+                        image: NetworkImage('assets/images/banners1.png'),
                       ),
                     ),
                     child: Row(
@@ -111,7 +111,7 @@ class _TaskManagerState extends State<TaskManager> {
                         Row(
                           children: [
                             Text(
-                              'View Mode',
+                              'Calendar Mode',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.w400),

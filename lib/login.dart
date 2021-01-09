@@ -31,11 +31,6 @@ class _LoginPageState extends State<LoginPage> {
       emailController.text = widget.email;
       passwordController.text = widget.password;
     }
-    // TODO: Delete
-    else {
-      emailController.text = 'h@gmail.com';
-      passwordController.text = '123456';
-    }
     super.initState();
   }
 
@@ -164,12 +159,12 @@ class _LoginPageState extends State<LoginPage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: height / 5),
+                                SizedBox(height: height / 6),
                                 Container(
                                   height: 48,
                                   width: width / 5,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[600],
+                                    color: Colors.blueAccent,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: InkWell(

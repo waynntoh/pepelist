@@ -2,19 +2,21 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pepelist/utils/my_flutter_app_icons.dart';
 import 'widgets/navbar.dart';
 import 'utils/responsiveLayout.dart';
 
-void main() => runApp(MaterialApp(
-      title: 'PEPELIST',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.arvoTextTheme(),
-      ),
-      home: HomePage(),
-    ));
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+    title: 'PEPELIST',
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+      textTheme: GoogleFonts.arvoTextTheme(),
+    ),
+    home: HomePage(),
+  ));
+}
 
 class HomePage extends StatefulWidget {
   @override
@@ -174,7 +176,7 @@ class LargeChild extends StatelessWidget {
                     ),
                   ),
                   Image(
-                    image: NetworkImage("assets/images/pepelist.png", scale: 2),
+                    image: NetworkImage("assets/images/Capture.PNG", scale: 2),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(50.0),
@@ -516,8 +518,9 @@ class LargeChild extends StatelessWidget {
 
         // About Us
         Container(
-          height: size.height / 1.5,
+          height: size.height / 1.25,
           width: size.width,
+          padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
@@ -539,7 +542,7 @@ class LargeChild extends StatelessWidget {
                 children: [
                   // waynn
                   Container(
-                    height: size.height / 2,
+                    height: size.height / 1.8,
                     width: size.width / 5,
                     child: Column(
                       children: [
@@ -616,7 +619,7 @@ class LargeChild extends StatelessWidget {
                   ),
                   //weijing
                   Container(
-                    height: size.height / 2,
+                    height: size.height / 1.8,
                     width: size.width / 5,
                     child: Column(
                       children: [
@@ -693,7 +696,7 @@ class LargeChild extends StatelessWidget {
                   ),
                   //emily
                   Container(
-                    height: size.height / 2,
+                    height: size.height / 1.8,
                     width: size.width / 5,
                     child: Column(
                       children: [
@@ -772,7 +775,7 @@ class LargeChild extends StatelessWidget {
                   //eva
 
                   Container(
-                    height: size.height / 2,
+                    height: size.height / 1.8,
                     width: size.width / 5,
                     child: Column(
                       children: [
@@ -861,78 +864,37 @@ class LargeChild extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Text(
+              Padding(
+                padding: EdgeInsets.only(left: 30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
                       "PEPELIST",
                       style: TextStyle(
                           color: Colors.grey[400],
                           fontSize: 25,
                           fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(220, 4, 4, 4),
-                    child: Text(
+                    Text(
                       "Copyright © 2021, PEPECHU. All rights reserved.",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                     ),
-                  )
-                ],
+                  ],
+                ),
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 100),
+              Container(
+                padding: const EdgeInsets.fromLTRB(0, 4, 30, 4),
                 child: Container(
-                  child: Row(children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 4, 30, 4),
-                      child: Container(
-                        height: size.height / 13,
-                        child: Image(
-                            image: NetworkImage(
-                          "assets/images/logo.png",
-                        )),
-                      ),
-                    ),
-                    Container(
-                      child: IconButton(
-                        icon: Icon(
-                          MyFlutterApp.github_circled_alt2,
-                          color: Colors.white60,
-                          size: 35,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: IconButton(
-                        icon: Icon(
-                          MyFlutterApp.facebook_circled,
-                          color: Colors.white60,
-                          size: 35,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: IconButton(
-                        icon: Icon(
-                          MyFlutterApp.instagram_circled,
-                          color: Colors.white60,
-                          size: 35,
-                        ),
-                        onPressed: () {},
-                      ),
-                    )
-                  ]),
+                  height: size.height / 13,
+                  child: Image(
+                      image: NetworkImage(
+                    "assets/images/logo.png",
+                  )),
                 ),
               ),
             ],

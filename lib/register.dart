@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -108,11 +109,11 @@ class _RegisterPageState extends State<RegisterPage> {
                                 SizedBox(height: 32),
                                 InkWell(
                                   child: CircleAvatar(
-                                    backgroundColor: kGrey1,
+                                    backgroundColor: Colors.lightBlue[50],
                                     backgroundImage: _image != null
                                         ? NetworkImage(_image.path)
                                         : NetworkImage(
-                                            'assets/images/programmer.png'),
+                                            'assets/images/user.png'),
                                     radius: 80,
                                   ),
                                   onTap: () {
@@ -190,7 +191,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   height: 48,
                                   width: width / 5,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey[600],
+                                    color: Colors.blueAccent,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: InkWell(
@@ -332,13 +333,13 @@ class _RegisterPageState extends State<RegisterPage> {
     });
 
     http.post('https://techvestigate.com/pepelist/php/register.php', body: {
-      // "encoded_string": base64Image,
       "name": nameController.text,
       "email": emailController.text,
       "password": confirmPasswordController.text,
     }).then((res) {
       if (res.body == "success") {
         print('[+] Registration successful');
+        // uploadImage(email, _image);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -366,30 +367,22 @@ class _RegisterPageState extends State<RegisterPage> {
       imageFile = File('images/dummy_image.png');
     }
 
-    //   String base64Image = base64Encode(imageFile.readAsBytesSync());
-    //   http.post('https://techvestigate.com/pepelist/php/upload_profile.php',
-    //       body: {
-    //         "encoded_string": base64Image,
-    //         "email": emailController.text,
-    //       }).then((res) {
-    //     if (res.body == "Upload Successful") {
-    //       Navigator.push(
-    //         context,
-    //         MaterialPageRoute(
-    //           builder: (context) => LoginPage(
-    //             email: emailController.text,
-    //             password: passwordController.text,
-    //           ),
-    //         ),
-    //       );
-    //     } else {
-    //       print('[-] Upload Failed');
-    //     }
-    //     setState(() {
-    //       submitting = false;
-    //     });
-    //   }).catchError((err) {
-    //     print(err);
-    //   });
+    String base64Image = base64Encode(imageFile.readAsBytesSync());
+    http.post('https://techvestigate.com/pepelist/php/upload_profile.php',
+        body: {
+          "encoded_string": base64Image,
+          "email": emailController.text,
+        }).then((res) {
+      if (res.body == "Upload Successful") {
+        print('[+] Upload Successful');
+      } else {
+        print('[-] Upload Failed');
+      }
+      setState(() {
+        submitting = false;
+      });
+    }).catchError((err) {
+      print(err);
+    });
   }
 }

@@ -63,7 +63,7 @@ class _DashboardState extends State<Dashboard> {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 20),
                             child: Image.network(
-                              'images/logowhite.png',
+                              'assets/images/logowhite.png',
                               scale: 3.5,
                             ),
                           ),
@@ -80,10 +80,14 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     ),
                     SizedBox(height: 60),
-
                     CircleAvatar(
-                      backgroundImage: NetworkImage('images/header.jpg'),
-                      radius: 70,
+                      backgroundColor: Colors.white70,
+                      radius: 72,
+                      child: CircleAvatar(
+                        backgroundImage:
+                            NetworkImage('assets/images/weijing.png'),
+                        radius: 70,
+                      ),
                     ),
                     SizedBox(
                       height: 20,
@@ -94,12 +98,15 @@ class _DashboardState extends State<Dashboard> {
                           widget.name,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20),
                         ),
+                        SizedBox(height: 8),
                         Text(
                           widget.email,
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white70),
                         ),
                       ],
                     ),
