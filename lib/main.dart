@@ -388,7 +388,7 @@ class LargeChild extends StatelessWidget {
                             height: size.height / 5,
                             width: size.width / 5,
                             child: Image(
-                              image: NetworkImage("assets/images/wesley.png"),
+                              image: NetworkImage("assets/images/wesley.PNG"),
                             ),
                           ),
                           Padding(
@@ -479,7 +479,7 @@ class LargeChild extends StatelessWidget {
                             height: size.height / 5,
                             width: size.width / 5,
                             child: Image(
-                              image: NetworkImage("assets/images/likey.png"),
+                              image: NetworkImage("assets/images/likey.PNG"),
                             ),
                           ),
                           Padding(
@@ -549,7 +549,8 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage('images/waynn.jpg'),
+                            backgroundImage:
+                                NetworkImage('assets/images/waynn.jpg'),
                             radius: 125,
                           ),
                         ),
@@ -626,7 +627,8 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage('images/weijing.png'),
+                            backgroundImage:
+                                NetworkImage('assets/images/weijing.png'),
                             radius: 125,
                           ),
                         ),
@@ -703,7 +705,8 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage('images/emily.jpg'),
+                            backgroundImage:
+                                NetworkImage('assets/images/emily.jpg'),
                             radius: 125,
                           ),
                         ),
@@ -782,7 +785,8 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage: NetworkImage('images/eva.jpg'),
+                            backgroundImage:
+                                NetworkImage('assets/images/eva.jpg'),
                             radius: 125,
                           ),
                         ),
