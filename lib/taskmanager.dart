@@ -70,7 +70,7 @@ class _TaskManagerState extends State<TaskManager> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
-                        image: NetworkImage('assets/imagesbanner.png'),
+                        image: NetworkImage('assets/images/banner.png'),
                       ),
                     ),
                     child: Row(
