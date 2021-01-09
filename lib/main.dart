@@ -151,7 +151,8 @@ class LargeChild extends StatelessWidget {
           padding: const EdgeInsets.all(30),
           child: Center(
             child: Container(
-              height: size.height / 2.3,
+
+              height: size.height ,
               width: size.width / 1.5,
               alignment: Alignment.topCenter,
               child: Column(
@@ -166,8 +167,11 @@ class LargeChild extends StatelessWidget {
                           color: Colors.grey),
                     ),
                   ),
+                  Image(
+                    image: NetworkImage("assets/images/pepelist.png",scale: 2),
+                  ),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(50.0),
                     child: Container(
                       child: Text(
                         "PEPELIST are a series of extremely useful resources to improve your productivity and organise your life. PEPELIST gives you more than just a to-do list,lanner & calendar app for managing and organizing your daily tasks, reminders, checklists, calendar events, grocery lists, a place to write long notes, create organised outlines and track your daily routines. You can organize tasks by time period, including daily, weekly, monthly, long-term activities. This web app displays every activity through the dashboard so that every activity can be viewed and managed easily.",
@@ -535,53 +539,55 @@ class LargeChild extends StatelessWidget {
                   )
                 ],
               ),
-              Container(
+              Padding(
                 padding: EdgeInsets.only(right: 100),
-                child: Row(children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 4, 30, 4),
-                    child: Container(
-                      height: size.height / 13,
-                      child: Image(
-                          image: NetworkImage(
-                        "assets/images/logo.png",
-                      )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: IconButton(
-                      icon: Icon(
-                        MyFlutterApp.github_circled_alt2,
-                        color: Colors.white60,
-                        size: 35,
+                child: Container(
+                  child: Row(children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 4, 30, 4),
+                      child: Container(
+                        height: size.height / 13,
+                        child: Image(
+                            image: NetworkImage(
+                          "assets/images/logo.png",
+                        )),
                       ),
-                      onPressed: () {},
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: IconButton(
-                      icon: Icon(
-                        MyFlutterApp.facebook_circled,
-                        color: Colors.white60,
-                        size: 35,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: IconButton(
+                        icon: Icon(
+                          MyFlutterApp.github_circled_alt2,
+                          color: Colors.white60,
+                          size: 35,
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: IconButton(
-                      icon: Icon(
-                        MyFlutterApp.instagram_circled,
-                        color: Colors.white60,
-                        size: 35,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: IconButton(
+                        icon: Icon(
+                          MyFlutterApp.facebook_circled,
+                          color: Colors.white60,
+                          size: 35,
+                        ),
+                        onPressed: () {},
                       ),
-                      onPressed: () {},
                     ),
-                  )
-                ]),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: IconButton(
+                        icon: Icon(
+                          MyFlutterApp.instagram_circled,
+                          color: Colors.white60,
+                          size: 35,
+                        ),
+                        onPressed: () {},
+                      ),
+                    )
+                  ]),
+                ),
               ),
             ],
           ),
