@@ -75,7 +75,8 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
       if (widget.tasks.tasks[i].dateCreated.month == 11) {
         totaltaskNov = totaltaskNov + 1;
       }
-      if (widget.tasks.tasks[i].dateCreated.month == 12) {
+      if (widget.tasks.tasks[i].dateCreated.month == 12 &&
+          widget.tasks.tasks[i].dateCreated.year == 2021) {
         totaltaskDec = totaltaskDec + 1;
       }
     }
@@ -104,7 +105,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
                       child: Column(
                         children: [
                           Text(
-                            'Montly Task',
+                            'Monthly Task',
                             style: TextStyle(
                                 color: const Color(0xff0f4a3c),
                                 fontSize: 24,
