@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pepelist/utils/my_flutter_app_icons.dart';
 import 'widgets/navbar.dart';
@@ -21,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ScrollController _controller;
+  ScrollController controllers = new ScrollController();
   @override
   void initState() {
     //Initialize the  scrollController
@@ -42,10 +43,10 @@ class _HomePageState extends State<HomePage> {
           children: [
             Container(
               child: SingleChildScrollView(
-                controller: _controller,
+                controller: controllers,
                 child: Column(
                   children: <Widget>[
-                    Body(),
+                    Body(controller: controllers),
                   ],
                 ),
               ),
@@ -58,16 +59,22 @@ class _HomePageState extends State<HomePage> {
 }
 
 class Body extends StatelessWidget {
+  ScrollController controller;
+  Body({Key key, this.controller}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ResponsiveLayout(
-      largeScreen: LargeChild(),
+      largeScreen: LargeChild(controller: controller),
       smallScreen: SmallChild(),
     );
   }
 }
 
 class LargeChild extends StatelessWidget {
+  ScrollController controller;
+  LargeChild({Key key, this.controller}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -83,7 +90,7 @@ class LargeChild extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              NavBar(),
+              NavBar(controller: controller),
               SizedBox(
                 height: 800,
                 child: Stack(
@@ -151,8 +158,7 @@ class LargeChild extends StatelessWidget {
           padding: const EdgeInsets.all(30),
           child: Center(
             child: Container(
-
-              height: size.height ,
+              height: size.height,
               width: size.width / 1.5,
               alignment: Alignment.topCenter,
               child: Column(
@@ -168,7 +174,7 @@ class LargeChild extends StatelessWidget {
                     ),
                   ),
                   Image(
-                    image: NetworkImage("assets/images/pepelist.png",scale: 2),
+                    image: NetworkImage("assets/images/pepelist.png", scale: 2),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(50.0),
@@ -191,12 +197,13 @@ class LargeChild extends StatelessWidget {
         //Services
         Container(
           height: size.height / 1.3,
+          color: Colors.grey[200],
           width: size.width,
           child: Column(
             children: [
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(40, 0, 40, 40),
+                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 40),
                   child: Text(
                     "SERVICES",
                     style: TextStyle(
@@ -352,7 +359,6 @@ class LargeChild extends StatelessWidget {
         Container(
           height: size.height / 1.1,
           width: size.width,
-          color: Colors.grey[200],
           child: Column(
             children: [
               Center(
@@ -507,6 +513,347 @@ class LargeChild extends StatelessWidget {
             ],
           ),
         ),
+
+        // About Us
+        Container(
+          height: size.height / 1.5,
+          width: size.width,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0x20141E30), Color(0x20243B55)]),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Text(
+                  "MEET THE TEAM",
+                  style: TextStyle(color: Colors.grey, fontSize: 50),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // waynn
+                  Container(
+                    height: size.height / 2,
+                    width: size.width / 5,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage('images/waynn.jpg'),
+                            radius: 125,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Toh Wu Waynn",
+                            style: TextStyle(
+                                color: Colors.grey[900],
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "waynnt98@gmail.com",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Founder of PEPELIST",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Undergraduate Student In UUM",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.github,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.facebook,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.instagram,
+                                size: 35,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  //weijing
+                  Container(
+                    height: size.height / 2,
+                    width: size.width / 5,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage('images/weijing.png'),
+                            radius: 125,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Yong Wei Jing",
+                            style: TextStyle(
+                                color: Colors.grey[900],
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "weijing980924@gmail.com",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Founder of PEPELIST",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Undergraduate Student In UUM",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.github,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.facebook,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.instagram,
+                                size: 35,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  //emily
+                  Container(
+                    height: size.height / 2,
+                    width: size.width / 5,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage('images/emily.jpg'),
+                            radius: 125,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Emily Siew Ke Hui",
+                            style: TextStyle(
+                                color: Colors.grey[900],
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "emilysiew98@gmail.com",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Founder of PEPELIST",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Undergraduate Student In UUM",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.github,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.facebook,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.instagram,
+                                size: 35,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  //eva
+
+                  Container(
+                    height: size.height / 2,
+                    width: size.width / 5,
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage('images/eva.jpg'),
+                            radius: 125,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Eva Ong Sin Nee",
+                            style: TextStyle(
+                                color: Colors.grey[900],
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "evaong14@gmail.com ",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Founder of PEPELIST",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Text(
+                            "Undergraduate Student In UUM",
+                            style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FaIcon(
+                                FontAwesomeIcons.github,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.facebook,
+                                size: 35,
+                              ),
+                              FaIcon(
+                                FontAwesomeIcons.instagram,
+                                size: 35,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        //bottom bar
         Container(
           height: size.height / 10,
           width: size.width,
@@ -553,8 +900,7 @@ class LargeChild extends StatelessWidget {
                         )),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
+                    Container(
                       child: IconButton(
                         icon: Icon(
                           MyFlutterApp.github_circled_alt2,
