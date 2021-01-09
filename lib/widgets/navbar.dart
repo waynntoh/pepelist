@@ -5,7 +5,11 @@ import 'package:pepelist/register.dart';
 import '../utils/responsiveLayout.dart';
 
 class NavBar extends StatelessWidget {
+  final ScrollController controller;
+
   final navLinks = ["Home", "Products", "Features", "Contact"];
+
+  NavBar({Key key, this.controller}) : super(key: key);
 
   List<Widget> navItem() {
     return navLinks.map((text) {
@@ -81,7 +85,9 @@ class NavBar extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.animateTo(3600, duration: Duration(milliseconds: 2000), curve: Curves.fastLinearToSlowEaseIn);
+                    },
                   ),
                   FlatButton(
                     height: 60,
@@ -92,7 +98,7 @@ class NavBar extends StatelessWidget {
                     focusColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     child: Text(
-                      "REGISTER",
+                      "SIGN UP",
                       style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
