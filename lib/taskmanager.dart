@@ -70,7 +70,7 @@ class _TaskManagerState extends State<TaskManager> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
-                        image: NetworkImage('assets/imagesbanner.png'),
+                        image: NetworkImage('images/banners1.png'),
                       ),
                     ),
                     child: Row(
@@ -80,14 +80,23 @@ class _TaskManagerState extends State<TaskManager> {
                         Text(
                           DateFormat('EEEE, d MMM, yyyy')
                               .format(DateTime.now()),
-                          style: TextStyle(fontSize: 28),
+                          style: TextStyle(
+                              fontSize: 28,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700),
                         ),
                         Spacer(),
                         Row(
                           children: [
-                            Text('Hide Completed'),
+                            Text(
+                              'Hide Completed',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400),
+                            ),
                             SizedBox(width: 8),
                             CupertinoSwitch(
+                              trackColor: Colors.grey[500],
                               activeColor: Colors.blueAccent[100],
                               value: filter,
                               onChanged: (value) {
@@ -101,9 +110,15 @@ class _TaskManagerState extends State<TaskManager> {
                         SizedBox(width: 50),
                         Row(
                           children: [
-                            Text('View Mode'),
+                            Text(
+                              'View Mode',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400),
+                            ),
                             SizedBox(width: 8),
                             CupertinoSwitch(
+                              trackColor: Colors.grey[500],
                               activeColor: Colors.blueAccent[100],
                               value: isCalendar,
                               onChanged: (value) {
@@ -121,7 +136,7 @@ class _TaskManagerState extends State<TaskManager> {
                     padding:
                         isCalendar ? EdgeInsets.all(64) : EdgeInsets.all(32),
                     height: size.height - 150,
-                    color: isCalendar ? Colors.grey[200] : Colors.grey[50],
+                    color: isCalendar ? Colors.grey[200] : Colors.grey[200],
                     child: !isCalendar
                         ? SingleChildScrollView(
                             child: Column(

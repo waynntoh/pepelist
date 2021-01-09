@@ -38,7 +38,8 @@ class _DashboardState extends State<Dashboard> {
       body: Container(
         child: Row(
           children: [
-            SizedBox(
+            Container(
+              color: Color(0xff152238),
               height: size.height,
               width: size.width / 6,
               child: Container(
@@ -46,48 +47,70 @@ class _DashboardState extends State<Dashboard> {
                 decoration: BoxDecoration(
                   border: Border.all(
                     width: .1,
-                    color: Colors.black,
+                    color: Colors.grey[200],
                   ),
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'PEPELIST',
-                          style: TextStyle(fontSize: 28),
-                        ),
-                        SizedBox(width: 18),
-                        Image.network(
-                          'assets/images/logo.png',
-                          scale: 3,
-                        )
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            child: Image.network(
+                              'images/logowhite.png',
+                              scale: 3.5,
+                            ),
+                          ),
+                          SizedBox(width: 2),
+                          Text(
+                            'PEPELIST',
+                            style: TextStyle(
+                              fontSize: 28,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    SizedBox(height: 50),
+                    SizedBox(height: 60),
+
                     CircleAvatar(
-                      backgroundImage: NetworkImage('assets/images/header.jpg'),
-                      radius: 75,
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      widget.name,
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      widget.email,
-                      textAlign: TextAlign.center,
+                      backgroundImage: NetworkImage('images/header.jpg'),
+                      radius: 70,
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 20,
+                    ),
+                    Column(
+                      children: [
+                        Text(
+                          widget.name,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w700),
+                        ),
+                        Text(
+                          widget.email,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: 80,
                     ),
                     //Dashboard
                     FlatButton(
                       padding: EdgeInsets.all(16),
-                      color: Colors.blue[100],
+                      color: Colors.transparent,
                       onPressed: () {
                         setState(() {
                           atManager = true;
@@ -99,17 +122,21 @@ class _DashboardState extends State<Dashboard> {
                           Icon(
                             Icons.dashboard,
                             size: 40,
-                            color: Colors.lightBlue[900],
+                            color: Colors.white,
                           ),
-                          SizedBox(width: 16),
-                          Text('Dashboard'),
+                          SizedBox(width: 26),
+                          Text(
+                            'Dashboard',
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                     SizedBox(height: 24),
+                    //Performance
                     FlatButton(
                       padding: EdgeInsets.all(16),
-                      color: Colors.blue[100],
+                      color: Colors.transparent,
                       onPressed: () {
                         setState(() {
                           atManager = false;
@@ -121,17 +148,20 @@ class _DashboardState extends State<Dashboard> {
                           Icon(
                             Icons.add_chart,
                             size: 40,
-                            color: Colors.lightBlue[900],
+                            color: Colors.white,
                           ),
-                          SizedBox(width: 16),
-                          Text('Performance'),
+                          SizedBox(width: 26),
+                          Text(
+                            'Performance',
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                     SizedBox(height: 24),
                     FlatButton(
                       padding: EdgeInsets.all(16),
-                      color: Colors.blue[100],
+                      color: Colors.transparent,
                       onPressed: () {
                         Navigator.pop(context);
                         Navigator.pop(context);
@@ -142,10 +172,13 @@ class _DashboardState extends State<Dashboard> {
                           Icon(
                             Icons.exit_to_app,
                             size: 40,
-                            color: Colors.lightBlue[900],
+                            color: Colors.white,
                           ),
-                          SizedBox(width: 16),
-                          Text('Sign out'),
+                          SizedBox(width: 26),
+                          Text(
+                            'Sign out',
+                            style: TextStyle(fontSize: 17, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
