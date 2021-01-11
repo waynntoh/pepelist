@@ -166,7 +166,7 @@ class _MonthlyBarChartState extends State<MonthlyBarChart> {
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
             show: true,
-            y: 20,
+            y: widget.tasks.tasks.length * 1.2,
             colors: [barBackgroundColor],
           ),
         ),

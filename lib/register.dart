@@ -116,9 +116,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                             'assets/images/user.png'),
                                     radius: 80,
                                   ),
-                                  onTap: () {
-                                    getImage();
-                                  },
                                 ),
                                 SizedBox(height: 32),
                                 Form(
@@ -256,6 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         child: FlatButton(
                                             hoverColor: Colors.transparent,
                                             onPressed: () {
+                                              Navigator.pop(context);
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(

@@ -16,7 +16,7 @@ class Meeting {
         this.color = Colors.green;
         break;
       case 'Work':
-        this.color = Colors.deepPurpleAccent;
+        this.color = Colors.teal;
         break;
       case 'School':
         this.color = Colors.purpleAccent;
