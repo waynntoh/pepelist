@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:pepelist/objects/task.dart';
 import 'package:http/http.dart' as http;
@@ -23,16 +24,56 @@ class TaskTile extends StatefulWidget {
 
 class _TaskTileState extends State<TaskTile> {
   bool submitting = false;
+  Color color;
+  IconData iconData;
 
   @override
   Widget build(BuildContext context) {
-    return OutlineButton(
+    switch (widget.task.category) {
+      case 'Personal':
+        iconData = FontAwesomeIcons.userAlt;
+        this.color = Colors.blueAccent;
+        break;
+      case 'Groceries':
+        iconData = FontAwesomeIcons.shoppingBasket;
+        this.color = Colors.green;
+        break;
+      case 'Work':
+        iconData = FontAwesomeIcons.idCard;
+        this.color = Colors.teal;
+        break;
+      case 'School':
+        iconData = FontAwesomeIcons.bookOpen;
+        this.color = Colors.purpleAccent;
+        break;
+      case 'Home':
+        iconData = FontAwesomeIcons.home;
+        this.color = Colors.orangeAccent;
+        break;
+      case 'Other':
+        iconData = FontAwesomeIcons.cube;
+        this.color = Colors.pinkAccent;
+        break;
+    }
+
+    return RaisedButton(
+      color: Colors.grey[50],
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 6),
+        padding: EdgeInsets.only(right: 8, left: 12),
         height: 65,
         width: double.infinity,
         child: Row(
           children: [
+            CircleAvatar(
+              backgroundColor: color,
+              radius: 14,
+              child: FaIcon(
+                iconData,
+                color: Colors.white,
+                size: 14,
+              ),
+            ),
+            SizedBox(width: 28),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,11 +84,11 @@ class _TaskTileState extends State<TaskTile> {
                     fontSize: 17,
                   ),
                 ),
-                SizedBox(height: 2),
+                SizedBox(height: 3),
                 Text(
                   widget.task.category,
                   style: TextStyle(
-                    color: Colors.grey[600],
+                    color: Colors.grey[500],
                   ),
                 ),
               ],

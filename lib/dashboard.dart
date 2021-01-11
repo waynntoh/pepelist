@@ -81,11 +81,11 @@ class _DashboardState extends State<Dashboard> {
                     ),
                     SizedBox(height: 60),
                     CircleAvatar(
-                      backgroundColor: Colors.white70,
+                      backgroundColor: Colors.white24,
                       radius: 72,
                       child: CircleAvatar(
-                        backgroundImage:
-                            NetworkImage('assets/images/weijing.png'),
+                        backgroundColor: Colors.blueAccent[700],
+                        backgroundImage: NetworkImage('assets/images/user.png'),
                         radius: 70,
                       ),
                     ),
@@ -209,6 +209,7 @@ class _DashboardState extends State<Dashboard> {
                       categoryC: categoryC,
                       sdateC: sDateC,
                       resetCRUD: setCRUDControllers,
+                      sortList: sortList,
                     )
                   : Performance(
                       tasks: data,
@@ -272,7 +273,7 @@ class _DashboardState extends State<Dashboard> {
 
           data.tasks.add(newTask);
         }
-        setState(() {});
+        sortList();
       } else {
         print('[-] Get tasks failed');
       }
@@ -286,6 +287,15 @@ class _DashboardState extends State<Dashboard> {
       titleC.text = selectedTask.title;
       categoryC.text = selectedTask.category;
       sDateC.text = selectedTask.dueDate.toString();
+    });
+  }
+
+  void sortList() {
+    setState(() {
+      // Sort data according to date
+      data.tasks.sort(
+        (Task a, Task b) => b.dateCreated.compareTo(a.dateCreated),
+      );
     });
   }
 }

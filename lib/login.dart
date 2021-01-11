@@ -221,6 +221,7 @@ class _LoginPageState extends State<LoginPage> {
                                             child: FlatButton(
                                                 hoverColor: Colors.transparent,
                                                 onPressed: () {
+                                                  Navigator.pop(context);
                                                   Navigator.push(
                                                     context,
                                                     MaterialPageRoute(

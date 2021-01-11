@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pepelist/dashboard.dart';
 import 'widgets/navbar.dart';
 import 'utils/responsiveLayout.dart';
 
@@ -359,7 +360,7 @@ class LargeChild extends StatelessWidget {
           ),
         ),
         Container(
-          height: size.height / 1.1,
+          height: size.height,
           width: size.width,
           child: Column(
             children: [
@@ -380,15 +381,18 @@ class LargeChild extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: Container(
-                      height: size.height / 3.5,
+                      height: size.height / 3,
                       width: size.width / 5,
                       child: Column(
                         children: [
-                          Container(
-                            height: size.height / 5,
-                            width: size.width / 5,
-                            child: Image(
-                              image: NetworkImage("assets/images/wesley.PNG"),
+                          CircleAvatar(
+                            backgroundColor: Colors.black54,
+                            radius: 102,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.blueAccent[700],
+                              backgroundImage:
+                                  NetworkImage('assets/images/wesley.PNG'),
+                              radius: 100,
                             ),
                           ),
                           Padding(
@@ -420,7 +424,7 @@ class LargeChild extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Container(
                       height: size.height / 3.5,
                       width: size.width / 3,
@@ -447,7 +451,7 @@ class LargeChild extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Container(
                       height: size.height / 3.5,
                       width: size.width / 3,
@@ -469,17 +473,20 @@ class LargeChild extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.all(.0),
                     child: Container(
-                      height: size.height / 3.5,
+                      height: size.height / 3,
                       width: size.width / 5,
                       child: Column(
                         children: [
-                          Container(
-                            height: size.height / 5,
-                            width: size.width / 5,
-                            child: Image(
-                              image: NetworkImage("assets/images/likey.PNG"),
+                          CircleAvatar(
+                            backgroundColor: Colors.black54,
+                            radius: 102,
+                            child: CircleAvatar(
+                              backgroundColor: Colors.blueAccent[700],
+                              backgroundImage:
+                                  NetworkImage('assets/images/likey.PNG'),
+                              radius: 100,
                             ),
                           ),
                           Padding(
@@ -549,9 +556,13 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage('assets/images/waynn.jpg'),
-                            radius: 125,
+                            radius: 127,
+                            backgroundColor: Colors.black54,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage('assets/images/waynn.jpg'),
+                              radius: 125,
+                            ),
                           ),
                         ),
                         Padding(
@@ -602,15 +613,15 @@ class LargeChild extends StatelessWidget {
                             children: [
                               FaIcon(
                                 FontAwesomeIcons.github,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.facebook,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.instagram,
-                                size: 35,
+                                size: 30,
                               ),
                             ],
                           ),
@@ -627,9 +638,13 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage('assets/images/weijing.png'),
-                            radius: 125,
+                            radius: 127,
+                            backgroundColor: Colors.black54,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage('assets/images/weijing.png'),
+                              radius: 125,
+                            ),
                           ),
                         ),
                         Padding(
@@ -680,15 +695,15 @@ class LargeChild extends StatelessWidget {
                             children: [
                               FaIcon(
                                 FontAwesomeIcons.github,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.facebook,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.instagram,
-                                size: 35,
+                                size: 30,
                               ),
                             ],
                           ),
@@ -705,9 +720,13 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage('assets/images/emily.jpg'),
-                            radius: 125,
+                            radius: 127,
+                            backgroundColor: Colors.black54,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage('assets/images/emily.jpg'),
+                              radius: 125,
+                            ),
                           ),
                         ),
                         Padding(
@@ -758,15 +777,15 @@ class LargeChild extends StatelessWidget {
                             children: [
                               FaIcon(
                                 FontAwesomeIcons.github,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.facebook,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.instagram,
-                                size: 35,
+                                size: 30,
                               ),
                             ],
                           ),
@@ -774,9 +793,7 @@ class LargeChild extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   //eva
-
                   Container(
                     height: size.height / 1.8,
                     width: size.width / 5,
@@ -785,9 +802,13 @@ class LargeChild extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(15.0),
                           child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage('assets/images/eva.jpg'),
-                            radius: 125,
+                            radius: 127,
+                            backgroundColor: Colors.black54,
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage('assets/images/eva.jpg'),
+                              radius: 125,
+                            ),
                           ),
                         ),
                         Padding(
@@ -831,22 +852,22 @@ class LargeChild extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(25.0),
+                          padding: const EdgeInsets.all(32.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               FaIcon(
                                 FontAwesomeIcons.github,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.facebook,
-                                size: 35,
+                                size: 30,
                               ),
                               FaIcon(
                                 FontAwesomeIcons.instagram,
-                                size: 35,
+                                size: 30,
                               ),
                             ],
                           ),
@@ -882,7 +903,7 @@ class LargeChild extends StatelessWidget {
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "Copyright © 2021, PEPECHU. All rights reserved.",
+                      "Copyright © 2021, PEPECHU. All Rights Reserved.",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,

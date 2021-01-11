@@ -21,6 +21,7 @@ class TaskManager extends StatefulWidget {
   final TextEditingController categoryC;
   final TextEditingController sdateC;
   final Function resetCRUD;
+  final Function sortList;
 
   TaskManager({
     @required this.data,
@@ -35,6 +36,7 @@ class TaskManager extends StatefulWidget {
     @required this.categoryC,
     @required this.sdateC,
     @required this.resetCRUD,
+    @required this.sortList,
   });
 
   @override
@@ -43,8 +45,24 @@ class TaskManager extends StatefulWidget {
 
 class _TaskManagerState extends State<TaskManager> {
   bool isCalendar = false;
-  bool filter = false;
+  bool filterCompleted = false;
+  String categoryFilter;
   List<Meeting> meetings;
+  TextEditingController titleFilterController = TextEditingController();
+  TextEditingController categoryFilterController = TextEditingController();
+
+  @override
+  void initState() {
+    categoryFilterController.text = 'All';
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    titleFilterController.dispose();
+    categoryFilterController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +116,10 @@ class _TaskManagerState extends State<TaskManager> {
                             CupertinoSwitch(
                               trackColor: Colors.grey[500],
                               activeColor: Colors.blueAccent[100],
-                              value: filter,
+                              value: filterCompleted,
                               onChanged: (value) {
                                 setState(() {
-                                  filter = value;
+                                  filterCompleted = value;
                                 });
                               },
                             ),
@@ -133,36 +151,131 @@ class _TaskManagerState extends State<TaskManager> {
                     ),
                   ),
                   Container(
-                    padding:
-                        isCalendar ? EdgeInsets.all(64) : EdgeInsets.all(32),
+                    padding: EdgeInsets.all(32),
                     height: size.height - 150,
                     color: isCalendar ? Colors.grey[200] : Colors.grey[200],
                     child: !isCalendar
                         ? SingleChildScrollView(
                             child: Column(
-                                children: filter
-                                    ? _buildFilteredTaskTiles().length == 0
+                            children: [
+                              Container(
+                                  width: double.infinity,
+                                  height: 65,
+                                  color: Colors.grey[50],
+                                  padding: EdgeInsets.symmetric(horizontal: 16),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        width: size.width / 4,
+                                        child: TextField(
+                                          controller: titleFilterController,
+                                          toolbarOptions:
+                                              ToolbarOptions(selectAll: true),
+                                          decoration: InputDecoration(
+                                            labelText: 'Filter Title...',
+                                            prefixIcon: Icon(
+                                              Icons.search,
+                                              color: Colors.blueAccent,
+                                            ),
+                                            border: InputBorder.none,
+                                          ),
+                                          onChanged: (value) {
+                                            setState(() {});
+                                          },
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text('Filter Category:'),
+                                          SizedBox(width: 16),
+                                          DropdownButton(
+                                            hint: Text(
+                                                categoryFilterController.text),
+                                            icon: Icon(Icons.arrow_drop_down),
+                                            items: [
+                                              DropdownMenuItem(
+                                                child: Text('All'),
+                                                value: 'All',
+                                              ),
+                                              DropdownMenuItem(
+                                                child: Text('Personal'),
+                                                value: 'Personal',
+                                              ),
+                                              DropdownMenuItem(
+                                                child: Text('Groceries'),
+                                                value: 'Groceries',
+                                              ),
+                                              DropdownMenuItem(
+                                                child: Text('Work'),
+                                                value: 'Work',
+                                              ),
+                                              DropdownMenuItem(
+                                                child: Text('School'),
+                                                value: 'School',
+                                              ),
+                                              DropdownMenuItem(
+                                                child: Text('Home'),
+                                                value: 'Home',
+                                              ),
+                                              DropdownMenuItem(
+                                                child: Text('Other'),
+                                                value: 'Other',
+                                              ),
+                                            ],
+                                            onChanged: (value) {
+                                              setState(() {
+                                                categoryFilterController.text =
+                                                    value;
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )),
+                              SizedBox(height: 24),
+                              Column(
+                                children: filterCompleted
+                                    ? _buildFilteredTaskTiles(
+                                                    titleFilterController.text,
+                                                    categoryFilterController
+                                                        .text)
+                                                .length ==
+                                            0
                                         ? [
                                             SizedBox(height: 300),
                                             Center(
                                                 child:
                                                     Text('No Upcoming Tasks'))
                                           ]
-                                        : _buildFilteredTaskTiles()
-                                    : _buildAllTaskTiles().length == 0
+                                        : _buildFilteredTaskTiles(
+                                            titleFilterController.text,
+                                            categoryFilterController.text)
+                                    : _buildAllTaskTiles(
+                                                    titleFilterController.text,
+                                                    categoryFilterController
+                                                        .text)
+                                                .length ==
+                                            0
                                         ? [
                                             SizedBox(height: 300),
                                             Center(child: Text('No Tasks'))
                                           ]
-                                        : _buildAllTaskTiles()),
-                          )
+                                        : _buildAllTaskTiles(
+                                            titleFilterController.text,
+                                            categoryFilterController.text),
+                              ),
+                            ],
+                          ))
                         : SfCalendar(
                             view: CalendarView.month,
                             allowViewNavigation: false,
                             headerHeight: 50,
                             showNavigationArrow: true,
                             dataSource: MeetingDataSource(
-                              filter
+                              filterCompleted
                                   ? _getFilteredDataSource()
                                   : _getAllDataSource(),
                             ),
@@ -195,32 +308,43 @@ class _TaskManagerState extends State<TaskManager> {
     );
   }
 
-  List<Widget> _buildAllTaskTiles() {
+  List<Widget> _buildAllTaskTiles(String titleFiler, String categoryFilter) {
     List<Widget> tiles = [];
 
     for (Task t in widget.data.tasks) {
-      tiles.add(TaskTile(
-        task: t,
-        select: widget.select,
-        resetParent: reset,
-        resetCRUD: widget.resetCRUD,
-      ));
+      if (categoryFilter == 'All' || t.category == categoryFilter) {
+        if (t.title.toLowerCase().contains(titleFiler.toLowerCase()) ||
+            titleFiler == '') {
+          tiles.add(TaskTile(
+            task: t,
+            select: widget.select,
+            resetParent: reset,
+            resetCRUD: widget.resetCRUD,
+          ));
+        }
+      }
     }
 
     return tiles;
   }
 
-  List<Widget> _buildFilteredTaskTiles() {
+  List<Widget> _buildFilteredTaskTiles(
+      String titleFiler, String categoryFilter) {
     List<Widget> tiles = [];
 
     for (Task t in widget.data.tasks) {
       if (!t.completed) {
-        tiles.add(TaskTile(
-          task: t,
-          select: widget.select,
-          resetParent: reset,
-          resetCRUD: widget.resetCRUD,
-        ));
+        if (categoryFilter == 'All' || t.category == categoryFilter) {
+          if (t.title.toLowerCase().contains(titleFiler.toLowerCase()) ||
+              titleFiler == '') {
+            tiles.add(TaskTile(
+              task: t,
+              select: widget.select,
+              resetParent: reset,
+              resetCRUD: widget.resetCRUD,
+            ));
+          }
+        }
       }
     }
 
@@ -263,6 +387,8 @@ class _TaskManagerState extends State<TaskManager> {
 
   void reset() async {
     await Future.delayed(Duration(milliseconds: 500));
-    setState(() {});
+    setState(() {
+      widget.sortList();
+    });
   }
 }
