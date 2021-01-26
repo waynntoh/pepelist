@@ -39,8 +39,9 @@ dependencies:
   google_fonts: ^1.1.1
   universal_platform: ^0.1.3
   http: ^0.12.2
+  bloc: ^6.1.1
 
-dev_dependencies:
+# dev_dependencies:
   # flutter_test:
   #   sdk: flutter
   # integration_test:
